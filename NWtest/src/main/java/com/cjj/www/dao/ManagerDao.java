@@ -26,4 +26,5 @@ public interface ManagerDao {
     List<User> queryAllUser();
     List<UserStatus> queryZoomStatus();
     Integer queryNoteTotalPage(String zoomName);
+    boolean backNoteReleaseStatus(Integer noteId);
 }

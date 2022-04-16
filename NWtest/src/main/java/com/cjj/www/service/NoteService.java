@@ -48,5 +48,7 @@ public interface NoteService {
     List<Tag> queryTagByNoteId(Integer noteId);
     Integer queryNoteTotalPageSearchByTag(String Tag);
     boolean insertNotePicture(String url,Integer noteId);
-
+    public List<Note> checkingNote(List<Note> notes);
+    public List<Note> turnBackNote(List<Note> notes);
+    public List<Note> checkPublishNote(List<Note> notes);
 }

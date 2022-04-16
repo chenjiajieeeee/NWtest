@@ -9,11 +9,17 @@ import com.cjj.www.pojo.User;
 import com.cjj.www.service.*;
 import com.cjj.www.util.WebUtil;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @WebServlet("/note/*")
@@ -42,6 +48,37 @@ public class NoteServlet extends BaseServlet{
         request.setAttribute("note", note);
         request.setAttribute("tags",tags);
         request.setAttribute("check",check);
+        /*
+        历史记录：将查看的笔记id以及userid送过去，userid用于辨别这个笔记是谁查看过的
+         */
+        Cookie[] cookies = request.getCookies();
+        Cookie cookieByName = WebUtil.findCookieByName(cookies, user.getId().toString());
+        if(cookieByName==null){
+            Cookie cookie=new Cookie(user.getId().toString(),request.getParameter("noteId"));
+            response.addCookie(cookie);
+        }else {
+            String noteId1 = request.getParameter("noteId");
+            //获取当前记录
+            String Ids=cookieByName.getValue();
+            //去除分隔符-
+            String[] split = Ids.split("-");
+            //将其转化为数组进行操作
+            LinkedList<String> list=new LinkedList<>(Arrays.asList(split));
+            //如果新增笔记已经在别的地方已经浏览过了
+            if(list.contains(noteId1)){
+                //将原纪录去除，并将新纪录添加到第一个
+                list.remove(noteId1);
+            }
+            list.addFirst(noteId1);
+            //将数组取出加上分隔符保存进cookie
+            StringBuilder stringBuilder=new StringBuilder();
+            for (String string:list){
+                stringBuilder.append(string).append("-");
+            }
+            String newIds = stringBuilder.substring(0,stringBuilder.length()-1);
+            Cookie cookie=new Cookie(user.getId().toString(),newIds);
+            response.addCookie(cookie);
+        }
         request.getRequestDispatcher("/notebook/notedetail.jsp").forward(request, response);
     }
     public void likeAct(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -73,9 +110,8 @@ public class NoteServlet extends BaseServlet{
     public void publishComment(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         String username=request.getParameter("username");
         String password = request.getParameter("password");
-        User user=new User();
         UserDao userDao=new UserDaoImpl();
-        user=userDao.queryUserByUserName(username);
+        User user=userDao.queryUserByUserName(username);
         request.setAttribute("root",user.getRoot());
         Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
         boolean check = likeActService.judgeLikeOrNot(noteId, user.getId());
@@ -112,9 +148,8 @@ public class NoteServlet extends BaseServlet{
         同点赞的操作一样
          */
         List<Comment> comments = commentService.queryCommentByNoteId(noteId);
-        User user=new User();
         UserDao userDao=new UserDaoImpl();
-        user=userDao.queryUserByUserName(username);
+        User user=userDao.queryUserByUserName(username);
         request.setAttribute("root",user.getRoot());
         NoteService noteService=new NoteServiceImpl();
         boolean result = collectService.collectAct(noteId, user.getId());
@@ -135,6 +170,35 @@ public class NoteServlet extends BaseServlet{
             request.setAttribute("CollectMsg","取消收藏成功！");
         }
         request.getRequestDispatcher("/notebook/notedetail.jsp").forward(request,response);
-
+    }
+    public void history(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String root = request.getParameter("root");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        User user = userService.queryUserByUserName(username);
+        Cookie[] cookies = request.getCookies();
+        Cookie cookieByName = WebUtil.findCookieByName(cookies, user.getId().toString());
+        List<Note> notes=new ArrayList<>();
+        if(cookieByName==null){
+            request.setAttribute("historyMsg","历史记录为空！");
+        }else {
+            String value = cookieByName.getValue();
+            String[] split = value.split("-");
+            List<Integer> ids=new ArrayList<>();
+            for (String id: split) {
+                ids.add(WebUtil.toInteger(id));
+            }
+            for (Integer id:ids){
+                Note note = noteService.queryNoteByNoteId(id);
+                if(note!=null){
+                    notes.add(note);
+                }
+            }
+        }
+        request.setAttribute("username",username);
+        request.setAttribute("password",password);
+        request.setAttribute("notes",notes);
+        request.setAttribute("root",root);
+        request.getRequestDispatcher("/notebook/history.jsp").forward(request,response);
     }
 }

@@ -1,5 +1,7 @@
 package com.cjj.www.util;
 
+import javax.servlet.http.Cookie;
+
 public class WebUtil {
     /*
     将传过来的字符串参数转化为整数
@@ -13,5 +15,13 @@ public class WebUtil {
             Allid+= (int) (Math.pow(10,count++)*i1);
         }
         return Allid;
+    }
+    public static Cookie findCookieByName(Cookie[] cookies,String name){
+        for (Cookie cookie:cookies){
+            if(name.equals(cookie.getName())){
+                return cookie;
+            }
+        }
+        return null;
     }
 }

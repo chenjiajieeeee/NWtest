@@ -162,5 +162,27 @@ public class ManagerDaoImpl implements ManagerDao{
         return count;
     }
 
+    @Override
+    public boolean backNoteReleaseStatus(Integer noteId) {
+        boolean result=false;
+        Connection connection=null;
+        PreparedStatement preparedStatement=null;
+        connection=JdbcUtil.getConnection();
+        String sql="update note set release_status= '-1' where id=?";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,noteId);
+            int row = preparedStatement.executeUpdate();
+            if(row>0){
+                result= true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(preparedStatement,connection);
+        }
+        return result;
+    }
+
 
 }

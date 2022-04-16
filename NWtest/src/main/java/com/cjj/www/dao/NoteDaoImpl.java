@@ -86,6 +86,45 @@ public class NoteDaoImpl implements NoteDao{
         return notes;
     }
 
+    @Override
+    public List<Note> queryNoteByZoom(String zoomName) {
+        /**
+         * 同上一个方法一样，只不过不需要参数，全部显示出来
+         */
+        Connection connection=null;
+        PreparedStatement preparedStatement=null;
+        ResultSet resultSet=null;
+        Note note=new Note();
+        List<Note> notes=new ArrayList<>();
+        /*
+        sql语句查询笔记
+         */
+        String sql="select * from note where zoom_name = '"+zoomName+"'";
+        connection= JdbcUtil.getConnection();
+        try {
+            preparedStatement=connection.prepareStatement(sql);
+            resultSet=preparedStatement.executeQuery();
+            while (resultSet.next()){
+                note.setId(resultSet.getInt("id"));
+                note.setUserId(resultSet.getInt("user_id"));
+                note.setZoomName(resultSet.getString("zoom_name"));
+                note.setMain(resultSet.getString("main"));
+                note.setTitle(resultSet.getString("title"));
+                note.setReleaseStatus(resultSet.getString("release_status"));
+                note.setNotePictureUrl(resultSet.getString("picture_url"));
+                /*
+                将得到的数据封装成arrays集合来遍历
+                 */
+                notes.add(note);
+                note=new Note();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JdbcUtil.close(resultSet,preparedStatement,connection);
+        }
+        return notes;
+    }
 
 
     @Override
@@ -218,6 +257,7 @@ public class NoteDaoImpl implements NoteDao{
                 note.setZoomName(resultSet.getString("zoom_name"));
                 note.setLikeCount(resultSet.getInt("likeCount"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
+                note.setReleaseStatus(resultSet.getString("release_status"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -247,6 +287,7 @@ public class NoteDaoImpl implements NoteDao{
                 note.setId(resultSet.getInt("id"));
                 note.setLikeCount(resultSet.getInt("likecount"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
+                note.setReleaseStatus(resultSet.getString("release_status"));
                 notes.add(note);
                 note=new Note();
             }
@@ -278,6 +319,7 @@ public class NoteDaoImpl implements NoteDao{
                 note.setId(resultSet.getInt("id"));
                 note.setLikeCount(resultSet.getInt("likecount"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
+                note.setReleaseStatus(resultSet.getString("release_status"));
                 notes.add(note);
                 note=new Note();
             }

@@ -41,11 +41,22 @@ public class PageServlet extends BaseServlet {
                 request.setAttribute("username",username);
                 request.setAttribute("password",password);
                 List<Note> notes = noteService.queryNoteByUsername(username);
+                /*
+                对笔记分类
+                 */
+                //发布了的笔记
+                List<Note> notes6 = noteService.checkPublishNote(notes);
+                request.setAttribute("notes6",notes6);
+                //还没有通过审核的笔记
+                List<Note> notes4 = noteService.checkingNote(notes);
+                request.setAttribute("notes4",notes4);
+                //在审核中被驳回的笔记
+                List<Note> notes5 = noteService.turnBackNote(notes);
+                request.setAttribute("notes5",notes5);
                 User user = userDao.queryUserByUserName(username);
                 List<Note> notes1 = likeActService.queryLikeNoteByUserId(user.getId());
                 List<Note> notes2 = collectService.queryCollectNoteByUserId(user.getId());
                 List<Note> notes3 = commentService.queryCommentNoteByUserId(user.getId());
-                request.setAttribute("notes",notes);
                 //点赞的笔记
                 request.setAttribute("notes1",notes1);
                 //收藏的笔记

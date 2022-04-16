@@ -29,6 +29,7 @@ import java.util.List;
 public class UserServlet extends BaseServlet{
     private final UserService userService=new UserServiceImpl();
     NoteService noteService=new NoteServiceImpl();
+    ManagerService managerService=new ManagerServiceImpl();
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -138,7 +139,8 @@ public class UserServlet extends BaseServlet{
                 Note note = noteService.queryNoteByNoteId(noteId);
                 request.setAttribute("note", note);
                 if (check) {
-                    request.setAttribute("updateMsg", "修改标题成功！");
+                    request.setAttribute("updateMsg", "修改标题成功！等待审核中！");
+                    managerService.changeNoteReleaseStatus(noteId);
                 } else {
                     request.setAttribute("updateMsg", "标题不能为空哦！");
                 }
@@ -152,7 +154,8 @@ public class UserServlet extends BaseServlet{
                 boolean check = noteService.updateNoteMain(newMain, noteId);
                 Note note = noteService.queryNoteByNoteId(noteId);
                 if (check) {
-                    request.setAttribute("updateMsg", "内容已经修改了");
+                    request.setAttribute("updateMsg", "修改内容成功！等待审核中！");
+                    managerService.changeNoteReleaseStatus(noteId);
                 } else {
                     request.setAttribute("updateMsg", "内容不能为空哦！");
                 }
@@ -256,6 +259,7 @@ public class UserServlet extends BaseServlet{
                         noteService.insertNotePicture(baseUrl,WebUtil.toInteger(data.get(0)));
                     }
                 }
+                Integer noteId=WebUtil.toInteger(data.get(0));
                 String username=data.get(1);
                 String password=data.get(2);
                 List<Note> notes = noteService.queryNoteByUsername(username);
@@ -277,7 +281,8 @@ public class UserServlet extends BaseServlet{
                 request.setAttribute("root",user.getRoot());
                 request.setAttribute("username",username);
                 request.setAttribute("password",password);
-                request.setAttribute("uploadMsg","上传成功！");
+                request.setAttribute("uploadMsg", "上传文件成功！等待审核中！");
+                managerService.changeNoteReleaseStatus(noteId);
                 request.getRequestDispatcher("/User/page/home.jsp").forward(request,response);
             } catch (Exception e) {
                 e.printStackTrace();

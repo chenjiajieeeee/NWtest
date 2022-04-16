@@ -10,9 +10,11 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/note/cartoon.html" value="file://$PROJECT_DIR$/src/main/webapp/note" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/note/notedetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/note" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/note/study.jsp" value="file://$PROJECT_DIR$/src/main/webapp/note" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/history.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/homepage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/notedetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/zoom.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/root/batchOperation.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/root/chargeUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
       </map>
     </option>

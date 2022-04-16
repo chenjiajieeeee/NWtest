@@ -27,4 +27,7 @@ public interface ManagerService {
     List<User> queryAllUser();
     Map<Integer,String> queryZoomStatus(String zoomName);
     Integer queryTotalPage(String zoomName);
+    boolean backNoteReleaseStatus(Integer noteId);
+    boolean changeNoteReleaseStatus(Integer noteId);
+    List<Note> queryNoteByZoom(String zoomName);
 }

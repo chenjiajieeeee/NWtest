@@ -46,10 +46,81 @@
         </div>
         <div class="clear"></div>
     </div>
+    <hr>
+    <h4 style="color: #5cb85c" class="container">审核中的笔记</h4>
+    <div class="container">
+        <div class="col" >
+            <c:forEach items="${requestScope.notes4}" var="notes">
+                <div class="col-sm-2 col-md-3">
+                    <a href="#" class="thumbnail"
+                    >
+                        <img src="${notes.notePictureUrl}"
+                             alt="通用的占位符缩略图">
+                    </a>
+                    <table class="table table-bordered">
+                        <tr class="warning">
+                            <td>
+                                <h4 class="center-block">${notes.title}</h4>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>
+                                    ${notes.main}
+                            </td>
+                        </tr>
+                        <tr class="well">
+                            <td>
+                                所属区域：${notes.zoomName}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+    <hr>
+    <h4 style="color: #5cb85c" class="container">被驳回的笔记</h4>
+    <div class="container">
+        <div class="col" >
+            <c:forEach items="${requestScope.notes5}" var="notes">
+                <div class="col-sm-2 col-md-3">
+                    <a href="#" class="thumbnail"
+                    >
+                        <img src="${notes.notePictureUrl}"
+                             alt="通用的占位符缩略图">
+                    </a>
+                    <form action="http://localhost:8080/nw/user/updateNote" method="post" >
+                        <input type="submit" value="修改" name="action" class="btn btn-warning">
+                        <input type="hidden" name="username" value="${requestScope.username}">
+                        <input type="hidden" name="password" value="${requestScope.password}">
+                        <input type="hidden" name="id" value="${notes.id}">
+                    </form>
+                    <table class="table table-bordered">
+                        <tr class="warning">
+                            <td>
+                                <h4 class="center-block">${notes.title}</h4>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>
+                                    ${notes.main}
+                            </td>
+                        </tr>
+                        <tr class="well">
+                            <td>
+                                所属区域：${notes.zoomName}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+    <hr>
     <h4 style="color: #5cb85c" class="container">我发布的笔记</h4>
     <div class="container">
         <div class="col" >
-            <c:forEach items="${requestScope.notes}" var="notes">
+            <c:forEach items="${requestScope.notes6}" var="notes">
                 <div class="col-sm-2 col-md-3">
                     <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
 	                 " class="thumbnail"
@@ -90,6 +161,7 @@
     <div class="container">
         <div class="col" >
             <c:forEach items="${requestScope.notes1}" var="notes">
+                <c:if test="${notes.releaseStatus.equals('1')}">
                 <div class="col-sm-2 col-md-3">
                     <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
 	                  " class="thumbnail"
@@ -115,6 +187,17 @@
                         </tr>
                     </table>
                 </div>
+                </c:if>
+                <c:if test="${!notes.releaseStatus.equals('1')}">
+                    <div class="col-sm-2 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://localhost:8080/nw/notebook/check.jpeg"
+                                 alt="通用的占位符缩略图">
+                        </a>
+                        <p>${notes.title}</p>
+                        <p>该笔记主人修改了该笔记，审核后即可查看~</p>
+                    </div>
+                </c:if>
             </c:forEach>
         </div>
     </div>
@@ -123,6 +206,7 @@
     <div class="container">
         <div class="col" >
             <c:forEach items="${requestScope.notes2}" var="notes">
+                <c:if test="${notes.releaseStatus.equals('1')}">
                 <div class="col-sm-2 col-md-3">
                         <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
 	                  " class="thumbnail"
@@ -148,6 +232,17 @@
                             </tr>
                         </table>
                         </div>
+                </c:if>
+                <c:if test="${!notes.releaseStatus.equals('1')}">
+                    <div class="col-sm-2 col-md-3">
+                    <a href="#" class="thumbnail">
+                        <img src="http://localhost:8080/nw/notebook/check.jpeg"
+                             alt="通用的占位符缩略图">
+                    </a>
+                        <p>${notes.title}</p>
+                        <p>该笔记主人修改了该笔记，审核后即可查看~</p>
+                    </div>
+                </c:if>
             </c:forEach>
         </div>
     </div>
@@ -156,6 +251,7 @@
     <div class="container">
         <div class="col" >
             <c:forEach items="${requestScope.notes3}" var="notes">
+                <c:if test="${notes.releaseStatus.equals('1')}">
                 <div class="col-sm-2 col-md-3">
                     <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
 	                  " class="thumbnail"
@@ -181,6 +277,17 @@
                         </tr>
                     </table>
                 </div>
+                </c:if>
+                <c:if test="${!notes.releaseStatus.equals('1')}">
+                    <div class="col-sm-2 col-md-3">
+                    <a href="#" class="thumbnail">
+                        <img src="http://localhost:8080/nw/notebook/check.jpeg"
+                             alt="通用的占位符缩略图">
+                    </a>
+                        <p>${notes.title}</p>
+                        <p>该笔记主人修改了该笔记，审核后即可查看~</p>
+                    </div>
+                </c:if>
             </c:forEach>
         </div>
     </div>

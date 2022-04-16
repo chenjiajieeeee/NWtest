@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Set;
 @WebServlet("/manager/*")
 public class ManagerServlet extends BaseServlet{
          ManagerService managerService=new ManagerServiceImpl();
+         NoteService noteService=new NoteServiceImpl();
     public void chargeNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*
         根据分区查找笔记，笔记分页，其实和首页一样，但是不能点进去查看详情。
@@ -53,6 +55,14 @@ public class ManagerServlet extends BaseServlet{
                 request.setAttribute("agreeMsg","笔记已发布！");
             }else {
                 request.setAttribute("agreeMsg","服务器出问题了！");
+            }
+            chargeNote(request,response);
+        }else if("驳回".equals(action)){
+            boolean check = managerService.backNoteReleaseStatus(noteId);
+            if(check){
+                request.setAttribute("backMsg","已驳回");
+            }else {
+                request.setAttribute("backMsg","服务器出问题了");
             }
             chargeNote(request,response);
         }
@@ -100,5 +110,64 @@ public class ManagerServlet extends BaseServlet{
             request.setAttribute("Msg","服务器出问题了！");
         }
         chargeUser(request,response);
+    }
+    public void chargeNoteBatch(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String root = request.getParameter("root");
+        /*
+        查找该分区的所有笔记显示，不分页。
+        将笔记分为三类：
+        已发布：对应批量删除
+        审核中：对应批量同意或批量驳回
+        已驳回：对应查看
+         */
+        List<Note> notes = managerService.queryNoteByZoom(root);
+        //分出来的正在审核的笔记
+        List<Note> notes1 = noteService.checkingNote(notes);
+        request.setAttribute("notes1",notes1);
+        //分出来的已经发布的笔记
+        List<Note> notes2 = noteService.checkPublishNote(notes);
+        request.setAttribute("notes2",notes2);
+        //分出来的已驳回的笔记
+        List<Note> notes3 = noteService.turnBackNote(notes);
+        request.setAttribute("notes3",notes3);
+        //传递值
+        request.setAttribute("password",password);
+        request.setAttribute("username",username);
+        request.setAttribute("root",root);
+        request.getRequestDispatcher("/root/batchOperation.jsp").forward(request,response);
+    }
+    public void chargeNoteBatchs(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String[] noteIds = request.getParameterValues("noteId");
+        String action = request.getParameter("action");
+        List<Integer> ids=new ArrayList<>();
+        for (String id:noteIds){
+            ids.add(WebUtil.toInteger(id));
+        }
+        switch (action){
+            case "批量删除":{
+                for (Integer id:ids){
+                    noteService.deleteNote(id);
+                }
+                request.setAttribute("batchDelete","批量删除成功");
+                break;
+            }
+            case "批量同意":{
+                for (Integer id:ids){
+                    managerService.setNoteReleaseStatus(id,"0");
+                }
+                request.setAttribute("batchAgree","批量同意成功");
+                break;
+            }
+            case "批量驳回":{
+                for (Integer id:ids){
+                    managerService.backNoteReleaseStatus(id);
+                }
+                request.setAttribute("batchBack","批量驳回成功");
+                break;
+            }
+        }
+        chargeNoteBatch(request,response);
     }
 }

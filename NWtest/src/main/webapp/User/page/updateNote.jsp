@@ -25,6 +25,12 @@
                 <input type="hidden" value="${requestScope.username}" name="username">
                 <input type="hidden" value="${requestScope.password}" name="password">
             </form>
+            <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post">
+                <input type="submit" value="个人主页" name="action" class="btn btn-success">
+                <input type="hidden" value="${requestScope.username}" name="username">
+                <input type="hidden" value="${requestScope.password}" name="password">
+            </form>
+            </li>
             </li>
             <li><a href = "/nw/User/page/login.jsp" class="btn btn-success">退出登录</a></li>
         </ul>

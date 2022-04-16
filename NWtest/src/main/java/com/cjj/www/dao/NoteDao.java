@@ -10,6 +10,7 @@ public interface NoteDao {
      */
     List <Note> queryNoteByUserId(Integer id);
     List<Note> queryNote();
+    List<Note> queryNoteByZoom(String zoomName);
     /**
      * 保存笔记
      */

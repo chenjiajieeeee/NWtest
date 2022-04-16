@@ -21,9 +21,17 @@
     &nbsp;&nbsp;
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
     <li><a href="http://localhost:8080/nw/user/login?username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}" class="btn btn-warning">返回首页</a></li>
+    <li><form  action="http://localhost:8080/nw/manager/chargeNoteBatch" method="post">
+        <input type="submit" value="批量操作" name="action" class="btn btn-success">
+        <input type="hidden" value="${requestScope.username}" name="username">
+        <input type="hidden" value="${requestScope.password}" name="password">
+        <input type="hidden" value="${requestScope.root}" name="root">
+    </form>
+    </li>
 </ul>
     <p style="color: red" class="container">${requestScope.deleteNoteMsg}</p>
 <p style="color: red" class="container">${requestScope.agreeMsg}</p>
+<p style="color: red" class="container">${requestScope.backMsg}</p>
 <br>
 <div class="container">
     <div class="col" >
@@ -55,10 +63,14 @@
                                 发布状态：<c:if test="${notes.releaseStatus.equals('0')}">
                                 未审核
                                 <input type="submit" value="同意" class="btn btn-success" name="action">
+                                <input type="submit" value="驳回" class="btn btn-success" name="action">
                             </c:if>
                                 <c:if test="${notes.releaseStatus.equals('1')}">
                                     已发布
                                     <input type="submit" value="删除" name="action" class="btn btn-success" onclick="return confirm('确定删除笔记吗')">
+                                </c:if>
+                                <c:if test="${notes.releaseStatus.equals('-1')}">
+                                    已驳回
                                 </c:if>
                                     <input type="hidden" value="${requestScope.username}" name="username">
                                     <input type="hidden" value="${requestScope.password}" name="password">

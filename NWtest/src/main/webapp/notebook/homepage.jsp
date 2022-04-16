@@ -26,6 +26,7 @@
 	</li>
 	&nbsp;&nbsp;
 	<li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
+	<li><a href="http://localhost:8080/nw/note/history?username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}" class="btn btn-warning">历史记录</a></li>
 </ul>
 <ul class="breadcrumb " style="color: cornsilk;">
 <c:if test="${(requestScope.root)!='N'}">

@@ -82,5 +82,23 @@ public class ManagerServiceImpl implements ManagerService{
         return managerDao.queryNoteTotalPage(zoomName);
     }
 
+    @Override
+    public boolean backNoteReleaseStatus(Integer noteId) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.backNoteReleaseStatus(noteId);
+    }
+
+    @Override
+    public boolean changeNoteReleaseStatus(Integer noteId) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.setNoteReleaseStatus(noteId, "0");
+    }
+
+    @Override
+    public List<Note> queryNoteByZoom(String zoomName) {
+        NoteDao noteDao=new NoteDaoImpl();
+        return noteDao.queryNoteByZoom(zoomName);
+    }
+
 
 }

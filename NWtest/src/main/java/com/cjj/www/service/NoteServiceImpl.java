@@ -23,7 +23,7 @@ public class NoteServiceImpl implements NoteService {
         user.setUsername(username);
         UserDao userDao=new UserDaoImpl();
         user=userDao.queryUserByUserName(username);
-        return check(noteDao.queryNoteByUserId(user.getId()));
+        return noteDao.queryNoteByUserId(user.getId());
     }
 
 
@@ -178,11 +178,44 @@ public class NoteServiceImpl implements NoteService {
         检查查询到的笔记，将不通过审核的筛掉
          */
         for (Note note : notes) {
-            if (!note.getReleaseStatus().equals("0")) {
+            if (!note.getReleaseStatus().equals("0")&&!note.getReleaseStatus().equals("-1")) {
+                notes1.add(note);
+            }
+        }
+        return notes1;
+    }
+    /*
+    写一个方法来将该用户的笔记分类：
+    1、还未通过审核的笔记
+    2、被驳回的笔记
+     */
+    public List<Note> checkingNote(List<Note> notes){
+        List<Note> notes1=new ArrayList<>();
+        for (Note note:notes){
+            if(note.getReleaseStatus().equals("0")){
+                notes1.add(note);
+            }
+        }
+        return notes1;
+    }
+    public List<Note> turnBackNote(List<Note> notes){
+        List<Note> notes1=new ArrayList<>();
+        for (Note note:notes){
+            if(note.getReleaseStatus().equals("-1")){
                 notes1.add(note);
             }
         }
         return notes1;
     }
 
+    @Override
+    public List<Note> checkPublishNote(List<Note> notes) {
+        List<Note> notes1=new ArrayList<>();
+        for (Note note:notes){
+            if(note.getReleaseStatus().equals("1")){
+                notes1.add(note);
+            }
+        }
+        return notes1;
+    }
 }
