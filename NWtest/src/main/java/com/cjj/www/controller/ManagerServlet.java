@@ -148,7 +148,7 @@ public class ManagerServlet extends BaseServlet{
         switch (action){
             case "批量删除":{
                 for (Integer id:ids){
-                    noteService.deleteNote(id);
+                    managerService.deleteNoteByArea(id);
                 }
                 request.setAttribute("batchDelete","批量删除成功");
                 break;

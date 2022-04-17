@@ -56,10 +56,14 @@ public class PageServlet extends BaseServlet {
                 //在审核中被驳回的笔记
                 List<Note> notes5 = noteService.turnBackNote(notes);
                 request.setAttribute("notes5",notes5);
+                //被管理员删掉的笔记
+                List<Note> notes7 = noteService.checkDeleteNote(notes);
+                request.setAttribute("notes7",notes7);
                 User user = userDao.queryUserByUserName(username);
                 List<Note> notes1 = likeActService.queryLikeNoteByUserId(user.getId());
                 List<Note> notes2 = collectService.queryCollectNoteByUserId(user.getId());
                 List<Note> notes3 = commentService.queryCommentNoteByUserId(user.getId());
+
                 //点赞的笔记
                 request.setAttribute("notes1",notes1);
                 //收藏的笔记

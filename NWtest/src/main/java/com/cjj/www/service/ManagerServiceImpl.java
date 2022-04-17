@@ -28,8 +28,8 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Override
     public boolean deleteNoteByArea(Integer noteId) {
-        NoteDao noteDao=new NoteDaoImpl();
-        return noteDao.deleteNote(noteId);
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.deleteNoteByNoteId(noteId);
     }
 
     @Override

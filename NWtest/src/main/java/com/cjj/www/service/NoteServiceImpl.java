@@ -380,4 +380,31 @@ public class NoteServiceImpl implements NoteService {
         NoteDao noteDao=new NoteDaoImpl();
         return check(noteDao.queryNoteByZoom(zoomName));
     }
+
+    @Override
+    public List<Note> checkDeleteNote(List<Note> notes) {
+        List<Note> notes1=new ArrayList<>();
+        for (Note note:notes){
+            if(note.getReleaseStatus().equals("-2")){
+                notes1.add(note);
+            }
+        }
+        return notes1;
+    }
+
+    @Override
+    public boolean appeal(Integer noteId) {
+        NoteService noteService=new NoteServiceImpl();
+        Note note = noteService.queryNoteByNoteId(noteId);
+        //判断笔记状态：如果是驳回状态下申诉，直接让笔记进入待审核状态
+        //：如果是删除状态下申诉，申诉后删除笔记。
+        if(note.getReleaseStatus().equals("-1")){
+            ManagerDao managerDao=new ManagerDaoImpl();
+            return managerDao.setNoteReleaseStatus(noteId,"0");
+        }if (note.getReleaseStatus().equals("-2")){
+            return noteService.deleteNote(noteId);
+        }
+        return false;
+    }
+
 }

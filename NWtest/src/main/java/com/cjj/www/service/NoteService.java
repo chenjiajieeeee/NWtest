@@ -56,4 +56,8 @@ public interface NoteService {
     List<Note> sortNote(List<Note> notes,String action);
     HttpServletRequest sort(HttpServletRequest request);
     List<Note> queryNoteByZoom(String zoomName);
+    //查找被管理员删除的笔记
+    List<Note> checkDeleteNote(List<Note> notes);
+    //申诉
+    boolean appeal(Integer noteId);
 }

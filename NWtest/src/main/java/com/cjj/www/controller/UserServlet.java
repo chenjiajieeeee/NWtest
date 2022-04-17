@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 @WebServlet("/user/*")
@@ -124,6 +125,7 @@ public class UserServlet extends BaseServlet{
         request.setAttribute("username",username);
         request.setAttribute("password",password);
         Integer noteId = WebUtil.toInteger(request.getParameter("id"));
+
         switch (action) {
             case "修改": {
                 Note note = noteService.queryNoteByNoteId(noteId);
@@ -131,6 +133,45 @@ public class UserServlet extends BaseServlet{
                 List<Tag> tags = noteService.queryTagByNoteId(noteId);
                 request.setAttribute("tags", tags);
                 request.getRequestDispatcher("/User/page/updateNote.jsp").forward(request, response);
+                break;
+            } case "申诉":{
+                /*
+                调用申诉方法：
+                 */
+
+                boolean check = noteService.appeal(noteId);
+                if(check){
+                    request.setAttribute("appealMsg","申诉成功！");
+                }else {
+                    request.setAttribute("appealMsg","服务器出问题了！");
+                }
+                List<Note> notes = noteService.queryNoteByUsername(username);
+                CommentService commentService = new CommentServiceImpl();
+                UserDao userDao = new UserDaoImpl();
+                User user = userDao.queryUserByUserName(username);
+                LikeActService likeActService = new LikeActServiceImpl();
+                CollectService collectService = new CollectServiceImpl();
+                List<Note> notes1 = likeActService.queryLikeNoteByUserId(user.getId());
+                List<Note> notes2 = collectService.queryCollectNoteByUserId(user.getId());
+                List<Note> notes3 = commentService.queryCommentNoteByUserId(user.getId());
+                //点赞的笔记
+                request.setAttribute("notes1", notes1);
+                //收藏的笔记
+                request.setAttribute("notes2", notes2);
+                //评论的笔记
+                request.setAttribute("notes3", notes3);
+                List<Note> notes6 = noteService.checkPublishNote(notes);
+                request.setAttribute("notes6",notes6);
+                //还没有通过审核的笔记
+                List<Note> notes4 = noteService.checkingNote(notes);
+                request.setAttribute("notes4",notes4);
+                //在审核中被驳回的笔记
+                List<Note> notes5 = noteService.turnBackNote(notes);
+                request.setAttribute("notes5",notes5);
+                //被管理员删掉的笔记
+                List<Note> notes7 = noteService.checkDeleteNote(notes);
+                request.setAttribute("notes7",notes7);
+                request.getRequestDispatcher("/User/page/home.jsp").forward(request, response);
                 break;
             }
             case "确认修改标题": {
@@ -173,7 +214,6 @@ public class UserServlet extends BaseServlet{
                     request.setAttribute("deleteMsg", "由于某种不可抗力删除失败！");
                 }
                 List<Note> notes = noteService.queryNoteByUsername(username);
-                request.setAttribute("notes", notes);
                 CommentService commentService = new CommentServiceImpl();
                 UserDao userDao = new UserDaoImpl();
                 User user = userDao.queryUserByUserName(username);
@@ -182,13 +222,23 @@ public class UserServlet extends BaseServlet{
                 List<Note> notes1 = likeActService.queryLikeNoteByUserId(user.getId());
                 List<Note> notes2 = collectService.queryCollectNoteByUserId(user.getId());
                 List<Note> notes3 = commentService.queryCommentNoteByUserId(user.getId());
-                request.setAttribute("notes", notes);
                 //点赞的笔记
                 request.setAttribute("notes1", notes1);
                 //收藏的笔记
                 request.setAttribute("notes2", notes2);
                 //评论的笔记
                 request.setAttribute("notes3", notes3);
+                List<Note> notes6 = noteService.checkPublishNote(notes);
+                request.setAttribute("notes6",notes6);
+                //还没有通过审核的笔记
+                List<Note> notes4 = noteService.checkingNote(notes);
+                request.setAttribute("notes4",notes4);
+                //在审核中被驳回的笔记
+                List<Note> notes5 = noteService.turnBackNote(notes);
+                request.setAttribute("notes5",notes5);
+                //被管理员删掉的笔记
+                List<Note> notes7 = noteService.checkDeleteNote(notes);
+                request.setAttribute("notes7",notes7);
                 request.getRequestDispatcher("/User/page/home.jsp").forward(request, response);
                 break;
             }

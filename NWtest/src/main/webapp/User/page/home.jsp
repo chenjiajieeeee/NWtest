@@ -14,12 +14,12 @@
 <body>
     <div id="head">
         <div class="logo_title">
-               <h1>小红薯的个人空间&nbsp;&nbsp;&nbsp;欢迎！ <h4 style="color: #4cae4c; ">${requestScope.username}</h4></h1>
+            <h1>小红薯的个人空间&nbsp;&nbsp;&nbsp;欢迎！ </h1><p class="h4" style="color: #4cae4c; ">${requestScope.username}</p>
                <h2>标记我的生活</h2>
             <p style="color: red">${requestScope.sendMsg}</p>
             <p style="color: red">${requestScope.deleteMsg}</p>
-            <p style="color: red">${requestScope.updateSuccessMsg}</p>
             <p style="color: red">${requestScope.uploadMsg}</p>
+            <p style="color: red">${requestScope.appealMsg}</p>
         </div>
         <div class="navi">
            <ul>
@@ -41,7 +41,7 @@
                    <input type="hidden" value="${requestScope.password}" name="password">
                </form>
                </li>
-               <li><a href = "/nw/User/page/login.jsp" class="btn btn-success">退出登录</a></li>
+               <li><a href = "http://localhost:8080/nw/User/page/login.jsp" class="btn btn-success">退出登录</a></li>
            </ul>
         </div>
         <div class="clear"></div>
@@ -79,6 +79,44 @@
         </div>
     </div>
     <hr>
+    <h4 style="color: #5cb85c" class="container">被管理员删除的笔记</h4>
+    <div class="container">
+        <div class="col" >
+            <c:forEach items="${requestScope.notes7}" var="notes">
+                <div class="col-sm-2 col-md-3">
+                    <a href="#" class="thumbnail"
+                    >
+                        <img src="${notes.notePictureUrl}"
+                             alt="通用的占位符缩略图">
+                    </a>
+                    <form action="http://localhost:8080/nw/user/updateNote" method="post" >
+                        <input type="submit" value="申诉" name="action" class="btn btn-warning">
+                        <input type="hidden" name="username" value="${requestScope.username}">
+                        <input type="hidden" name="password" value="${requestScope.password}">
+                        <input type="hidden" name="id" value="${notes.id}">
+                    </form>
+                    <table class="table table-bordered">
+                        <tr class="warning">
+                            <td>
+                                <h4 class="center-block">${notes.title}</h4>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>
+                                    ${notes.main}
+                            </td>
+                        </tr>
+                        <tr class="well">
+                            <td>
+                                所属区域：${notes.zoomName}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+    <hr>
     <h4 style="color: #5cb85c" class="container">被驳回的笔记</h4>
     <div class="container">
         <div class="col" >
@@ -91,6 +129,7 @@
                     </a>
                     <form action="http://localhost:8080/nw/user/updateNote" method="post" >
                         <input type="submit" value="修改" name="action" class="btn btn-warning">
+                        <input type="submit" value="申诉" name="action" class="btn btn-warning">
                         <input type="hidden" name="username" value="${requestScope.username}">
                         <input type="hidden" name="password" value="${requestScope.password}">
                         <input type="hidden" name="id" value="${notes.id}">

@@ -36,6 +36,7 @@
 <div class="container">
     <div class="col" >
         <c:forEach items="${requestScope.notes}" var="notes">
+            <c:if test="${!notes.releaseStatus.equals('-2')}">
             <div class="col-sm-2 col-md-3">
                 <a href="#" class="thumbnail">
                     <img src="${notes.notePictureUrl}"
@@ -84,6 +85,7 @@
                     </tr>
                 </table>
             </div>
+        </c:if>
         </c:forEach>
     </div>
 </div>
