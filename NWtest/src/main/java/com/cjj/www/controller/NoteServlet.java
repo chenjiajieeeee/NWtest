@@ -51,6 +51,10 @@ public class NoteServlet extends BaseServlet{
         /*
         历史记录：将查看的笔记id以及userid送过去，userid用于辨别这个笔记是谁查看过的
          */
+        /*
+        浏览数加一
+         */
+        noteService.addBrowser(noteId);
         Cookie[] cookies = request.getCookies();
         Cookie cookieByName = WebUtil.findCookieByName(cookies, user.getId().toString());
         if(cookieByName==null){

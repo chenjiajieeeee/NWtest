@@ -3,6 +3,7 @@ package com.cjj.www.service;
 import com.cjj.www.pojo.Note;
 import com.cjj.www.pojo.Tag;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface NoteService {
@@ -48,7 +49,11 @@ public interface NoteService {
     List<Tag> queryTagByNoteId(Integer noteId);
     Integer queryNoteTotalPageSearchByTag(String Tag);
     boolean insertNotePicture(String url,Integer noteId);
-    public List<Note> checkingNote(List<Note> notes);
-    public List<Note> turnBackNote(List<Note> notes);
-    public List<Note> checkPublishNote(List<Note> notes);
+     List<Note> checkingNote(List<Note> notes);
+     List<Note> turnBackNote(List<Note> notes);
+    List<Note> checkPublishNote(List<Note> notes);
+    boolean addBrowser(Integer noteId);
+    List<Note> sortNote(List<Note> notes,String action);
+    HttpServletRequest sort(HttpServletRequest request);
+    List<Note> queryNoteByZoom(String zoomName);
 }

@@ -9,6 +9,15 @@ public class Note {
     private String releaseStatus;
     private Integer likeCount;
     private String notePictureUrl;
+    private Integer browse;
+
+    public Integer getBrowse() {
+        return browse;
+    }
+
+    public void setBrowse(Integer browse) {
+        this.browse = browse;
+    }
 
     public String getNotePictureUrl() {
         return notePictureUrl;

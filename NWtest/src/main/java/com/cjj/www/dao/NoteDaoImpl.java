@@ -32,6 +32,8 @@ public class NoteDaoImpl implements NoteDao{
                 note.setTitle(resultSet.getString("title"));
                 note.setReleaseStatus(resultSet.getString("release_status"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
+                note.setBrowse(resultSet.getInt("browse"));
+                note.setLikeCount(resultSet.getInt("likecount"));
                 /*
                 将得到的数据封装成arrays集合来遍历
                  */
@@ -72,6 +74,8 @@ public class NoteDaoImpl implements NoteDao{
                 note.setTitle(resultSet.getString("title"));
                 note.setReleaseStatus(resultSet.getString("release_status"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
+                note.setBrowse(resultSet.getInt("browse"));
+                note.setLikeCount(resultSet.getInt("likecount"));
                 /*
                 将得到的数据封装成arrays集合来遍历
                  */
@@ -112,6 +116,8 @@ public class NoteDaoImpl implements NoteDao{
                 note.setTitle(resultSet.getString("title"));
                 note.setReleaseStatus(resultSet.getString("release_status"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
+                note.setBrowse(resultSet.getInt("browse"));
+                note.setLikeCount(resultSet.getInt("likecount"));
                 /*
                 将得到的数据封装成arrays集合来遍历
                  */
@@ -258,6 +264,7 @@ public class NoteDaoImpl implements NoteDao{
                 note.setLikeCount(resultSet.getInt("likeCount"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
                 note.setReleaseStatus(resultSet.getString("release_status"));
+                note.setBrowse(resultSet.getInt("browse"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -288,6 +295,7 @@ public class NoteDaoImpl implements NoteDao{
                 note.setLikeCount(resultSet.getInt("likecount"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
                 note.setReleaseStatus(resultSet.getString("release_status"));
+                note.setBrowse(resultSet.getInt("browse"));
                 notes.add(note);
                 note=new Note();
             }
@@ -320,6 +328,7 @@ public class NoteDaoImpl implements NoteDao{
                 note.setLikeCount(resultSet.getInt("likecount"));
                 note.setNotePictureUrl(resultSet.getString("picture_url"));
                 note.setReleaseStatus(resultSet.getString("release_status"));
+                note.setBrowse(resultSet.getInt("browse"));
                 notes.add(note);
                 note=new Note();
             }
@@ -395,6 +404,27 @@ public class NoteDaoImpl implements NoteDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(preparedStatement,connection);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean addBrowse(Integer noteId)  {
+        boolean result=false;
+        Connection connection=null;
+        Statement statement=null;
+        String sql="update note set browse = browse +1 where id = "+noteId;
+        connection=JdbcUtil.getConnection();
+        try {
+            statement=connection.createStatement();
+            int row = statement.executeUpdate(sql);
+            if (row>0){
+                result=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(null,statement,connection);
         }
         return result;
     }

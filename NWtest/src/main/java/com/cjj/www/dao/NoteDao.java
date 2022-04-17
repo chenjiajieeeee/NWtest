@@ -2,6 +2,7 @@ package com.cjj.www.dao;
 
 import com.cjj.www.pojo.Note;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface NoteDao {
@@ -40,4 +41,8 @@ public interface NoteDao {
     Integer queryNoteTotalPage();
     Integer queryNoteTotalPage(String zoomName);
     boolean insertPictureUrl(String url,Integer noteId);
+    /*
+    点入笔记查看详情时，浏览量加一
+     */
+    boolean addBrowse(Integer noteId) ;
 }

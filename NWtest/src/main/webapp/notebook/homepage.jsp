@@ -28,6 +28,12 @@
 	<li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
 	<li><a href="http://localhost:8080/nw/note/history?username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}" class="btn btn-warning">历史记录</a></li>
 </ul>
+<ul class="nav nav-tabs">
+	<li class="active"><a href="#">首页</a></li>
+	<li><a href="http://localhost:8080/nw/page/sort?action=按浏览量排序&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&number=1">按浏览量排序</a></li>
+	<li><a href="http://localhost:8080/nw/page/sort?action=按点赞量排序&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&number=1">按点赞量排序</a></li>
+	<li><a href="http://localhost:8080/nw/page/sort?action=按热度排序&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&number=1">按热度排序</a></li>
+</ul>
 <ul class="breadcrumb " style="color: cornsilk;">
 <c:if test="${(requestScope.root)!='N'}">
 	<li><form  action="http://localhost:8080/nw/manager/chargeNote" method="post">

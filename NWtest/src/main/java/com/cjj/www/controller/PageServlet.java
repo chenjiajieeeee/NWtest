@@ -3,17 +3,20 @@ package com.cjj.www.controller;
 import com.cjj.www.dao.UserDao;
 import com.cjj.www.dao.UserDaoImpl;
 import com.cjj.www.pojo.Note;
-import com.cjj.www.pojo.Paging;
+
+
 import com.cjj.www.pojo.User;
 import com.cjj.www.service.*;
-import com.cjj.www.util.WebUtil;
+
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import java.util.List;
 
 @WebServlet("/page/*")
@@ -66,5 +69,9 @@ public class PageServlet extends BaseServlet {
                 request.setAttribute("root",user.getRoot());
                 request.getRequestDispatcher("/User/page/home.jsp").forward(request,response);
             }
+        }
+        public void sort(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+            HttpServletRequest req = noteService.sort(request);
+            req.getRequestDispatcher("/notebook/sort.jsp").forward(request,response);
         }
 }
