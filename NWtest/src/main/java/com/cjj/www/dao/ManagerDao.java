@@ -1,6 +1,7 @@
 package com.cjj.www.dao;
 
 import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.Report;
 import com.cjj.www.pojo.User;
 import com.cjj.www.pojo.UserStatus;
 
@@ -29,4 +30,12 @@ public interface ManagerDao {
     boolean backNoteReleaseStatus(Integer noteId);
     //假定删除
     boolean deleteNoteByNoteId(Integer noteId);
+    /*
+    显示被举报的笔记
+    对被举报的笔记进行操作：驳回、删除
+    操作完成后删除该举报信息。
+     */
+    List<Report> queryReportedNoteMsg(String zoomName);
+    boolean deleteReportMsg(Integer noteId,String username);
+    boolean deleteReportMsg(Integer noteId);
 }

@@ -1,6 +1,7 @@
 package com.cjj.www.dao;
 
 import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.Report;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -45,4 +46,10 @@ public interface NoteDao {
     点入笔记查看详情时，浏览量加一
      */
     boolean addBrowse(Integer noteId) ;
+    /*
+    举报功能
+     */
+    boolean insertReportMsg(Report report);
+    //判断同一用户对该笔记是否举报多次
+   boolean queryReported(String username,Integer noteId);
 }

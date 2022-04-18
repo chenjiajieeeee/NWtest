@@ -1,6 +1,7 @@
 package com.cjj.www.dao;
 
 import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.Report;
 import com.cjj.www.pojo.User;
 import com.cjj.www.pojo.UserStatus;
 import com.cjj.www.util.JdbcUtil;
@@ -204,6 +205,74 @@ public class ManagerDaoImpl implements ManagerDao{
             JdbcUtil.close(preparedStatement,connection);
         }
         return result;
+    }
+
+    @Override
+    public List<Report> queryReportedNoteMsg(String zoomName) {
+        Connection connection=null;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        String sql="select * from report where zoom = '"+zoomName+"'";
+        connection=JdbcUtil.getConnection();
+        List<Report> reports=new ArrayList<>();
+        Report report=new Report();
+        try {
+            statement=connection.createStatement();
+            resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                report.setId(resultSet.getInt("id"));
+                report.setNoteId(resultSet.getInt("note_id"));
+                report.setZoomName(resultSet.getString("zoom"));
+                report.setUsername(resultSet.getString("username"));
+                report.setMain(resultSet.getString("main"));
+                reports.add(report);
+                report=new Report();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(resultSet,statement,connection);
+        }return reports;
+    }
+
+    @Override
+    public boolean deleteReportMsg(Integer noteId, String username) {
+        boolean result=false;
+        Connection connection=null;
+        Statement statement=null;
+        String sql="delete from report where username = '"+username+"' and note_id = "+noteId;
+        connection = JdbcUtil.getConnection();
+        try {
+            statement=connection.createStatement();
+            int row = statement.executeUpdate(sql);
+            if(row>0){
+                result=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(null,statement,connection);
+        }return result;
+    }
+
+    @Override
+    public boolean deleteReportMsg(Integer noteId) {
+        boolean result=false;
+        Connection connection=null;
+        Statement statement=null;
+        String sql="delete from report where  note_id = "+noteId;
+        connection = JdbcUtil.getConnection();
+        try {
+            statement=connection.createStatement();
+            int row = statement.executeUpdate(sql);
+            if(row>0){
+                result=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(null,statement,connection);
+        }return result;
     }
 
 

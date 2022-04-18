@@ -1,6 +1,7 @@
 package com.cjj.www.service;
 
 import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.Report;
 import com.cjj.www.pojo.User;
 import com.cjj.www.pojo.UserStatus;
 
@@ -30,4 +31,7 @@ public interface ManagerService {
     boolean backNoteReleaseStatus(Integer noteId);
     boolean changeNoteReleaseStatus(Integer noteId);
     List<Note> queryNoteByZoom(String zoomName);
+    List<Report> queryReportedNote(String zoomName);
+    boolean deleteReportMsg(Integer noteId,String username);
+    boolean deleteReportMsg(Integer noteId);
 }

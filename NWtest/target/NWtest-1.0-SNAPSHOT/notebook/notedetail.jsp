@@ -33,6 +33,7 @@
     &nbsp;&nbsp;
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
 </ul>
+<p style="color: red" class="container">${requestScope.reportMsg}</p>
 <ul class="breadcrumb " style="color: cornsilk;">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -108,7 +109,14 @@
                         取消收藏
                     </a>
                 </c:if>
-
+                <hr>
+                    <form method="post" action="http://localhost:8080/nw/note/report">
+                        <input type="submit" value="举报" name="action" class="btn btn-danger">
+                        <input type="hidden" name="username" value="${requestScope.username}">
+                        <input type="hidden" name="password" value="${requestScope.password}">
+                        <input type="hidden" name="root" value="${requestScope.root}">
+                        <input type="hidden" name="noteId" value="${requestScope.note.id}">
+                    </form>
                 </p>
                 <c:forEach items="${requestScope.tags}" var="tag">
                     <p style="color: #5cb85c"># ${tag.tagMain}</p>

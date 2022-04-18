@@ -2,10 +2,7 @@ package com.cjj.www.controller;
 
 import com.cjj.www.dao.UserDao;
 import com.cjj.www.dao.UserDaoImpl;
-import com.cjj.www.pojo.Comment;
-import com.cjj.www.pojo.Note;
-import com.cjj.www.pojo.Tag;
-import com.cjj.www.pojo.User;
+import com.cjj.www.pojo.*;
 import com.cjj.www.service.*;
 import com.cjj.www.util.WebUtil;
 
@@ -204,5 +201,53 @@ public class NoteServlet extends BaseServlet{
         request.setAttribute("notes",notes);
         request.setAttribute("root",root);
         request.getRequestDispatcher("/notebook/history.jsp").forward(request,response);
+    }
+    public void report(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        //接收基本数据
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String root = request.getParameter("root");
+        String action = request.getParameter("action");
+        Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
+        request.setAttribute("username",username);
+        request.setAttribute("password",password);
+        request.setAttribute("root",root);
+        request.setAttribute("action",action);
+        if("提交".equals(action)) {
+            //接收举报信息
+            String main = request.getParameter("main");
+            Note note = noteService.queryNoteByNoteId(noteId);
+            //封装成举报对象
+            Report report = new Report();
+            report.setNoteId(noteId);
+            report.setMain(main);
+            report.setUsername(username);
+            report.setZoomName(note.getZoomName());
+            String result = noteService.report(report);
+            if(result.equals("举报成功！请耐心等待管理员处理")||result.equals("您已经举报过了!请耐心等待管理员处理！")){
+                request.setAttribute("reportMsg",result);
+                UserDao userDao=new UserDaoImpl();
+                User user = userDao.queryUserByUserName(username);
+                boolean check1 = likeActService.judgeLikeOrNot(noteId, user.getId());
+                request.setAttribute("check",check1);
+                request.setAttribute("username",username);
+                request.setAttribute("password",password);
+                request.setAttribute("note",note);
+                List<Tag> tags = noteService.queryTagByNoteId(noteId);
+                List<Comment> comments = commentService.queryCommentByNoteId(noteId);
+                request.setAttribute("comments",comments);
+                request.setAttribute("tags",tags);
+                boolean result1 = collectService.collectAct(noteId, user.getId());
+                request.setAttribute("result",result1);
+                request.getRequestDispatcher("/notebook/notedetail.jsp").forward(request,response);
+            }else if (result.equals("请填写举报理由!")||result.equals("抱歉，服务器出问题了")){
+                request.setAttribute("reportMsg",result);
+                request.setAttribute("note",noteService.queryNoteByNoteId(noteId));
+                request.getRequestDispatcher("/notebook/report.jsp").forward(request,response);
+            }
+        }else if ("举报".equals(action)){
+            request.setAttribute("note",noteService.queryNoteByNoteId(noteId));
+            request.getRequestDispatcher("/notebook/report.jsp").forward(request,response);
+        }
     }
 }

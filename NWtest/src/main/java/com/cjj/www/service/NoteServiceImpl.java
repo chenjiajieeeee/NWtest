@@ -1,10 +1,7 @@
 package com.cjj.www.service;
 
 import com.cjj.www.dao.*;
-import com.cjj.www.pojo.Note;
-import com.cjj.www.pojo.Paging;
-import com.cjj.www.pojo.Tag;
-import com.cjj.www.pojo.User;
+import com.cjj.www.pojo.*;
 import com.cjj.www.util.WebUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -405,6 +402,27 @@ public class NoteServiceImpl implements NoteService {
             return noteService.deleteNote(noteId);
         }
         return false;
+    }
+
+    @Override
+    public String report(Report report) {
+        NoteDao noteDao=new NoteDaoImpl();
+        if(report.getMain().equals("")){
+            return "请填写举报理由!";
+        }else {
+            boolean check = noteDao.queryReported(report.getUsername(), report.getNoteId());
+            if(check){
+                return "您已经举报过了!请耐心等待管理员处理！";
+            }
+            else {
+                boolean check1 = noteDao.insertReportMsg(report);
+                if(check1){
+                    return "举报成功！请耐心等待管理员处理";
+                }else {
+                    return "抱歉，服务器出问题了";
+                }
+            }
+        }
     }
 
 }

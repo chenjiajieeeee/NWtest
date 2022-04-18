@@ -1,6 +1,7 @@
 package com.cjj.www.service;
 
 import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.Report;
 import com.cjj.www.pojo.Tag;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,4 +61,6 @@ public interface NoteService {
     List<Note> checkDeleteNote(List<Note> notes);
     //申诉
     boolean appeal(Integer noteId);
+    //举报
+    String report(Report report);
 }

@@ -1,6 +1,7 @@
 package com.cjj.www.controller;
 
 import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.Report;
 import com.cjj.www.pojo.User;
 import com.cjj.www.pojo.UserStatusAndUsername;
 import com.cjj.www.service.*;
@@ -169,5 +170,55 @@ public class ManagerServlet extends BaseServlet{
             }
         }
         chargeNoteBatch(request,response);
+    }
+    public void dealReportedNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        //接收参数
+        String root = request.getParameter("root");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        //传递参数
+        request.setAttribute("root",root);
+        request.setAttribute("username",username);
+        request.setAttribute("password",password);
+
+
+            //查询管理员需要处理的笔记
+            List<Report> reports = managerService.queryReportedNote(root);
+            List<Note> notes=new ArrayList<>();
+            for (Report report:reports){
+                //对应的笔记
+                notes.add(noteService.queryNoteByNoteId(report.getNoteId()));
+            }
+            //传递参数
+            request.setAttribute("reports",reports);
+            request.setAttribute("notes",notes);
+            request.getRequestDispatcher("/root/report.jsp").forward(request,response);
+
+    }public void dealingReportNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String action = request.getParameter("action");
+        Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
+
+        switch (action) {
+            case "忽略":
+                //根据笔记id以及举报人的用户名删除对应的举报信息
+                managerService.deleteReportMsg(noteId, username);
+                //提示
+                request.setAttribute("reportResult", "已忽略");
+                break;
+            case "驳回":
+                //驳回
+                managerService.backNoteReleaseStatus(noteId);
+                //删除笔记id对应的举报信息
+                request.setAttribute("reportResult", "已驳回");
+                break;
+            case "删除":
+                //删除
+                managerService.deleteNoteByArea(noteId);
+                //删除信息
+                request.setAttribute("reportResult", "已删除");
+                break;
+        }
+        dealReportedNote(request,response);
     }
 }

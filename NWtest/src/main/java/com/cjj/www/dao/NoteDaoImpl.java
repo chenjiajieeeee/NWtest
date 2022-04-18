@@ -1,6 +1,7 @@
 package com.cjj.www.dao;
 
 import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.Report;
 import com.cjj.www.util.JdbcUtil;
 
 import java.sql.*;
@@ -425,6 +426,54 @@ public class NoteDaoImpl implements NoteDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(null,statement,connection);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean insertReportMsg(Report report) {
+        boolean result=false;
+        Connection connection=null;
+        PreparedStatement preparedStatement=null;
+        String sql="insert into report(note_id,main,username,zoom) values(?,?,?,?)";
+        connection=JdbcUtil.getConnection();
+        try {
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setInt(1,report.getNoteId());
+            preparedStatement.setString(2,report.getMain());
+            preparedStatement.setString(3,report.getUsername());
+            preparedStatement.setString(4,report.getZoomName());
+            int row = preparedStatement.executeUpdate();
+            if (row>0){
+                result=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(preparedStatement, connection);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean queryReported(String username, Integer noteId) {
+        boolean result=false;
+        Connection connection=null;
+        ResultSet resultSet=null;
+        Statement statement=null;
+        String sql="select * from report where username = '"+username+"' and note_id = "+noteId;
+        connection=JdbcUtil.getConnection();
+        try {
+            statement=connection.createStatement();
+            resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                result=true;
+                break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(resultSet,statement,connection);
         }
         return result;
     }

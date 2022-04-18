@@ -2,6 +2,7 @@ package com.cjj.www.service;
 
 import com.cjj.www.dao.*;
 import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.Report;
 import com.cjj.www.pojo.User;
 import com.cjj.www.pojo.UserStatus;
 
@@ -98,6 +99,24 @@ public class ManagerServiceImpl implements ManagerService{
     public List<Note> queryNoteByZoom(String zoomName) {
         NoteDao noteDao=new NoteDaoImpl();
         return noteDao.queryNoteByZoom(zoomName);
+    }
+
+    @Override
+    public List<Report> queryReportedNote(String zoomName) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.queryReportedNoteMsg(zoomName);
+    }
+
+    @Override
+    public boolean deleteReportMsg(Integer noteId, String username) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.deleteReportMsg(noteId,username);
+    }
+
+    @Override
+    public boolean deleteReportMsg(Integer noteId) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.deleteReportMsg(noteId);
     }
 
 

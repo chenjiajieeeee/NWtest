@@ -28,6 +28,13 @@
         <input type="hidden" value="${requestScope.root}" name="root">
     </form>
     </li>
+    <li><form  action="http://localhost:8080/nw/manager/dealReportedNote" method="post">
+        <input type="submit" value="处理被举报笔记" name="action" class="btn btn-success">
+        <input type="hidden" value="${requestScope.username}" name="username">
+        <input type="hidden" value="${requestScope.password}" name="password">
+        <input type="hidden" value="${requestScope.root}" name="root">
+    </form>
+    </li>
 </ul>
     <p style="color: red" class="container">${requestScope.deleteNoteMsg}</p>
 <p style="color: red" class="container">${requestScope.agreeMsg}</p>
