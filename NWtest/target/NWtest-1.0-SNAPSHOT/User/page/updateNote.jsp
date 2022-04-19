@@ -181,6 +181,7 @@
     <input type="hidden" name="username" value="${requestScope.username}">
     <input type="hidden" name="password" value="${requestScope.password}">
     <input type="file" name="notePicture" class="btn-warning">
+    <input type="hidden" name="root" value="${requestScope.root}">
     <br>
     <input type="submit" value="提交" class="btn btn-success">
 </form>

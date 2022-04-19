@@ -141,6 +141,9 @@ public class UserServlet extends BaseServlet{
 
                 boolean check = noteService.appeal(noteId);
                 if(check){
+                    User manager = managerService.findManager(noteId);
+                    managerService.addAppeal(manager.getUsername());
+                    managerService.deleteOperation(noteId);
                     request.setAttribute("appealMsg","申诉成功！");
                 }else {
                     request.setAttribute("appealMsg","服务器出问题了！");
@@ -182,6 +185,7 @@ public class UserServlet extends BaseServlet{
                 if (check) {
                     request.setAttribute("updateMsg", "修改标题成功！等待审核中！");
                     managerService.changeNoteReleaseStatus(noteId);
+                    managerService.deleteOperation(noteId);
                 } else {
                     request.setAttribute("updateMsg", "标题不能为空哦！");
                 }
@@ -197,6 +201,7 @@ public class UserServlet extends BaseServlet{
                 if (check) {
                     request.setAttribute("updateMsg", "修改内容成功！等待审核中！");
                     managerService.changeNoteReleaseStatus(noteId);
+                    managerService.deleteOperation(noteId);
                 } else {
                     request.setAttribute("updateMsg", "内容不能为空哦！");
                 }
@@ -264,25 +269,30 @@ public class UserServlet extends BaseServlet{
         }
     }
     public void publishNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("root",request.getParameter("root"));
+        String action = request.getParameter("action");
+        String root = request.getParameter("root");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         request.setAttribute("username",username);
         request.setAttribute("password",password);
-        String title=request.getParameter("title");
-        String main= request.getParameter("main");
-        String zoomName=request.getParameter("zoomName");
-        UserDao userDao=new UserDaoImpl();
-        User user=userDao.queryUserByUserName(username);
-        NoteService noteService=new NoteServiceImpl();
-        Note note=new Note();
-        note.setTitle(title);
-        note.setMain(main);
-        note.setZoomName(zoomName);
-        note.setUserId(user.getId());
-        String result = noteService.saveNote(note, zoomName);
-        request.setAttribute("sendMsg",result);
-        request.getRequestDispatcher("/User/page/publishNote.jsp").forward(request,response);
+        request.setAttribute("root",root);
+        if(action.equals("发布笔记")){
+            request.getRequestDispatcher("/User/page/publishNote.jsp").forward(request,response);
+        }else if(action.equals("确认发布")){
+            String title = request.getParameter("title");
+            String main = request.getParameter("main");
+            String zoomName = request.getParameter("zoomName");
+            UserService userService=new UserServiceImpl();
+            User user = userService.queryUserByUserName(username);
+            Note note=new Note();
+            note.setUserId(user.getId());
+            note.setZoomName(zoomName);
+            note.setMain(main);
+            note.setTitle(title);
+            String result = noteService.saveNote(note, zoomName);
+            request.setAttribute("sendMsg",result);
+            request.getRequestDispatcher("/User/page/publishNote.jsp").forward(request,response);
+        }
     }
     public void fileUpLoad(HttpServletRequest request,HttpServletResponse response){
         if(ServletFileUpload.isMultipartContent(request)){
@@ -313,26 +323,37 @@ public class UserServlet extends BaseServlet{
                 String username=data.get(1);
                 String password=data.get(2);
                 List<Note> notes = noteService.queryNoteByUsername(username);
-                request.setAttribute("notes",notes);
-                CommentService commentService=new CommentServiceImpl();
-                UserDao userDao=new UserDaoImpl();
-                User user=userDao.queryUserByUserName(username);
-                //查询评论的笔记
-                List<Note> notes3 = commentService.queryCommentNoteByUserId(user.getId());
-                request.setAttribute("notes3",notes3);
-                //查询点赞的笔记
-                LikeActService likeActService=new LikeActServiceImpl();
+                CommentService commentService = new CommentServiceImpl();
+                UserDao userDao = new UserDaoImpl();
+                User user = userDao.queryUserByUserName(username);
+                LikeActService likeActService = new LikeActServiceImpl();
+                CollectService collectService = new CollectServiceImpl();
                 List<Note> notes1 = likeActService.queryLikeNoteByUserId(user.getId());
-                request.setAttribute("notes1",notes1);
-                //查询收藏的笔记
-                CollectService collectService=new CollectServiceImpl();
                 List<Note> notes2 = collectService.queryCollectNoteByUserId(user.getId());
-                request.setAttribute("notes2",notes2);
-                request.setAttribute("root",user.getRoot());
-                request.setAttribute("username",username);
-                request.setAttribute("password",password);
+                List<Note> notes3 = commentService.queryCommentNoteByUserId(user.getId());
+                //点赞的笔记
+                request.setAttribute("notes1", notes1);
+                //收藏的笔记
+                request.setAttribute("notes2", notes2);
+                //评论的笔记
+                request.setAttribute("notes3", notes3);
+                List<Note> notes6 = noteService.checkPublishNote(notes);
+                request.setAttribute("notes6",notes6);
+                //还没有通过审核的笔记
+                List<Note> notes4 = noteService.checkingNote(notes);
+                request.setAttribute("notes4",notes4);
+                //在审核中被驳回的笔记
+                List<Note> notes5 = noteService.turnBackNote(notes);
+                request.setAttribute("notes5",notes5);
+                //被管理员删掉的笔记
+                List<Note> notes7 = noteService.checkDeleteNote(notes);
+                managerService.deleteOperation(noteId);
+                request.setAttribute("notes7",notes7);
                 request.setAttribute("uploadMsg", "上传文件成功！等待审核中！");
                 managerService.changeNoteReleaseStatus(noteId);
+                request.setAttribute("username",username);
+                request.setAttribute("password",password);
+                request.setAttribute("root",data.get(3));
                 request.getRequestDispatcher("/User/page/home.jsp").forward(request,response);
             } catch (Exception e) {
                 e.printStackTrace();

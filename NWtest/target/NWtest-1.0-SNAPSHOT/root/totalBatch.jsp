@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <title>NW一轮考核</title>
     <link rel="stylesheet" href="http://localhost:8080/nw/notebook/dist/css/bootstrap.min.css" type="text/css">
-
 </head>
 <body class="container">
 
@@ -35,24 +34,7 @@
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
 </ul>
 <ul class="breadcrumb " style="color: cornsilk;">
-    <c:if test="${(requestScope.root)!='N'&&(requestScope.root)!='super'}">
-        <li><form  action="http://localhost:8080/nw/manager/chargeNote" method="post">
-            <input type="submit" value="管理笔记" name="action" class="btn btn-success">
-            <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
-            <input type="hidden" value="${requestScope.root}" name="root">
-        </form>
-        </li>
-        <li>
-            <form  action="http://localhost:8080/nw/manager/chargeUser" method="post">
-                <input type="submit" value="管理用户" name="action" class="btn btn-success">
-                <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
-                <input type="hidden" value="${requestScope.root}" name="root">
-            </form>
-        </li>
-    </c:if>
-    <c:if test="${requestScope.root.equals('super')}">
+
         <li><form  action="http://localhost:8080/nw/manager/chargeAllNote" method="post">
             <input type="submit" value="管理笔记" name="action" class="btn btn-success">
             <input type="hidden" value="${requestScope.username}" name="username">
@@ -68,56 +50,52 @@
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
         </li>
-    </c:if>
+
 </ul>
-<p class="container" style="color: red">${requestScope.reportResult}</p>
-<c:if test="${requestScope.notes.size()>0}">
+<p style="color: red" class="h4 container">${requestScope.batchMsg}</p>
+<form action="http://localhost:8080/nw/manager/confirm" method="post">
     <table class="table">
-        <caption style="color: red" class="h4">处理被举报笔记</caption>
+        <caption style="color: red" class="h4">批量操作笔记</caption>
         <thead>
         <tr>
             <th>缩略图</th>
             <th>内容</th>
-            <th>举报详情</th>
-            <th>执行操作</th>
+            <th>勾选/不勾选</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach begin="0" end="${requestScope.notes.size()-1}" var="i">
+        <c:forEach items="${requestScope.notes}" var="note">
             <tr>
                 <td>
                     <a href="#" class="thumbnail"  >
-                        <img src="${requestScope.notes.get(i).notePictureUrl}"
+                        <img src="${note.notePictureUrl}"
                              alt="通用的占位符缩略图" height="200px" width="200px">
                     </a>
                 </td>
                 <td>
-                    <p>标题：${requestScope.notes.get(i).title}</p>
-                    <p>内容：${requestScope.notes.get(i).main}</p>
+                    <p>标题：${note.title}</p>
+                    <p>内容：${note.main}</p>
+                    <p>${note.zoomName}</p>
                 </td>
                 <td>
-                    <p>举报人：${requestScope.reports.get(i).username}</p>
-                    <p>举报理由：${requestScope.reports.get(i).main}</p>
-                </td>
-                <td>
-                    <form action="http://localhost:8080/nw/manager/dealingReportNote" method="post">
-                        <input type="submit" name="action" value="忽略" class="btn btn-success">
-                        <input type="submit" name="action" value="驳回" class="btn btn-warning">
-                        <input type="submit" name="action" value="删除" class="btn btn-danger">
-                        <input type="hidden" name="username" value="${requestScope.username}">
-                        <input type="hidden" name="password" value="${requestScope.password}">
-                        <input type="hidden" name="root" value="${requestScope.root}">
-                        <input type="hidden" name="noteId" value="${requestScope.reports.get(i).noteId}">
-                    </form>
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="${note.id}" name="noteId"></label>
+                    </div>
                 </td>
             </tr>
-       </c:forEach>
+        </c:forEach>
         </tbody>
     </table>
-</c:if>
+    <c:if test="${requestScope.notes2.size()!=0}">
+        <input type="submit" name="action" value="批量删除" class="btn btn-warning">
+        <input type="hidden" name="username" value="${requestScope.username}">
+        <input type="hidden" name="password" value="${requestScope.password}">
+        <input type="hidden" name="root" value="${requestScope.root}">
+    </c:if>
+    <c:if test="${empty(requestScope.notes)}">
+        <p class="h4" style="color: red">暂无需要删除的笔记！</p>
+    </c:if>
+</form>
 <br>
-<c:if test="${empty(requestScope.notes)}">
-    <p style="color: red" class="h4">暂无笔记被举报！</p>
-</c:if>
 </body>
 </html>

@@ -1,9 +1,6 @@
 package com.cjj.www.dao;
 
-import com.cjj.www.pojo.Note;
-import com.cjj.www.pojo.Report;
-import com.cjj.www.pojo.User;
-import com.cjj.www.pojo.UserStatus;
+import com.cjj.www.pojo.*;
 
 import java.util.List;
 
@@ -18,13 +15,12 @@ public interface ManagerDao {
      * 4、审核用户还没有发布的笔记
      */
     List<Note>queryNoteByAreaPaging(Integer begin,Integer end,String zoomName);
-    boolean ChangeUserStatus(Integer userId, String userStatus,String zoomName);
     boolean deleteNoteByManager(Integer id);
     boolean setNoteReleaseStatus(Integer noteId,String releaseStatus);
     /**
      * 还有要查到每个用户的信息以及其在该区域的禁用状态
      */
-    List<User> queryAllUser();
+
     List<UserStatus> queryZoomStatus();
     Integer queryNoteTotalPage(String zoomName);
     boolean backNoteReleaseStatus(Integer noteId);
@@ -38,4 +34,19 @@ public interface ManagerDao {
     List<Report> queryReportedNoteMsg(String zoomName);
     boolean deleteReportMsg(Integer noteId,String username);
     boolean deleteReportMsg(Integer noteId);
+    Integer queryNoteTotalPage();
+    List<Note> queryNotePage(Integer begin,Integer end);
+    //查找不同分区的管理员：
+    List<User> queryUserByRoot(String root);
+    //当区域管理员对笔记执行驳回或删除操作时，记录下他们的操作
+    boolean saveOperation(Appeal appeal);
+    //当驳回的笔记被修改，则只删除操作信息、当驳回的笔记被申诉，则加1
+    //删除同理
+    boolean deleteOperation(Integer noteId);
+    boolean addAppeal(String username);
+    //解除管理员身份之后重置申诉次数
+    boolean resetAppeal(String username);
+    //找到执行驳回或删除操作的管理员
+    Integer findManager(Integer noteId);
+    boolean resetUser(Integer userId);
 }

@@ -31,6 +31,7 @@
                 <input type="submit" value="首页" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
                 <input type="hidden" value="${requestScope.password}" name="password">
+                <input type="hidden" value="${requestScope.root}" name="root">
             </form>
             </li>
             <li><a href = "/nw/User/page/login.jsp" class="btn btn-success">退出登录</a></li>

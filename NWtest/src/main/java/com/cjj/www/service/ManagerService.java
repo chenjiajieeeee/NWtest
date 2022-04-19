@@ -1,9 +1,6 @@
 package com.cjj.www.service;
 
-import com.cjj.www.pojo.Note;
-import com.cjj.www.pojo.Report;
-import com.cjj.www.pojo.User;
-import com.cjj.www.pojo.UserStatus;
+import com.cjj.www.pojo.*;
 
 import java.util.List;
 import java.util.Map;
@@ -25,13 +22,30 @@ public interface ManagerService {
     boolean changeUserStatus(Integer userId, String userStatus, String zoomName);
     boolean deleteNoteByArea(Integer noteId);
     boolean setNoteReleaseStatus(Integer noteId,String releaseStatus);
-    List<User> queryAllUser();
+
     Map<Integer,String> queryZoomStatus(String zoomName);
     Integer queryTotalPage(String zoomName);
+    //总管理员查询记录数
+    Integer queryTotalPage();
     boolean backNoteReleaseStatus(Integer noteId);
     boolean changeNoteReleaseStatus(Integer noteId);
     List<Note> queryNoteByZoom(String zoomName);
     List<Report> queryReportedNote(String zoomName);
     boolean deleteReportMsg(Integer noteId,String username);
     boolean deleteReportMsg(Integer noteId);
+    List<Note> queryNotePage(Integer begin,Integer end);
+    boolean deleteNote(Integer noteId);
+    List<Note> queryNote();
+    //当区域管理员对笔记执行驳回或删除操作时，记录下他们的操作
+    boolean saveOperation(Appeal appeal);
+    //当驳回的笔记被修改，则只删除操作信息、当驳回的笔记被申诉，则加1
+    //删除同理
+    boolean deleteOperation(Integer noteId);
+    boolean addAppeal(String username);
+    //解除管理员身份之后重置申诉次数
+    boolean resetAppeal(String username);
+    //找到对笔记执行驳回或删除操作的管理员
+    User findManager(Integer noteId);
+    List<User> queryUserByRoot(String root);
+    boolean resetUser(Integer userId);
 }

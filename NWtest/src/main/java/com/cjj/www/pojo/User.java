@@ -9,6 +9,16 @@ public class User {
     private String password;
     //是否拥有权限
     private String root;
+    //被申述的次数
+    private Integer appealCount;
+
+    public Integer getAppealCount() {
+        return appealCount;
+    }
+
+    public void setAppealCount(Integer appealCount) {
+        this.appealCount = appealCount;
+    }
 
     public String getRoot() {
         return root;

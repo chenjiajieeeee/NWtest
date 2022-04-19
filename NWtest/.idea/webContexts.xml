@@ -15,6 +15,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/notedetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/zoom.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/root/batchOperation.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/root/chargeAll.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/root/chargeUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
       </map>
     </option>

@@ -91,6 +91,7 @@ public class UserDaoImpl implements UserDao{
                 user.setPassword(resultSet.getString("password"));
                 user.setId(resultSet.getInt("id"));
                 user.setRoot(resultSet.getString("root"));
+                user.setAppealCount(resultSet.getInt("appeal_count"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,6 +119,7 @@ public class UserDaoImpl implements UserDao{
                 user.setPassword(resultSet.getString("password"));
                 user.setId(resultSet.getInt("id"));
                 user.setRoot(resultSet.getString("root"));
+                user.setAppealCount(resultSet.getInt("appeal_count"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

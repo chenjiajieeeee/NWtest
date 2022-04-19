@@ -132,6 +132,9 @@ public class NoteServiceImpl implements NoteService {
             }
             tagDao.addTag(tag);
         }
+        ManagerService managerService=new ManagerServiceImpl();
+        managerService.deleteOperation(tags.get(0).getNoteId());
+        managerService.changeNoteReleaseStatus(tags.get(0).getNoteId());
         return "提交成功！";
     }
 
@@ -248,14 +251,12 @@ public class NoteServiceImpl implements NoteService {
             热度计算公式：浏览量占百分之七十，点赞占百分之三十
              */
                 notes.sort((o1, o2) ->{
-                    if(o2.getLikeCount()*0.3+o2.getBrowse()*0.7==o1.getLikeCount()*0.3+o1.getBrowse()*0.7){
+                    Integer n2=o2.getLikeCount()*3+o2.getBrowse()*7;
+                    Integer n1=o1.getLikeCount()*3+o1.getBrowse()*7;
+                    if(n1.equals(n2)){
                         return o1.getId()-o2.getId();
                     }else {
-                        if(o2.getLikeCount()*0.3+o2.getBrowse()*0.7-o1.getLikeCount()*0.3+o1.getBrowse()*0.7>0){
-                            return 1;
-                        }else {
-                            return -1;
-                        }
+                        return n2-n1;
                     }
             });
                 return notes;
@@ -265,6 +266,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public HttpServletRequest sort(HttpServletRequest request) {
+
         NoteService noteService=new NoteServiceImpl();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -283,12 +285,14 @@ public class NoteServiceImpl implements NoteService {
             1为首页、2为分区页、3为搜索页
              */
         if(number.equals("1")){
+
             //查询总记录数
             Integer record = noteService.queryNoteTotalPage();
             //转化为总页数
             Integer pageTotal = record % paging.getPageSize()>0 ? record/4+1:record/4;
                 //查询显示在首页的所有笔记,并排好序
             List<Note> notes1 = noteService.sortNote(noteService.queryNote(), action);
+
                 /*
                 分页：
                 由于分页逻辑不一样，所以不能用之前写好的方法。

@@ -126,4 +126,35 @@ public class PagingServiceImpl implements PagingService{
         request.setAttribute("pageNo",paging.getPageNo());
         return request;
     }
+
+    @Override
+    public HttpServletRequest superManagerPaging(HttpServletRequest request) {
+        String pageNo = request.getParameter("pageNo");
+        ManagerService managerService=new ManagerServiceImpl();
+        Integer record=managerService.queryTotalPage();
+        Integer pageTotal = record % paging.getPageSize()>0 ? record/4+1:record/4;
+        if(pageNo==null){
+            paging.setPageNo(1);
+        }
+        else {
+            Integer no = WebUtil.toInteger(pageNo);
+            if(no>pageTotal||no<=0){
+                request.setAttribute("jumpMsg","无效的数字！");
+                paging.setPageNo(1);
+            }
+            else {
+                paging.setPageNo(WebUtil.toInteger(pageNo));
+            }
+        }
+        Integer begin=(paging.getPageNo()-1)*paging.getPageSize();
+        List<Note> notes = managerService.queryNotePage(begin, paging.getPageSize());
+        if(pageTotal==0){
+            pageTotal=1;
+        }
+        request.setAttribute("record",record);
+        request.setAttribute("pageTotal",pageTotal);
+        request.setAttribute("notes",notes);
+        request.setAttribute("pageNo",paging.getPageNo());
+        return request;
+    }
 }

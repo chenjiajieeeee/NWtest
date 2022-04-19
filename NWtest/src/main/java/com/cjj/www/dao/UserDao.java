@@ -28,6 +28,6 @@ public interface UserDao {
      */
     User queryUserByUserName(String username);
     User queryUserByUserId(Integer userId);
-
+    //申诉之后对应管理员被申诉的次数加一
 
 }

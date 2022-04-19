@@ -35,7 +35,7 @@
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
 </ul>
 <ul class="breadcrumb " style="color: cornsilk;">
-    <c:if test="${(requestScope.root)!='N'}">
+    <c:if test="${(requestScope.root)!='N'&&(requestScope.root)!='super'}">
         <li><form  action="http://localhost:8080/nw/manager/chargeNote" method="post">
             <input type="submit" value="管理笔记" name="action" class="btn btn-success">
             <input type="hidden" value="${requestScope.username}" name="username">
@@ -52,10 +52,26 @@
             </form>
         </li>
     </c:if>
-
+    <c:if test="${requestScope.root.equals('super')}">
+        <li><form  action="http://localhost:8080/nw/manager/chargeAllNote" method="post">
+            <input type="submit" value="管理笔记" name="action" class="btn btn-success">
+            <input type="hidden" value="${requestScope.username}" name="username">
+            <input type="hidden" value="${requestScope.password}" name="password">
+            <input type="hidden" value="${requestScope.root}" name="root">
+        </form>
+        </li>
+        <li>
+            <form  action="http://localhost:8080/nw/manager/chargeManagerUser" method="post">
+                <input type="submit" value="管理区域管理员" name="action" class="btn btn-success">
+                <input type="hidden" value="${requestScope.username}" name="username">
+                <input type="hidden" value="${requestScope.password}" name="password">
+                <input type="hidden" value="${requestScope.root}" name="root">
+            </form>
+        </li>
+    </c:if>
 </ul>
 <p class="container" style="color: red">${requestScope.reportResult}</p>
-
+<c:if test="${requestScope.notes.size()>0}">
     <table class="table">
         <caption style="color: red" class="h4">处理被举报笔记</caption>
         <thead>
@@ -98,5 +114,10 @@
        </c:forEach>
         </tbody>
     </table>
-
+</c:if>
 <br>
+<c:if test="${empty(requestScope.notes)}">
+    <p style="color: red" class="h4">暂无笔记被举报！</p>
+</c:if>
+</body>
+</html>

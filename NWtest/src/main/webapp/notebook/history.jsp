@@ -34,8 +34,8 @@
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
 </ul>
 <ul class="breadcrumb " style="color: cornsilk;">
-    <c:if test="${(requestScope.root)!='N'}">
-    <li><form  action="http://localhost:8080/nw/manager/chargeNote" method="post">
+    <c:if test="${(requestScope.root)!='N'&&(requestScope.root)!='super'}">
+    <li><form  action="http://localhost:8080/nw/manager/chargeAllNote" method="post">
         <input type="submit" value="管理笔记" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
         <input type="hidden" value="${requestScope.password}" name="password">
@@ -50,6 +50,23 @@
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
     </li>
+    </c:if>
+    <c:if test="${requestScope.root.equals('super')}">
+        <li><form  action="http://localhost:8080/nw/manager/chargeNote" method="post">
+            <input type="submit" value="管理笔记" name="action" class="btn btn-success">
+            <input type="hidden" value="${requestScope.username}" name="username">
+            <input type="hidden" value="${requestScope.password}" name="password">
+            <input type="hidden" value="${requestScope.root}" name="root">
+        </form>
+        </li>
+        <li>
+            <form  action="http://localhost:8080/nw/manager/chargeManagerUser" method="post">
+                <input type="submit" value="管理区域管理员" name="action" class="btn btn-success">
+                <input type="hidden" value="${requestScope.username}" name="username">
+                <input type="hidden" value="${requestScope.password}" name="password">
+                <input type="hidden" value="${requestScope.root}" name="root">
+            </form>
+        </li>
     </c:if>
 </ul>
 <h4 style="color: red" class="container">${requestScope.historyMsg}</h4>

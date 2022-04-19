@@ -1,10 +1,7 @@
 package com.cjj.www.service;
 
 import com.cjj.www.dao.*;
-import com.cjj.www.pojo.Note;
-import com.cjj.www.pojo.Report;
-import com.cjj.www.pojo.User;
-import com.cjj.www.pojo.UserStatus;
+import com.cjj.www.pojo.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,11 +41,7 @@ public class ManagerServiceImpl implements ManagerService{
         return managerDao.setNoteReleaseStatus(noteId,releaseStatus);
     }
 
-    @Override
-    public List<User> queryAllUser() {
-        ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.queryAllUser();
-    }
+
 
     @Override
     public Map<Integer,String> queryZoomStatus(String zoomName) {
@@ -81,6 +74,12 @@ public class ManagerServiceImpl implements ManagerService{
     public Integer queryTotalPage(String zoomName) {
         ManagerDao managerDao=new ManagerDaoImpl();
         return managerDao.queryNoteTotalPage(zoomName);
+    }
+
+    @Override
+    public Integer queryTotalPage() {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.queryNoteTotalPage();
     }
 
     @Override
@@ -117,6 +116,68 @@ public class ManagerServiceImpl implements ManagerService{
     public boolean deleteReportMsg(Integer noteId) {
         ManagerDao managerDao=new ManagerDaoImpl();
         return managerDao.deleteReportMsg(noteId);
+    }
+
+    @Override
+    public List<Note> queryNotePage(Integer begin, Integer end) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.queryNotePage(begin,end);
+    }
+
+    @Override
+    public boolean deleteNote(Integer noteId) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.deleteNoteByManager(noteId);
+    }
+
+    @Override
+    public List<Note> queryNote() {
+        NoteDao noteDao=new NoteDaoImpl();
+        return noteDao.queryNote();
+    }
+
+    @Override
+    public boolean saveOperation(Appeal appeal) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.saveOperation(appeal);
+    }
+
+    @Override
+    public boolean deleteOperation(Integer noteId) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.deleteOperation(noteId);
+    }
+
+    @Override
+    public boolean addAppeal(String username) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.addAppeal(username);
+    }
+
+    @Override
+    public boolean resetAppeal(String username) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.resetAppeal(username);
+    }
+
+    @Override
+    public User findManager(Integer noteId) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        Integer managerId = managerDao.findManager(noteId);
+        UserService userService=new UserServiceImpl();
+        return userService.queryUserByUserId(managerId);
+    }
+
+    @Override
+    public List<User> queryUserByRoot(String root) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.queryUserByRoot(root);
+    }
+
+    @Override
+    public boolean resetUser(Integer userId) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.resetUser(userId);
     }
 
 
