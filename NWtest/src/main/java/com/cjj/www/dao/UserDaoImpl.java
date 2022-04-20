@@ -1,13 +1,30 @@
 package com.cjj.www.dao;
 
+<<<<<<< HEAD
+=======
+import com.cjj.www.pojo.Note;
+>>>>>>> 8d84cdf (eigth)
 import com.cjj.www.pojo.User;
 import com.cjj.www.util.JdbcUtil;
 
 import java.sql.*;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> 8d84cdf (eigth)
 
 public class UserDaoImpl implements UserDao{
     @Override
     public boolean saveUser(User user) {
+<<<<<<< HEAD
+=======
+        /*
+        查看目前已经注册了多少个用户
+         */
+        UserDao userDao=new UserDaoImpl();
+        int count = userDao.countUser()+1;
+>>>>>>> 8d84cdf (eigth)
         boolean result=false;
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -17,7 +34,11 @@ public class UserDaoImpl implements UserDao{
         插入数据
          */
         connection = JdbcUtil.getConnection();
+<<<<<<< HEAD
         String sql = "insert into user(username, password) values(?,?)";
+=======
+        String sql = "insert into user(username, password,usernumber) values(?,?,?)";
+>>>>>>> 8d84cdf (eigth)
         String sql1 = "insert into userstatus("+"动漫区"+ " ) "+"values('1')";
         /*
         同时将id添加到状态表
@@ -26,6 +47,10 @@ public class UserDaoImpl implements UserDao{
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
+<<<<<<< HEAD
+=======
+            preparedStatement.setInt(3,count);
+>>>>>>> 8d84cdf (eigth)
             Statement statement=connection.createStatement();
             statement.executeUpdate(sql1);
             int row = preparedStatement.executeUpdate();
@@ -92,6 +117,10 @@ public class UserDaoImpl implements UserDao{
                 user.setId(resultSet.getInt("id"));
                 user.setRoot(resultSet.getString("root"));
                 user.setAppealCount(resultSet.getInt("appeal_count"));
+<<<<<<< HEAD
+=======
+                user.setUserNumber(resultSet.getInt("usernumber"));
+>>>>>>> 8d84cdf (eigth)
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,6 +149,10 @@ public class UserDaoImpl implements UserDao{
                 user.setId(resultSet.getInt("id"));
                 user.setRoot(resultSet.getString("root"));
                 user.setAppealCount(resultSet.getInt("appeal_count"));
+<<<<<<< HEAD
+=======
+                user.setUserNumber(resultSet.getInt("usernumber"));
+>>>>>>> 8d84cdf (eigth)
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,4 +163,30 @@ public class UserDaoImpl implements UserDao{
 
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public Integer countUser() {
+        Connection connection=null;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        connection=JdbcUtil.getConnection();
+        List<Note> notes=new ArrayList<>();
+        Integer count=0;
+        String sql="select count(*) from `user`";
+        try {
+            statement=connection.createStatement();
+            resultSet=statement.executeQuery(sql);
+            if(resultSet.next()){
+                count=resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(resultSet,statement,connection);
+        }
+        return count;
+    }
+
+>>>>>>> 8d84cdf (eigth)
 }

@@ -7,4 +7,8 @@ public interface UserService {
     boolean userRegister(String username,String password);
     User queryUserByUserName(String username);
     User queryUserByUserId(Integer userId);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d84cdf (eigth)
 }

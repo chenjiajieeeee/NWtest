@@ -14,7 +14,13 @@
 <body>
     <div id="head">
         <div class="logo_title">
+<<<<<<< HEAD
             <h1>小红薯的个人空间&nbsp;&nbsp;&nbsp;欢迎！ </h1><p class="h4" style="color: #4cae4c; ">${requestScope.username}</p>
+=======
+            <h1>小红薯的个人空间&nbsp;&nbsp;&nbsp;欢迎！ </h1>
+            <p class="h4" style="color: #4cae4c; ">${requestScope.username}</p>
+            <p class="h4" style="color: #4cae4c; ">小红书号：${requestScope.userNumber}</p>
+>>>>>>> 8d84cdf (eigth)
                <h2>标记我的生活</h2>
             <p style="color: red">${requestScope.sendMsg}</p>
             <p style="color: red">${requestScope.deleteMsg}</p>

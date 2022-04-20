@@ -1,5 +1,6 @@
 package com.cjj.www.controller;
 
+<<<<<<< HEAD
 import com.cjj.www.dao.UserDao;
 import com.cjj.www.dao.UserDaoImpl;
 import com.cjj.www.pojo.Note;
@@ -17,14 +18,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+=======
+import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.User;
+import com.cjj.www.service.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+>>>>>>> 8d84cdf (eigth)
 import java.util.List;
 
 @WebServlet("/page/*")
 public class PageServlet extends BaseServlet {
+<<<<<<< HEAD
         UserDao userDao=new UserDaoImpl();
         CollectService collectService=new CollectServiceImpl();
         CommentService commentService=new CommentServiceImpl();
         LikeActService likeActService=new LikeActServiceImpl();
+=======
+
+        CollectService collectService=new CollectServiceImpl();
+        CommentService commentService=new CommentServiceImpl();
+        LikeActService likeActService=new LikeActServiceImpl();
+        UserService userService=new UserServiceImpl();
+>>>>>>> 8d84cdf (eigth)
         private final NoteService noteService=new NoteServiceImpl();
         private final PagingService pagingService=new PagingServiceImpl();
         public void findPage(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +53,10 @@ public class PageServlet extends BaseServlet {
             String password = request.getParameter("password");
             if(action.equals("游戏区")||action.equals("美食区")||action.equals("学习区")||action.equals("动漫区")||action.equals("科技区")){
                 HttpServletRequest req = pagingService.paging(request,action);
+<<<<<<< HEAD
                 UserService userService=new UserServiceImpl();
+=======
+>>>>>>> 8d84cdf (eigth)
                 User user = userService.queryUserByUserName(username);
                 req.setAttribute("root",user.getRoot());
                 req.setAttribute("zoomName",action);
@@ -41,6 +64,11 @@ public class PageServlet extends BaseServlet {
                 req.setAttribute("password",password);
                 req.getRequestDispatcher("/notebook/zoom.jsp").forward(request,response);
             }else if(action.equals("个人主页")){
+<<<<<<< HEAD
+=======
+                //查找对应的小红书号：
+                request.setAttribute("userNumber",userService.queryUserByUserName(username).getUserNumber());
+>>>>>>> 8d84cdf (eigth)
                 request.setAttribute("username",username);
                 request.setAttribute("password",password);
                 List<Note> notes = noteService.queryNoteByUsername(username);
@@ -59,7 +87,11 @@ public class PageServlet extends BaseServlet {
                 //被管理员删掉的笔记
                 List<Note> notes7 = noteService.checkDeleteNote(notes);
                 request.setAttribute("notes7",notes7);
+<<<<<<< HEAD
                 User user = userDao.queryUserByUserName(username);
+=======
+                User user = userService.queryUserByUserName(username);
+>>>>>>> 8d84cdf (eigth)
                 List<Note> notes1 = likeActService.queryLikeNoteByUserId(user.getId());
                 List<Note> notes2 = collectService.queryCollectNoteByUserId(user.getId());
                 List<Note> notes3 = commentService.queryCommentNoteByUserId(user.getId());

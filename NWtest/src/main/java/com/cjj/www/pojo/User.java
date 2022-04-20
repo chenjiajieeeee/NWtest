@@ -11,6 +11,19 @@ public class User {
     private String root;
     //被申述的次数
     private Integer appealCount;
+<<<<<<< HEAD
+=======
+    //小红书号
+    private Integer userNumber;
+
+    public Integer getUserNumber() {
+        return userNumber;
+    }
+
+    public void setUserNumber(Integer userNumber) {
+        this.userNumber = userNumber;
+    }
+>>>>>>> 8d84cdf (eigth)
 
     public Integer getAppealCount() {
         return appealCount;

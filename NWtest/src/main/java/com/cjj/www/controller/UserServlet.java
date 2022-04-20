@@ -23,7 +23,11 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Locale;
+=======
+
+>>>>>>> 8d84cdf (eigth)
 
 
 @WebServlet("/user/*")
