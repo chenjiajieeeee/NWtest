@@ -452,5 +452,76 @@ public class ManagerDaoImpl implements ManagerDao{
             return result;
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public boolean changeZoom(Integer userId, String zoom) {
+        boolean result=false;
+        Connection connection=null;
+        Statement statement=null;
+        String sql= "update user set root = '"+zoom+"'"+ "where id = "+userId;
+        connection=JdbcUtil.getConnection();
+        try {
+            statement = connection.createStatement();
+            int row = statement.executeUpdate(sql);
+            if(row>0){
+                result=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(null,statement,connection);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean publishNotice(String main,String title) {
+        boolean result=false;
+        Connection connection=null;
+        PreparedStatement preparedStatement=null;
+        String sql="insert into notice(main,title) values(?,?)";
+        connection=JdbcUtil.getConnection();
+        try {
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,main);
+            preparedStatement.setString(2,title);
+            if(preparedStatement.executeUpdate()>0){
+                result=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(preparedStatement,connection);
+        }return result;
+    }
+
+    @Override
+    public List<Notice> queryNotice() {
+        Notice notice=new Notice();
+        List<Notice> notices=new ArrayList<>();
+        Connection connection=null;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        String sql="select * from notice ";
+        connection=JdbcUtil.getConnection();
+        try {
+            statement=connection.createStatement();
+            resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                notice.setId(resultSet.getInt("id"));
+                notice.setMain(resultSet.getString("main"));
+                notice.setTitle(resultSet.getString("title"));
+                notices.add(notice);
+                notice=new Notice();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(resultSet,statement,connection);
+        }return notices;
+    }
+
+>>>>>>> 983e94e (ninth)
 
 }

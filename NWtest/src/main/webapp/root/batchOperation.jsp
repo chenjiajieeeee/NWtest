@@ -67,6 +67,16 @@
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
         </li>
+<<<<<<< HEAD
+=======
+        <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/manager/notice" method="post">
+            <input type="submit" value="发布公告" name="action" class="btn btn-warning">
+            <input type="hidden" value="${requestScope.username}" name="username">
+            <input type="hidden" value="${requestScope.password}" name="password">
+            <input type="hidden" value="${requestScope.root}" name="root">
+        </form>
+        </li>
+>>>>>>> 983e94e (ninth)
     </c:if>
 </ul>
 <p class="container" style="color: red">${requestScope.batchAgree}</p>

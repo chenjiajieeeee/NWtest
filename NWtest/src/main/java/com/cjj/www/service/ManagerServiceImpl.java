@@ -180,5 +180,39 @@ public class ManagerServiceImpl implements ManagerService{
         return managerDao.resetUser(userId);
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public boolean changeUserZoom(Integer userId, String zoom) {
+        UserService userService=new UserServiceImpl();
+        User user = userService.queryUserByUserId(userId);
+        if(user.getRoot().equals(zoom)){
+            return false;
+        }else {
+            ManagerDao managerDao=new ManagerDaoImpl();
+            return managerDao.changeZoom(userId,zoom);
+        }
+
+    }
+
+    @Override
+    public String publishNotice(String main,String title) {
+        ManagerDao managerDao=new ManagerDaoImpl();
+        if(main.equals("")||title.equals("")){
+            return "标题或内容不能为空！";
+        }
+        else {
+            if(managerDao.publishNotice(main,title)){
+                return "发布公告成功！";
+            }
+            else return "服务器出问题了！";
+        }
+    }
+    @Override
+    public List<Notice> queryNotices(){
+        ManagerDao managerDao=new ManagerDaoImpl();
+        return managerDao.queryNotice();
+    }
+>>>>>>> 983e94e (ninth)
 
 }

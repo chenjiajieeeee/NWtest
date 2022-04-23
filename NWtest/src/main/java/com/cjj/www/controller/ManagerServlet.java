@@ -9,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 983e94e (ninth)
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -319,4 +322,39 @@ public class ManagerServlet extends BaseServlet{
         request.setAttribute("resetMsg","解除身份成功！");
         chargeManagerUser(request,response);
     }
+<<<<<<< HEAD
+=======
+    public void changeUser(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        Integer userId=WebUtil.toInteger(request.getParameter("userId"));
+        UserService userService=new UserServiceImpl();
+        User user = userService.queryUserByUserId(userId);
+        String zoom = request.getParameter("zoom");
+        boolean check = managerService.changeUserZoom(userId, zoom);
+        if(check){
+            request.setAttribute("changeMsg","修改"+user.getUsername()+"身份成功！");
+        }else {
+            request.setAttribute("changeMsg","他已经是"+zoom+"的区域管理员了！");
+        }
+        chargeManagerUser(request,response);
+    }
+    public void notice(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String root = request.getParameter("root");
+        //跳转页面
+        request.setAttribute("username",username);
+        request.setAttribute("password",password);
+        request.setAttribute("root",root);
+        request.getRequestDispatcher("/root/notice.jsp").forward(request,response);
+    }
+    public void publishNotice(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+        String title = request.getParameter("title");
+        String main = request.getParameter("main");
+        String root = request.getParameter("root");
+        //存入数据库
+        String result = managerService.publishNotice(main, title);
+        request.setAttribute("resultMsg",result);
+        notice(request,response);
+    }
+>>>>>>> 983e94e (ninth)
 }

@@ -8,7 +8,11 @@ public interface UserService {
     User queryUserByUserName(String username);
     User queryUserByUserId(Integer userId);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 8d84cdf (eigth)
+=======
+
+>>>>>>> 983e94e (ninth)
 }

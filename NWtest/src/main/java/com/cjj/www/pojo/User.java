@@ -12,7 +12,10 @@ public class User {
     //被申述的次数
     private Integer appealCount;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 983e94e (ninth)
     //小红书号
     private Integer userNumber;
 
@@ -23,7 +26,10 @@ public class User {
     public void setUserNumber(Integer userNumber) {
         this.userNumber = userNumber;
     }
+<<<<<<< HEAD
 >>>>>>> 8d84cdf (eigth)
+=======
+>>>>>>> 983e94e (ninth)
 
     public Integer getAppealCount() {
         return appealCount;

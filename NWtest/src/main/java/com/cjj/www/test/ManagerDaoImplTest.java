@@ -9,6 +9,7 @@ import java.util.List;
 public class ManagerDaoImplTest {
     public static void main(String[] args) {
         ManagerDao managerDao=new ManagerDaoImpl();
+<<<<<<< HEAD
         List<UserStatus> userStatuses = managerDao.queryZoomStatus();
         for (UserStatus status:userStatuses){
             System.out.println(status.getUserId());
@@ -19,5 +20,8 @@ public class ManagerDaoImplTest {
             System.out.println(status.getItStatus());
         }
 
+=======
+        managerDao.changeZoom(10,"游戏区");
+>>>>>>> 983e94e (ninth)
     }
 }

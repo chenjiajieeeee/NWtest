@@ -17,6 +17,10 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/root/batchOperation.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/root/chargeAll.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/root/chargeUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
+<<<<<<< HEAD
+=======
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/root/notice.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
+>>>>>>> 983e94e (ninth)
       </map>
     </option>
   </component>
