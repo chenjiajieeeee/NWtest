@@ -4,28 +4,49 @@
 <html>
 <head>
     <meta charset="utf-8">
-<<<<<<< HEAD
-    <meta name="description" content="This is a testing demo page">
-    <meta name="keywords" content="testing,html,demo">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-=======
->>>>>>> 983e94e (ninth)
     <title>NW一轮考核</title>
     <link rel="stylesheet" type="text/css" href="http://localhost:8080/nw/User/css/home.css">
     <link rel="stylesheet" href="http://localhost:8080/nw/notebook/dist/css/bootstrap.min.css" type="text/css">
+
+
+    <script>
+
+        let i = 1;
+        var title;
+        var main;
+        const websocket=new WebSocket("ws://localhost:8080/nw/notice");
+        websocket.onopen = function() {
+
+            console.log("连接成功！")
+            websocket.send('${requestScope.username}')
+        };
+        websocket.onerror=function (){
+            console.log("出错了")
+        };
+        websocket.onclose=function () {
+            console.log("关闭了")
+        };
+        window.onbeforeunload=function () {
+            websocket.close();
+        };
+        websocket.onmessage=function (event){
+            console.log("有新的信息");
+            if(i==1){
+                title = event.data;
+            }
+            if (i==2){
+                main = event.data;
+            }
+            i++;
+            if(i==3){
+                alert(title+'\n\n'+main);
+                i=1;
+            }
+        };
+
+
+    </script>
 </head>
-<<<<<<< HEAD
-<body>
-    <div id="head">
-        <div class="logo_title">
-<<<<<<< HEAD
-            <h1>小红薯的个人空间&nbsp;&nbsp;&nbsp;欢迎！ </h1><p class="h4" style="color: #4cae4c; ">${requestScope.username}</p>
-=======
-            <h1>小红薯的个人空间&nbsp;&nbsp;&nbsp;欢迎！ </h1>
-            <p class="h4" style="color: #4cae4c; ">${requestScope.username}</p>
-            <p class="h4" style="color: #4cae4c; ">小红书号：${requestScope.userNumber}</p>
->>>>>>> 8d84cdf (eigth)
-=======
 
 
 <body>
@@ -35,7 +56,6 @@
             <h1>小红薯的个人空间&nbsp;&nbsp;&nbsp;欢迎！ </h1>
             <p class="h4" style="color: #4cae4c; ">${requestScope.username}</p>
             <p class="h4" style="color: #4cae4c; ">小红书号：${requestScope.userNumber}</p>
->>>>>>> 983e94e (ninth)
                <h2>标记我的生活</h2>
             <p style="color: red">${requestScope.sendMsg}</p>
             <p style="color: red">${requestScope.deleteMsg}</p>
@@ -65,7 +85,15 @@
                    <input type="hidden" value="${requestScope.root}" name="root">
                </form>
                </li>
+               <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/chat" method="post">
+                   <input type="submit" value="好友列表" name="action" class="btn btn-success">
+                   <input type="hidden" value="${requestScope.username}" name="username">
+                   <input type="hidden" value="${requestScope.password}" name="password">
+                   <input type="hidden" value="${requestScope.root}" name="root">
+               </form>
+               </li>
                <li><a href = "http://localhost:8080/nw/User/page/login.jsp" class="btn btn-success">退出登录</a></li>
+
            </ul>
         </div>
         <div class="clear"></div>
@@ -354,27 +382,8 @@
             </c:forEach>
         </div>
     </div>
-<<<<<<< HEAD
-=======
-   <script>
-       const websocket=new WebSocket("ws://localhost:8080/nw/notice");
-       websocket.onopen = function() {
-           console.log("连接成功！")
-       };
-       websocket.onerror=function (){
-         console.log("出错了")
-       };
-       websocket.onclose=function () {
-           console.log("关闭了")
-       }
-       window.onbeforeunload=function () {
-            websocket.close();
-       }
-       websocket.onmessage=function (event){
-           alert(event.data);
-       }
-   </script>
->>>>>>> 983e94e (ninth)
+
+
 
 </body>
 </html>

@@ -6,9 +6,12 @@
     <meta charset="utf-8">
     <title>NW一轮考核</title>
     <link rel="stylesheet" href="http://localhost:8080/nw/notebook/dist/css/bootstrap.min.css" type="text/css">
-</head>
-<body >
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<body>
 <ul class="breadcrumb " style="color: cornsilk;">
     <li class="active "><h2 style="color: crimson;">小红书</h2></li>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -28,27 +31,16 @@
     &nbsp;&nbsp;
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
 </ul>
-<p style="color: red" class="container">${requestScope.resultMsg}</p>
-<br>
-
-        <form id="notice" action="http://localhost:8080/nw/manager/publishNotice" method="post">
-            <div class="form-group container">
-                <label for=context>公告标题</label>
-                <textarea class="form-control" rows="2" id="title" name="title"></textarea>
-            </div>
+    <div class="container col">
+        <div class="col-sm-2 col-md-4">
+            <p class="h4">好友列表</p>
             <br>
-            <br>
-            <div class="form-group container">
-                <label for=context>公告内容</label>
-                <textarea class="form-control" rows="10" id="context" name="main"></textarea>
-            </div>
-            <div class="form-group container">
-            <input type="submit" name="action" value="确认发布" class="btn btn-danger">
-            </div>
-            <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
-            <input type="hidden" value="${requestScope.root}" name="root">
-        </form>
-
+         <c:forEach items="${requestScope.users}" var="user">
+             <p>${user.username}</p>
+             <br>
+         </c:forEach>
+        </div>
+    </div>
+    
 </body>
 </html>

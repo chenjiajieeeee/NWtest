@@ -180,8 +180,6 @@ public class ManagerServiceImpl implements ManagerService{
         return managerDao.resetUser(userId);
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public boolean changeUserZoom(Integer userId, String zoom) {
         UserService userService=new UserServiceImpl();
@@ -209,10 +207,9 @@ public class ManagerServiceImpl implements ManagerService{
         }
     }
     @Override
-    public List<Notice> queryNotices(){
+    public Notice queryNotices(){
         ManagerDao managerDao=new ManagerDaoImpl();
         return managerDao.queryNotice();
     }
->>>>>>> 983e94e (ninth)
 
 }

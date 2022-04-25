@@ -67,8 +67,6 @@
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
         </li>
-<<<<<<< HEAD
-=======
         <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/manager/notice" method="post">
             <input type="submit" value="发布公告" name="action" class="btn btn-warning">
             <input type="hidden" value="${requestScope.username}" name="username">
@@ -76,7 +74,6 @@
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
         </li>
->>>>>>> 983e94e (ninth)
     </c:if>
 </ul>
 <h4 style="color: red" class="container">${requestScope.historyMsg}</h4>

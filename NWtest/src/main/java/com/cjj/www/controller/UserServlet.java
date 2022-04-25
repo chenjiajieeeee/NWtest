@@ -23,15 +23,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import java.util.Locale;
-=======
 
->>>>>>> 8d84cdf (eigth)
-=======
-
->>>>>>> 983e94e (ninth)
 
 
 @WebServlet("/user/*")
@@ -367,5 +359,31 @@ public class UserServlet extends BaseServlet{
                 e.printStackTrace();
             }
         }
+    }
+    public void addFriend(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        Integer friendId = WebUtil.toInteger(request.getParameter("friendId"));
+        User user = userService.queryUserByUserName(username);
+        String result = userService.addFriend(user.getId(), friendId);
+        request.setAttribute("addMsg",result);
+        NoteServlet noteServlet=new NoteServlet();
+        noteServlet.detail(request,response);
+    }
+    public void chat(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String root = request.getParameter("root");
+        User user = userService.queryUserByUserName(username);
+        List<User> users = userService.viewFriend(user.getId());
+        for (User user1:users){
+            System.out.println(user1.getUsername());
+        }
+        request.setAttribute("users",users);
+        request.setAttribute("username",username);
+        request.setAttribute("password",password);
+        request.setAttribute("root",root);
+        //调用方法找好友
+        //跳转到聊天页面
+        request.getRequestDispatcher("/User/page/chat.jsp").forward(request,response);
     }
 }

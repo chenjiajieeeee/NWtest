@@ -33,4 +33,10 @@ public class UserRoleServiceImpl implements UserRoleService{
         }
     }
 
+    @Override
+    public boolean addFriend(Integer userId, Integer friendId) {
+        UserDao userDao=new UserDaoImpl();
+        return userDao.addFriend(userId,friendId);
+    }
+
 }

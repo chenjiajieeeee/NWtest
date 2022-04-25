@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="http://localhost:8080/nw/notebook/dist/css/bootstrap.min.css" type="text/css">
 </head>
 <body >
-
+    <p class="container h4" style="color: red">${requestScope.addMsg}</p>
 <ul class="breadcrumb " style="color: cornsilk;">
     <li class="active "><h2 style="color: crimson;">小红书</h2></li>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -117,6 +117,15 @@
                         <input type="hidden" name="root" value="${requestScope.root}">
                         <input type="hidden" name="noteId" value="${requestScope.note.id}">
                     </form>
+                <hr>
+                <form method="post" action="http://localhost:8080/nw/user/addFriend">
+                    <input type="submit" value="关注" class="btn btn-success">
+                    <input type="hidden" value="${requestScope.note.userId}" name="friendId">
+                    <input type="hidden" value="${requestScope.username}" name="username">
+                    <input type="hidden" value="${requestScope.password}" name="password">
+                    <input type="hidden" value="${requestScope.root}" name="root">
+                    <input type="hidden" name="noteId" value="${requestScope.note.id}">
+                </form>
                 </p>
                 <c:forEach items="${requestScope.tags}" var="tag">
                     <p style="color: #5cb85c"># ${tag.tagMain}</p>
@@ -129,7 +138,17 @@
     <div class="col-sm-6 col-md-4 col-md-offset-6" >
         <h4 style="color: #2aabd2">来看看大家的看法：</h4>
         <c:forEach items="${requestScope.comments}" var="comment">
+            <span>
              <h4>来自Uid：${comment.userId}</h4>
+                     <form method="post" action="http://localhost:8080/nw/user/addFriend">
+                         <input type="submit" value="关注" class="btn btn-success">
+                    <input type="hidden" value="${comment.userId}" name="friendId">
+                    <input type="hidden" value="${requestScope.username}" name="username">
+                    <input type="hidden" value="${requestScope.password}" name="password">
+                    <input type="hidden" value="${requestScope.root}" name="root">
+                         <input type="hidden" name="noteId" value="${requestScope.note.id}">
+                     </form>
+            </span>
              <p  style="color: #985f0d">${comment.main}</p>
             <hr style="color: black">
         </c:forEach>

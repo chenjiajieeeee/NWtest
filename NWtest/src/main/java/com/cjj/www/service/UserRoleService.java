@@ -16,6 +16,6 @@ public interface UserRoleService {
      * 用户可以修改自己已经发表的笔记
      * 修改的话不能为空，如果发现修改后的笔记为空则提醒用户是否选择删除
      */
-
+     boolean addFriend(Integer userId,Integer friendId);
 
 }

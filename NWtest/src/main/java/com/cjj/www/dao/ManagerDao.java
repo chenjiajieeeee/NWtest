@@ -49,13 +49,11 @@ public interface ManagerDao {
     //找到执行驳回或删除操作的管理员
     Integer findManager(Integer noteId);
     boolean resetUser(Integer userId);
-<<<<<<< HEAD
-=======
     //转变区域管理员的身份
     boolean changeZoom(Integer userId,String zoom);
     //发布公告
+    //修改逻辑：发布公告改为修改公告内容
     boolean publishNotice(String main,String title);
     //显示公告
-    List<Notice> queryNotice();
->>>>>>> 983e94e (ninth)
+    Notice queryNotice();
 }

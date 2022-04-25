@@ -452,8 +452,6 @@ public class ManagerDaoImpl implements ManagerDao{
             return result;
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public boolean changeZoom(Integer userId, String zoom) {
         boolean result=false;
@@ -479,27 +477,26 @@ public class ManagerDaoImpl implements ManagerDao{
     public boolean publishNotice(String main,String title) {
         boolean result=false;
         Connection connection=null;
-        PreparedStatement preparedStatement=null;
-        String sql="insert into notice(main,title) values(?,?)";
+        Statement statement=null;
+        String sql="update notice set main = '"+main+"' where id = 2";
+        String sql1="update notice set title = '"+title+"' where id = 2";
         connection=JdbcUtil.getConnection();
         try {
-            preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,main);
-            preparedStatement.setString(2,title);
-            if(preparedStatement.executeUpdate()>0){
+            statement=connection.createStatement();
+            if(statement.executeUpdate(sql)>0&&statement.executeUpdate(sql1)>0){
                 result=true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            JdbcUtil.close(preparedStatement,connection);
+            JdbcUtil.close(null,statement,connection);
         }return result;
     }
 
     @Override
-    public List<Notice> queryNotice() {
+    public Notice queryNotice() {
         Notice notice=new Notice();
-        List<Notice> notices=new ArrayList<>();
+
         Connection connection=null;
         Statement statement=null;
         ResultSet resultSet=null;
@@ -512,16 +509,13 @@ public class ManagerDaoImpl implements ManagerDao{
                 notice.setId(resultSet.getInt("id"));
                 notice.setMain(resultSet.getString("main"));
                 notice.setTitle(resultSet.getString("title"));
-                notices.add(notice);
-                notice=new Notice();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             JdbcUtil.close(resultSet,statement,connection);
-        }return notices;
+        }return notice;
     }
 
->>>>>>> 983e94e (ninth)
 
 }

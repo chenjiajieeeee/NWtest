@@ -18,15 +18,12 @@
 
     <dependencies>
         <dependency>
-<<<<<<< HEAD
-=======
             <groupId>javax.websocket</groupId>
             <artifactId>javax.websocket-api</artifactId>
             <version>1.1</version>
         </dependency>
 
         <dependency>
->>>>>>> 983e94e (ninth)
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>

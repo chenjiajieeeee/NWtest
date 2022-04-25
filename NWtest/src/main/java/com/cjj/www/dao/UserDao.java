@@ -2,6 +2,8 @@ package com.cjj.www.dao;
 
 import com.cjj.www.pojo.User;
 
+import java.util.List;
+
 public interface UserDao {
     /**
      * 保存用户信息
@@ -28,14 +30,10 @@ public interface UserDao {
      */
     User queryUserByUserName(String username);
     User queryUserByUserId(Integer userId);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     Integer countUser();
->>>>>>> 8d84cdf (eigth)
-=======
-    Integer countUser();
->>>>>>> 983e94e (ninth)
     //申诉之后对应管理员被申诉的次数加一
-
+    //添加好友的操作：
+    boolean addFriend(Integer userId,Integer friendId);
+    //显示好友列表：
+    List<Integer> queryFriend(Integer userId);
 }

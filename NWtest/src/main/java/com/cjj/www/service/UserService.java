@@ -2,17 +2,13 @@ package com.cjj.www.service;
 
 import com.cjj.www.pojo.User;
 
+import java.util.List;
+
 public interface UserService {
     boolean userLogin(String username,String password);
     boolean userRegister(String username,String password);
     User queryUserByUserName(String username);
     User queryUserByUserId(Integer userId);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d84cdf (eigth)
-=======
-
->>>>>>> 983e94e (ninth)
+    String addFriend(Integer userId,Integer friendId);
+    List<User> viewFriend(Integer userId);
 }

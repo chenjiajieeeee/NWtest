@@ -28,22 +28,22 @@
     &nbsp;&nbsp;
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
 </ul>
-<p style="color: red" class="container">${requestScope.reportMsg}</p>
+<p style="color: red" class="container">${requestScope.resultMsg}</p>
 <br>
-        <p class="container h4" style="color: red">${requestScope.resultMsg}</p>
-        <form role="form" method="post" action="http://localhost:8080/nw/manager/publishNotice">
+
+        <form id="notice" action="http://localhost:8080/nw/manager/publishNotice" method="post">
             <div class="form-group container">
-                <label for="topic">公告标题</label>
-                <textarea class="form-control" rows="2" id="topic" name="title"></textarea>
+                <label for=context>公告标题</label>
+                <textarea class="form-control" rows="2" id="title" name="title"></textarea>
             </div>
             <br>
             <br>
             <div class="form-group container">
                 <label for=context>公告内容</label>
-                <textarea class="form-control" rows="5" id="context" name="main"></textarea>
+                <textarea class="form-control" rows="10" id="context" name="main"></textarea>
             </div>
             <div class="form-group container">
-            <input type="submit" name="action" value="确认发布" class="btn btn-danger" onclick="websocket()">
+            <input type="submit" name="action" value="确认发布" class="btn btn-danger">
             </div>
             <input type="hidden" value="${requestScope.username}" name="username">
             <input type="hidden" value="${requestScope.password}" name="password">

@@ -1,45 +1,21 @@
 package com.cjj.www.dao;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import com.cjj.www.pojo.Note;
->>>>>>> 8d84cdf (eigth)
-=======
-import com.cjj.www.pojo.Note;
->>>>>>> 983e94e (ninth)
 import com.cjj.www.pojo.User;
 import com.cjj.www.util.JdbcUtil;
 
 import java.sql.*;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> 8d84cdf (eigth)
-=======
-import java.util.ArrayList;
-import java.util.List;
->>>>>>> 983e94e (ninth)
 
 public class UserDaoImpl implements UserDao{
     @Override
     public boolean saveUser(User user) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 983e94e (ninth)
         /*
         查看目前已经注册了多少个用户
          */
         UserDao userDao=new UserDaoImpl();
         int count = userDao.countUser()+1;
-<<<<<<< HEAD
->>>>>>> 8d84cdf (eigth)
-=======
->>>>>>> 983e94e (ninth)
         boolean result=false;
         Connection connection;
         PreparedStatement preparedStatement = null;
@@ -49,15 +25,7 @@ public class UserDaoImpl implements UserDao{
         插入数据
          */
         connection = JdbcUtil.getConnection();
-<<<<<<< HEAD
-<<<<<<< HEAD
-        String sql = "insert into user(username, password) values(?,?)";
-=======
         String sql = "insert into user(username, password,usernumber) values(?,?,?)";
->>>>>>> 8d84cdf (eigth)
-=======
-        String sql = "insert into user(username, password,usernumber) values(?,?,?)";
->>>>>>> 983e94e (ninth)
         String sql1 = "insert into userstatus("+"动漫区"+ " ) "+"values('1')";
         /*
         同时将id添加到状态表
@@ -66,14 +34,7 @@ public class UserDaoImpl implements UserDao{
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
             preparedStatement.setInt(3,count);
->>>>>>> 8d84cdf (eigth)
-=======
-            preparedStatement.setInt(3,count);
->>>>>>> 983e94e (ninth)
             Statement statement=connection.createStatement();
             statement.executeUpdate(sql1);
             int row = preparedStatement.executeUpdate();
@@ -140,14 +101,7 @@ public class UserDaoImpl implements UserDao{
                 user.setId(resultSet.getInt("id"));
                 user.setRoot(resultSet.getString("root"));
                 user.setAppealCount(resultSet.getInt("appeal_count"));
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
                 user.setUserNumber(resultSet.getInt("usernumber"));
->>>>>>> 8d84cdf (eigth)
-=======
-                user.setUserNumber(resultSet.getInt("usernumber"));
->>>>>>> 983e94e (ninth)
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,14 +130,7 @@ public class UserDaoImpl implements UserDao{
                 user.setId(resultSet.getInt("id"));
                 user.setRoot(resultSet.getString("root"));
                 user.setAppealCount(resultSet.getInt("appeal_count"));
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
                 user.setUserNumber(resultSet.getInt("usernumber"));
->>>>>>> 8d84cdf (eigth)
-=======
-                user.setUserNumber(resultSet.getInt("usernumber"));
->>>>>>> 983e94e (ninth)
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -194,11 +141,6 @@ public class UserDaoImpl implements UserDao{
 
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 983e94e (ninth)
     @Override
     public Integer countUser() {
         Connection connection=null;
@@ -222,8 +164,48 @@ public class UserDaoImpl implements UserDao{
         return count;
     }
 
-<<<<<<< HEAD
->>>>>>> 8d84cdf (eigth)
-=======
->>>>>>> 983e94e (ninth)
+    @Override
+    public boolean addFriend(Integer userId, Integer friendId) {
+        boolean result=false;
+        Connection connection=null;
+        PreparedStatement preparedStatement=null;
+        String sql="insert into friend(user_id,friend_id) values(?,?)";
+        connection=JdbcUtil.getConnection();
+        try {
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setInt(1,userId);
+            preparedStatement.setInt(2,friendId);
+            if(preparedStatement.executeUpdate()>0){
+                result=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(preparedStatement,connection);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Integer> queryFriend(Integer userId) {
+        Connection connection=null;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        String sql="select * from friend where user_id = "+userId;
+        connection=JdbcUtil.getConnection();
+        List<Integer> friendsId=new ArrayList<>();
+        try {
+            statement=connection.createStatement();
+            resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                friendsId.add(resultSet.getInt("friend_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(resultSet,statement,connection);
+        }
+        return friendsId;
+    }
+
 }

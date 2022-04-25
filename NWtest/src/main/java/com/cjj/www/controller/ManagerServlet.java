@@ -3,16 +3,15 @@ package com.cjj.www.controller;
 import com.cjj.www.pojo.*;
 import com.cjj.www.service.*;
 import com.cjj.www.util.WebUtil;
+import com.cjj.www.websocket.PublishNotice;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 import java.io.IOException;
-<<<<<<< HEAD
-
-=======
->>>>>>> 983e94e (ninth)
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -153,46 +152,51 @@ public class ManagerServlet extends BaseServlet{
     public void chargeNoteBatchs(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String[] noteIds = request.getParameterValues("noteId");
-        String action = request.getParameter("action");
-        List<Integer> ids=new ArrayList<>();
-        Appeal appeal=new Appeal();
-        UserService userService=new UserServiceImpl();
-        User user=userService.queryUserByUserName(username);
-        for (String id:noteIds){
-            ids.add(WebUtil.toInteger(id));
+        if(noteIds==null){
+            request.setAttribute("batchOperaMsg","请先勾选笔记！");
+            chargeNoteBatch(request,response);
+        }else {
+            String action = request.getParameter("action");
+            List<Integer> ids = new ArrayList<>();
+            Appeal appeal = new Appeal();
+            UserService userService = new UserServiceImpl();
+            User user = userService.queryUserByUserName(username);
+            for (String id : noteIds) {
+                ids.add(WebUtil.toInteger(id));
+            }
+            switch (action) {
+                case "批量删除": {
+                    for (Integer id : ids) {
+                        managerService.deleteNoteByArea(id);
+                        appeal.setNoteId(id);
+                        appeal.setManagerId(user.getId());
+                        managerService.saveOperation(appeal);
+                        appeal = new Appeal();
+                    }
+                    request.setAttribute("batchDelete", "批量删除成功");
+                    break;
+                }
+                case "批量同意": {
+                    for (Integer id : ids) {
+                        managerService.setNoteReleaseStatus(id, "0");
+                    }
+                    request.setAttribute("batchAgree", "批量同意成功");
+                    break;
+                }
+                case "批量驳回": {
+                    for (Integer id : ids) {
+                        managerService.backNoteReleaseStatus(id);
+                        appeal.setNoteId(id);
+                        appeal.setManagerId(user.getId());
+                        managerService.saveOperation(appeal);
+                        appeal = new Appeal();
+                    }
+                    request.setAttribute("batchBack", "批量驳回成功");
+                    break;
+                }
+            }
+            chargeNoteBatch(request, response);
         }
-        switch (action){
-            case "批量删除":{
-                for (Integer id:ids){
-                    managerService.deleteNoteByArea(id);
-                    appeal.setNoteId(id);
-                    appeal.setManagerId(user.getId());
-                    managerService.saveOperation(appeal);
-                    appeal=new Appeal();
-                }
-                request.setAttribute("batchDelete","批量删除成功");
-                break;
-            }
-            case "批量同意":{
-                for (Integer id:ids){
-                    managerService.setNoteReleaseStatus(id,"0");
-                }
-                request.setAttribute("batchAgree","批量同意成功");
-                break;
-            }
-            case "批量驳回":{
-                for (Integer id:ids){
-                    managerService.backNoteReleaseStatus(id);
-                    appeal.setNoteId(id);
-                    appeal.setManagerId(user.getId());
-                    managerService.saveOperation(appeal);
-                    appeal=new Appeal();
-                }
-                request.setAttribute("batchBack","批量驳回成功");
-                break;
-            }
-        }
-        chargeNoteBatch(request,response);
     }
     public void dealReportedNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         //接收参数
@@ -322,8 +326,6 @@ public class ManagerServlet extends BaseServlet{
         request.setAttribute("resetMsg","解除身份成功！");
         chargeManagerUser(request,response);
     }
-<<<<<<< HEAD
-=======
     public void changeUser(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         Integer userId=WebUtil.toInteger(request.getParameter("userId"));
         UserService userService=new UserServiceImpl();
@@ -350,11 +352,12 @@ public class ManagerServlet extends BaseServlet{
     public void publishNotice(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
         String title = request.getParameter("title");
         String main = request.getParameter("main");
-        String root = request.getParameter("root");
         //存入数据库
         String result = managerService.publishNotice(main, title);
         request.setAttribute("resultMsg",result);
+        PublishNotice publishNotice=new PublishNotice();
+        Session session=null;
+        publishNotice.onMessage("小孩子不懂，传着玩的",session);
         notice(request,response);
     }
->>>>>>> 983e94e (ninth)
 }

@@ -48,13 +48,10 @@ public interface ManagerService {
     User findManager(Integer noteId);
     List<User> queryUserByRoot(String root);
     boolean resetUser(Integer userId);
-<<<<<<< HEAD
-=======
     //转变身份
     boolean changeUserZoom(Integer userId,String zoom);
     //发布公告
     String publishNotice(String main,String title);
     //查询公告
-    List<Notice> queryNotices();
->>>>>>> 983e94e (ninth)
+    Notice queryNotices();
 }
