@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao{
         插入数据
          */
         connection = JdbcUtil.getConnection();
-        String sql = "insert into user(username, password,usernumber) values(?,?,?)";
+        String sql = "insert into user(username, password,usernumber,mail,code) values(?,?,?,?,?)";
         String sql1 = "insert into userstatus("+"动漫区"+ " ) "+"values('1')";
         /*
         同时将id添加到状态表
@@ -35,6 +35,8 @@ public class UserDaoImpl implements UserDao{
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setInt(3,count);
+            preparedStatement.setString(4,user.getMail());
+            preparedStatement.setString(5,user.getCode());
             Statement statement=connection.createStatement();
             statement.executeUpdate(sql1);
             int row = preparedStatement.executeUpdate();
@@ -102,6 +104,9 @@ public class UserDaoImpl implements UserDao{
                 user.setRoot(resultSet.getString("root"));
                 user.setAppealCount(resultSet.getInt("appeal_count"));
                 user.setUserNumber(resultSet.getInt("usernumber"));
+                user.setCode(resultSet.getString("code"));
+                user.setMail(resultSet.getString("mail"));
+                user.setActivateStatus(resultSet.getString("activate_status"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,6 +136,9 @@ public class UserDaoImpl implements UserDao{
                 user.setRoot(resultSet.getString("root"));
                 user.setAppealCount(resultSet.getInt("appeal_count"));
                 user.setUserNumber(resultSet.getInt("usernumber"));
+                user.setCode(resultSet.getString("code"));
+                user.setMail(resultSet.getString("mail"));
+                user.setActivateStatus(resultSet.getString("activate_status"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -230,6 +238,26 @@ public class UserDaoImpl implements UserDao{
             }
             return fansId;
 
+    }
+
+    @Override
+    public boolean activateUser(String username) {
+        boolean result=false;
+        Connection connection=null;
+        Statement statement=null;
+        String sql="update `user` set activate_status = '1' where username = '"+username+"'";
+        connection=JdbcUtil.getConnection();
+        try {
+            statement=connection.createStatement();
+            int row = statement.executeUpdate(sql);
+            if(row>0){
+                result=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(null,statement,connection);
+        }return result;
     }
 
 

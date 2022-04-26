@@ -38,4 +38,5 @@ public interface UserDao {
     List<Integer> queryFriend(Integer userId);
     //找粉丝
     List<Integer> queryFans(Integer friendId);
+    boolean activateUser(String username);
 }

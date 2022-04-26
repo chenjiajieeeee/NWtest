@@ -13,6 +13,36 @@ public class User {
     private Integer appealCount;
     //小红书号
     private Integer userNumber;
+    //邮箱号
+    private String mail;
+    //激活状态
+    private String activateStatus;
+    //激活码
+    private String code;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getActivateStatus() {
+        return activateStatus;
+    }
+
+    public void setActivateStatus(String activateStatus) {
+        this.activateStatus = activateStatus;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public Integer getUserNumber() {
         return userNumber;

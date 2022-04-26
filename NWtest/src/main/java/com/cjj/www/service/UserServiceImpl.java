@@ -3,30 +3,53 @@ package com.cjj.www.service;
 import com.cjj.www.dao.UserDao;
 import com.cjj.www.dao.UserDaoImpl;
 import com.cjj.www.pojo.User;
+import com.cjj.www.util.CodeUtil;
+import com.cjj.www.util.MailUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService{
     @Override
-    public boolean userLogin(String username, String password) {
+    public String userLogin(String username, String password) {
         UserDao userDao=new UserDaoImpl();
-        return userDao.check(username, password);
+        User user = userDao.queryUserByUserName(username);
+        if(userDao.check(username, password)){
+            if(user.getActivateStatus().equals("0")){
+                return "该账号未激活，请先激活！";
+            }else {
+                return "登录成功！";
+            }
+        }else {
+            return "账号或密码错误";
+        }
     }
 
     @Override
-    public boolean userRegister(String username, String password) {
-        boolean result=true;
+    public String userRegister(String username, String password,String mail) {
+        if (!mail.matches("^\\w+@(\\w+\\.)+\\w+$")) {
+            return "邮箱格式不正确！";
+        }
         UserDao ud = new UserDaoImpl();
         User user1 = ud.queryUserByUserName(username);
-        if(user1.getUsername()==null){
-            User user=new User();
+        if (user1.getUsername() == null) {
+            //生成随机激活码
+            String code = CodeUtil.generateUniqueCode();
+            User user = new User();
             user.setUsername(username);
             user.setPassword(password);
-            ud.saveUser(user);
-            result=false;
+            user.setMail(mail);
+            user.setCode(code);
+            if(ud.saveUser(user)){
+                new Thread(new MailUtil(mail,code)).start();
+                return "正在跳转页面";
+            }else {
+                return "服务器出问题了，该死！";
+            }
+        } else {
+            return "用户名已存在！";
         }
-        return result;
     }
 
     @Override
@@ -81,5 +104,11 @@ public class UserServiceImpl implements UserService{
             users.add(userDao.queryUserByUserId(id));
         }
         return users;
+    }
+
+    @Override
+    public boolean activateUser(String username) {
+        UserDao userDao=new UserDaoImpl();
+        return userDao.activateUser(username);
     }
 }

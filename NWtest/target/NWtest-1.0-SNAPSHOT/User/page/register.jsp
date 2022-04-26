@@ -10,11 +10,13 @@
 <div class="login">
   <h1>小红书</h1>
   <form action="http://localhost:8080/nw/user/register" method="post">
+    <p style="color: red">${requestScope.msg}</p>
     <span>
     <input type="text" name="username" placeholder="起一个好听的名字" required="required">
-      <p style="color: red">${requestScope.msg}</p>
     </span>
     <input type="password" name="password" placeholder="输入密码" required="required">
+
+    <input type="text" name="mail" placeholder="输入你的邮箱" required="required">
   <button type="submit">注册</button>
   <a href="/nw/User/page/login.jsp">已有账号？点击登录</a>
   </form>

@@ -34,8 +34,8 @@ public class UserServlet extends BaseServlet{
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        boolean check = userService.userLogin(username, password);
-        if (check){
+        String check = userService.userLogin(username, password);
+        if (check.equals("登录成功！")){
             /*
               登录成功后在首页显示所有的笔记
               把全部图书保存在request域中
@@ -50,27 +50,35 @@ public class UserServlet extends BaseServlet{
             req.setAttribute("password",password);
             req.getRequestDispatcher("/notebook/homepage.jsp").forward(request,response);
         }
-        else {
+        else if (check.equals("账号或密码错误")){
             request.setAttribute("msg","Wrong username or password!");
             request.setAttribute("username",username);
             //请求转发
             request.getRequestDispatcher("/User/page/login.jsp").forward(request,response);
+        }else if(check.equals("该账号未激活，请先激活！")){
+            request.setAttribute("username",username);
+            request.setAttribute("error",check);
+            request.getRequestDispatcher("/User/page/confirm.jsp").forward(request,response);
         }
     }
     public void register(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
+        String mail = request.getParameter("mail");
         //调用业务层对应的方法
         UserService userService=new UserServiceImpl();
-        boolean result=userService.userRegister(username,password);
+        String result=userService.userRegister(username,password,mail);
         //处理结果跳转相应页面
-        if(result){
+        if(result.equals("用户名已存在！")){
             request.setAttribute("msg","The user name already exists!");
             request.getRequestDispatcher("/User/page/register.jsp").forward(request,response);
         }
-        else {
-            request.setAttribute("registerMsg","注册成功！");
-            request.getRequestDispatcher("/User/page/login.jsp").forward(request,response);
+        else if (result.equals("正在跳转页面")){
+            request.setAttribute("username",username);
+            request.getRequestDispatcher("/User/page/confirm.jsp").forward(request,response);
+        }else if(result.equals("邮箱格式不正确！")){
+            request.setAttribute("msg","mail format not correct!");
+            request.getRequestDispatcher("/User/page/register.jsp").forward(request,response);
         }
     }
     public void updateUserInformation(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -385,5 +393,18 @@ public class UserServlet extends BaseServlet{
         request.setAttribute("users1",users1);
         //跳转到聊天页面
         request.getRequestDispatcher("/User/page/chat.jsp").forward(request,response);
+    }
+    public void confirm(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String code = request.getParameter("code");
+        String username = request.getParameter("username");
+        if(userService.queryUserByUserName(username).getCode().equals(code)){
+            request.setAttribute("msg","注册成功！");
+            //改变用户激活状态
+            userService.activateUser(username);
+            request.getRequestDispatcher("/User/page/login.jsp").forward(request,response);
+        }else {
+            request.setAttribute("error","验证码错误！，请重新输入");
+            request.getRequestDispatcher("/User/page/confirm.jsp").forward(request,response);
+        }
     }
 }
