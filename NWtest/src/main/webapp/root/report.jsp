@@ -112,6 +112,7 @@
                         <input type="submit" name="action" value="驳回" class="btn btn-warning">
                         <input type="submit" name="action" value="删除" class="btn btn-danger">
                         <input type="hidden" name="username" value="${requestScope.username}">
+                        <input type="hidden" name="reportUser" value="${requestScope.reports.get(i).username}">
                         <input type="hidden" name="password" value="${requestScope.password}">
                         <input type="hidden" name="root" value="${requestScope.root}">
                         <input type="hidden" name="noteId" value="${requestScope.reports.get(i).noteId}">

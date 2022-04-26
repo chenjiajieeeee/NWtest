@@ -2,6 +2,7 @@ package com.cjj.www.controller;
 
 import com.cjj.www.pojo.*;
 import com.cjj.www.service.*;
+import com.cjj.www.util.LogUtil;
 import com.cjj.www.util.WebUtil;
 import com.cjj.www.websocket.PublishNotice;
 
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet("/manager/*")
 public class ManagerServlet extends BaseServlet{
@@ -38,6 +41,7 @@ public class ManagerServlet extends BaseServlet{
 
     }
     public void reNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String root = request.getParameter("root");
         Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
         NoteService noteService=new NoteServiceImpl();
         Note note = noteService.queryNoteByNoteId(noteId);
@@ -53,6 +57,11 @@ public class ManagerServlet extends BaseServlet{
             managerService.saveOperation(appeal);
             if (check) {
                 request.setAttribute("deleteNoteMsg", "删除标题为"+note.getTitle()+"的笔记成功！");
+                //将行为记录到日志文件中：
+                LogUtil logUtil=new LogUtil();
+                Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+                logger.log(Level.INFO,"{0}的 管理员 {1} 对标题为 {2} 的笔记执行了删除操作！",new Object[]{root,username,note.getTitle()});
+                logUtil.getFileHandler().close();
             } else {
                 request.setAttribute("deleteMsg", "服务器出问题了！");
             }
@@ -62,6 +71,11 @@ public class ManagerServlet extends BaseServlet{
             boolean check = managerService.setNoteReleaseStatus(noteId, releaseStatus);
             managerService.saveOperation(appeal);
             if(check){
+                //将行为记录到日志文件中：
+                LogUtil logUtil=new LogUtil();
+                Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+                logger.log(Level.INFO,"{0}的 管理员 {1} 通过了标题为 {2} 的笔记的审核！",new Object[]{root,username,note.getTitle()});
+                logUtil.getFileHandler().close();
                 request.setAttribute("agreeMsg","笔记已发布！");
             }else {
                 request.setAttribute("agreeMsg","服务器出问题了！");
@@ -71,6 +85,11 @@ public class ManagerServlet extends BaseServlet{
             boolean check = managerService.backNoteReleaseStatus(noteId);
             managerService.saveOperation(appeal);
             if(check){
+                //将行为记录到日志文件中：
+                LogUtil logUtil=new LogUtil();
+                Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+                logger.log(Level.INFO,"{0}的 管理员 {1} 驳回了标题为 {2} 的笔记！",new Object[]{root,username,note.getTitle()});
+                logUtil.getFileHandler().close();
                 request.setAttribute("backMsg","已驳回");
             }else {
                 request.setAttribute("backMsg","服务器出问题了");
@@ -106,6 +125,7 @@ public class ManagerServlet extends BaseServlet{
         request.getRequestDispatcher("/root/chargeUser.jsp").forward(request,response);
     }
     public void setUserStatus(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
         Integer userId = WebUtil.toInteger(request.getParameter("userId"));
         String userStatus = request.getParameter("userStatus");
         if(userStatus.equals("1")){
@@ -116,6 +136,13 @@ public class ManagerServlet extends BaseServlet{
         String root = request.getParameter("root");
         boolean check = managerService.changeUserStatus(userId, userStatus, root);
         if(check){
+            UserService userService=new UserServiceImpl();
+            String username1 = userService.queryUserByUserId(userId).getUsername();
+            //将行为记录到日志文件中：
+            LogUtil logUtil=new LogUtil();
+            Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+            logger.log(Level.INFO,"{0}的 管理员 {1} 禁用/解封了 {2} 用户！",new Object[]{root,username,username1});
+            logUtil.getFileHandler().close();
             request.setAttribute("Msg","禁用/解封用户成功！");
         }else {
             request.setAttribute("Msg","服务器出问题了！");
@@ -150,6 +177,7 @@ public class ManagerServlet extends BaseServlet{
         request.getRequestDispatcher("/root/batchOperation.jsp").forward(request,response);
     }
     public void chargeNoteBatchs(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String root = request.getParameter("root");
         String username = request.getParameter("username");
         String[] noteIds = request.getParameterValues("noteId");
         if(noteIds==null){
@@ -172,6 +200,11 @@ public class ManagerServlet extends BaseServlet{
                         appeal.setManagerId(user.getId());
                         managerService.saveOperation(appeal);
                         appeal = new Appeal();
+                        LogUtil logUtil=new LogUtil();
+                        Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+                        String title = noteService.queryNoteByNoteId(id).getTitle();
+                        logger.log(Level.INFO,"{0}的 管理员 {1} 对标题为 {2} 的笔记执行了删除操作！",new Object[]{root,username,title});
+                        logUtil.getFileHandler().close();
                     }
                     request.setAttribute("batchDelete", "批量删除成功");
                     break;
@@ -179,6 +212,11 @@ public class ManagerServlet extends BaseServlet{
                 case "批量同意": {
                     for (Integer id : ids) {
                         managerService.setNoteReleaseStatus(id, "0");
+                        LogUtil logUtil=new LogUtil();
+                        Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+                        String title = noteService.queryNoteByNoteId(id).getTitle();
+                        logger.log(Level.INFO,"{0}的 管理员 {1} 通过了标题为 {2} 的笔记发布！",new Object[]{root,username,title});
+                        logUtil.getFileHandler().close();
                     }
                     request.setAttribute("batchAgree", "批量同意成功");
                     break;
@@ -190,6 +228,11 @@ public class ManagerServlet extends BaseServlet{
                         appeal.setManagerId(user.getId());
                         managerService.saveOperation(appeal);
                         appeal = new Appeal();
+                        LogUtil logUtil=new LogUtil();
+                        Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+                        String title = noteService.queryNoteByNoteId(id).getTitle();
+                        logger.log(Level.INFO,"{0}的 管理员 {1} 驳回了标题为 {2} 的笔记！",new Object[]{root,username,title});
+                        logUtil.getFileHandler().close();
                     }
                     request.setAttribute("batchBack", "批量驳回成功");
                     break;
@@ -222,7 +265,9 @@ public class ManagerServlet extends BaseServlet{
             request.getRequestDispatcher("/root/report.jsp").forward(request,response);
 
     }public void dealingReportNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String root = request.getParameter("root");
         String username = request.getParameter("username");
+        String reportUser = request.getParameter("reportUser");
         String action = request.getParameter("action");
         Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
         UserService userService=new UserServiceImpl();
@@ -230,11 +275,15 @@ public class ManagerServlet extends BaseServlet{
         Appeal appeal=new Appeal();
         appeal.setManagerId(user.getId());
         appeal.setNoteId(noteId);
+        LogUtil logUtil=new LogUtil();
+        Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+        String title = noteService.queryNoteByNoteId(noteId).getTitle();
         switch (action) {
             case "忽略":
                 //根据笔记id以及举报人的用户名删除对应的举报信息
-                managerService.deleteReportMsg(noteId, username);
+                managerService.deleteReportMsg(noteId, reportUser);
                 //提示
+                logger.log(Level.INFO,"{0}的 管理员 {1} 忽略了 {2} 对标题为 {3} 的笔记的举报！",new Object[]{root,username,reportUser,title});
                 request.setAttribute("reportResult", "已忽略");
                 break;
             case "驳回":
@@ -243,6 +292,7 @@ public class ManagerServlet extends BaseServlet{
                 managerService.deleteReportMsg(noteId);
                 managerService.saveOperation(appeal);
                 //删除笔记id对应的举报信息
+                logger.log(Level.INFO,"{0}的 管理员 {1} 处理了 {2} 对标题为 {3} 的笔记的举报，已将该笔记驳回！",new Object[]{root,username,reportUser,title});
                 request.setAttribute("reportResult", "已驳回");
                 break;
             case "删除":
@@ -251,9 +301,11 @@ public class ManagerServlet extends BaseServlet{
                 managerService.deleteReportMsg(noteId);
                 //删除信息
                 managerService.saveOperation(appeal);
+                logger.log(Level.INFO,"{0}的 管理员 {1} 处理了 {2} 对标题为 {3} 的笔记的举报，已将该笔记删除！",new Object[]{root,username,reportUser,title});
                 request.setAttribute("reportResult", "已删除");
                 break;
         }
+        logUtil.getFileHandler().close();
         dealReportedNote(request,response);
     }
     public void chargeAllNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -271,8 +323,13 @@ public class ManagerServlet extends BaseServlet{
     }
     public void deleteNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
+        String title = noteService.queryNoteByNoteId(noteId).getTitle();
         managerService.deleteNote(noteId);
         request.setAttribute("deleteMsg","删除笔记成功！");
+        LogUtil logUtil=new LogUtil();
+        Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+        logger.log(Level.INFO,"超级管理员删除了标题为 {0} 的笔记",new Object[]{title});
+        logUtil.getFileHandler().close();
         chargeAllNote(request,response);
     }
     public void batchDeleteNote(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -290,12 +347,18 @@ public class ManagerServlet extends BaseServlet{
         String[] noteIds = request.getParameterValues("noteId");
         for (String id:noteIds){
             Integer Id = WebUtil.toInteger(id);
+            String title = noteService.queryNoteByNoteId(Id).getTitle();
             managerService.deleteNote(Id);
+            LogUtil logUtil=new LogUtil();
+            Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+            logger.log(Level.INFO,"超级管理员删除了标题为 {0} 的笔记",new Object[]{title});
+            logUtil.getFileHandler().close();
         }
         request.setAttribute("batchMsg","批量删除成功！");
         batchDeleteNote(request,response);
     }
     public void chargeManagerUser(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+
         //获取参数&传递参数
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -318,22 +381,33 @@ public class ManagerServlet extends BaseServlet{
             request.getRequestDispatcher("/root/chargeAll.jsp").forward(request,response);
     }
     public void resetManager(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String password = request.getParameter("password");
+        request.setAttribute("password",password);
         Integer userId=WebUtil.toInteger(request.getParameter("userId"));
         managerService.resetUser(userId);
         UserService userService=new UserServiceImpl();
         User user=userService.queryUserByUserId(userId);
         managerService.resetAppeal(user.getUsername());
         request.setAttribute("resetMsg","解除身份成功！");
+        LogUtil logUtil=new LogUtil();
+        Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+        logger.log(Level.INFO,"超级管理员解除了 {0} 在 {1} 的管理员身份！",new Object[]{user.getUsername(),user.getRoot()});
+        logUtil.getFileHandler().close();
         chargeManagerUser(request,response);
     }
     public void changeUser(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         Integer userId=WebUtil.toInteger(request.getParameter("userId"));
+        request.setAttribute("password",request.getParameter("password"));
         UserService userService=new UserServiceImpl();
         User user = userService.queryUserByUserId(userId);
         String zoom = request.getParameter("zoom");
         boolean check = managerService.changeUserZoom(userId, zoom);
         if(check){
             request.setAttribute("changeMsg","修改"+user.getUsername()+"身份成功！");
+            LogUtil logUtil=new LogUtil();
+            Logger logger = logUtil.WriteLog("com.cjj.www.controller.ManagerServlet");
+            logger.log(Level.INFO,"超级管理员将 {0} 的权限从 {1} 转移到了 {2} ！",new Object[]{user.getUsername(),user.getRoot(),zoom});
+            logUtil.getFileHandler().close();
         }else {
             request.setAttribute("changeMsg","他已经是"+zoom+"的区域管理员了！");
         }

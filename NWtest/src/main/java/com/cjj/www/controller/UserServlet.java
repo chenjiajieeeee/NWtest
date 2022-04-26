@@ -373,16 +373,16 @@ public class UserServlet extends BaseServlet{
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String root = request.getParameter("root");
+        //先把关注了的用户找出来
         User user = userService.queryUserByUserName(username);
         List<User> users = userService.viewFriend(user.getId());
-        for (User user1:users){
-            System.out.println(user1.getUsername());
-        }
+        //再把他的粉丝找出来
+        List<User> users1 = userService.viewFans(user.getId());
         request.setAttribute("users",users);
         request.setAttribute("username",username);
         request.setAttribute("password",password);
         request.setAttribute("root",root);
-        //调用方法找好友
+        request.setAttribute("users1",users1);
         //跳转到聊天页面
         request.getRequestDispatcher("/User/page/chat.jsp").forward(request,response);
     }

@@ -208,4 +208,29 @@ public class UserDaoImpl implements UserDao{
         return friendsId;
     }
 
+    @Override
+    public List<Integer> queryFans(Integer friendId) {
+
+            Connection connection=null;
+            Statement statement=null;
+            ResultSet resultSet=null;
+            String sql="select * from friend where friend_id = "+friendId;
+            connection=JdbcUtil.getConnection();
+            List<Integer> fansId=new ArrayList<>();
+            try {
+                statement=connection.createStatement();
+                resultSet=statement.executeQuery(sql);
+                while (resultSet.next()){
+                    fansId.add(resultSet.getInt("user_id"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                JdbcUtil.close(resultSet,statement,connection);
+            }
+            return fansId;
+
+    }
+
+
 }

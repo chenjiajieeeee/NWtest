@@ -71,4 +71,15 @@ public class UserServiceImpl implements UserService{
         }
         return users;
     }
+
+    @Override
+    public List<User> viewFans(Integer userId) {
+        UserDao userDao=new UserDaoImpl();
+        List<Integer> fans = userDao.queryFans(userId);
+        List<User> users=new ArrayList<>();
+        for (Integer id:fans){
+            users.add(userDao.queryUserByUserId(id));
+        }
+        return users;
+    }
 }

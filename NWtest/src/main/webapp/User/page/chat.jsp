@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="http://localhost:8080/nw/notebook/dist/css/bootstrap.min.css" type="text/css">
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
+
+
 <body>
 <ul class="breadcrumb " style="color: cornsilk;">
     <li class="active "><h2 style="color: crimson;">小红书</h2></li>
@@ -31,16 +31,27 @@
     &nbsp;&nbsp;
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
 </ul>
+
+
     <div class="container col">
-        <div class="col-sm-2 col-md-4">
-            <p class="h4">好友列表</p>
+        <div class="col-sm-2 col-md-2">
+            <p class="h4" style="color: #4cae4c">关注列表</p>
             <br>
          <c:forEach items="${requestScope.users}" var="user">
              <p>${user.username}</p>
              <br>
          </c:forEach>
         </div>
+
+        <div class="col-sm-2 col-md-2">
+            <p class="h4" style="color: red">粉丝列表</p>
+            <br>
+            <c:forEach items="${requestScope.users1}" var="user">
+                <p>${user.username}</p>
+                <br>
+            </c:forEach>
+        </div>
     </div>
-    
+
 </body>
 </html>

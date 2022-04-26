@@ -56,11 +56,11 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
                         </ul>
                     </div>
                 </td>
@@ -101,11 +101,11 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
                         </ul>
                     </div>
                 </td>
@@ -145,11 +145,11 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
                         </ul>
                     </div>
                 </td>
@@ -189,11 +189,11 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
                         </ul>
                     </div>
                 </td>
@@ -233,11 +233,11 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
-                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=游戏区">游戏区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=动漫区">动漫区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=学习区">学习区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=科技区">科技区</a></li>
+                            <li><a href="http://localhost:8080/nw/manager/changeUser?userId=${user.id}&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&zoom=美食区">美食区</a></li>
                         </ul>
                     </div>
                 </td>

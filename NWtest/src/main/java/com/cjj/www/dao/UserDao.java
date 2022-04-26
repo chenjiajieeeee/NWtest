@@ -36,4 +36,6 @@ public interface UserDao {
     boolean addFriend(Integer userId,Integer friendId);
     //显示好友列表：
     List<Integer> queryFriend(Integer userId);
+    //找粉丝
+    List<Integer> queryFans(Integer friendId);
 }

@@ -11,4 +11,5 @@ public interface UserService {
     User queryUserByUserId(Integer userId);
     String addFriend(Integer userId,Integer friendId);
     List<User> viewFriend(Integer userId);
+    List<User> viewFans(Integer userId);
 }
