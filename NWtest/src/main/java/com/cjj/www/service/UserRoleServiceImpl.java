@@ -2,6 +2,7 @@ package com.cjj.www.service;
 
 import com.cjj.www.dao.*;
 import com.cjj.www.pojo.User;
+import com.cjj.www.util.Encryption;
 
 public class UserRoleServiceImpl implements UserRoleService{
     @Override
@@ -29,7 +30,10 @@ public class UserRoleServiceImpl implements UserRoleService{
         }
         else {
             UserRoleDao userRoleDao = new UserRoleDaoImpl();
-            return userRoleDao.updatePassword(username, oldPassword, newPassword);
+            Encryption encryption=new Encryption();
+            String OldPassword = encryption.encryptMD5(oldPassword);
+            String NewPassword = encryption.encryptMD5(newPassword);
+            return userRoleDao.updatePassword(username, OldPassword, NewPassword);
         }
     }
 

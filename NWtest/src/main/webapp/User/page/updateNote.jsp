@@ -20,7 +20,7 @@
     </div>
     <div class="navi">
         <ul>
-            <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/login" method="post">
+            <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
                 <input type="submit" value="首页" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
                 <input type="hidden" value="${requestScope.password}" name="password">

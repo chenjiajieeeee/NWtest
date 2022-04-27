@@ -4,6 +4,7 @@ import com.cjj.www.dao.UserDao;
 import com.cjj.www.dao.UserDaoImpl;
 import com.cjj.www.pojo.User;
 import com.cjj.www.util.CodeUtil;
+import com.cjj.www.util.Encryption;
 import com.cjj.www.util.MailUtil;
 
 
@@ -38,7 +39,9 @@ public class UserServiceImpl implements UserService{
             String code = CodeUtil.generateUniqueCode();
             User user = new User();
             user.setUsername(username);
-            user.setPassword(password);
+            Encryption encryption=new Encryption();
+            String newPassword=encryption.encryptMD5(password);
+            user.setPassword(newPassword);
             user.setMail(mail);
             user.setCode(code);
             if(ud.saveUser(user)){

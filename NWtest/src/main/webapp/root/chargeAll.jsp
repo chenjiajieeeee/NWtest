@@ -21,7 +21,7 @@
     <li class="active"><h3 style="color: #67b168">欢迎你！${requestScope.username}</h3></li>
     &nbsp;&nbsp;
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
-    <li><a href="http://localhost:8080/nw/user/login?username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}" class="btn btn-warning">返回首页</a></li>
+    <li><a href="http://localhost:8080/nw/user/loginpage?username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}" class="btn btn-warning">返回首页</a></li>
 </ul>
 <p class="h4 container" style="color: red">${requestScope.changeMsg}</p>
 <div class="container">

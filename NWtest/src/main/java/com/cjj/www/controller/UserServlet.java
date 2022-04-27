@@ -8,6 +8,8 @@ import com.cjj.www.pojo.Tag;
 
 import com.cjj.www.pojo.User;
 import com.cjj.www.service.*;
+import com.cjj.www.util.Encryption;
+import com.cjj.www.util.MailUtil;
 import com.cjj.www.util.WebUtil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -34,31 +36,40 @@ public class UserServlet extends BaseServlet{
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String check = userService.userLogin(username, password);
-        if (check.equals("登录成功！")){
+        Encryption encryption=new Encryption();
+        String newPassword = encryption.encryptMD5(password);
+        String check = userService.userLogin(username, newPassword);
+        switch (check) {
+            case "登录成功！": {
             /*
               登录成功后在首页显示所有的笔记
               把全部图书保存在request域中
               将请求转发到首页所在的页面中，遍历显示所有的笔记！
               使用jstl来写会更加的简洁
              */
-            PagingService pagingService=new PagingServiceImpl();
-            HttpServletRequest req = pagingService.paging(request);
-            User user = userService.queryUserByUserName(username);
-            req.setAttribute("root",user.getRoot());
-            req.setAttribute("username",username);
-            req.setAttribute("password",password);
-            req.getRequestDispatcher("/notebook/homepage.jsp").forward(request,response);
-        }
-        else if (check.equals("账号或密码错误")){
-            request.setAttribute("msg","Wrong username or password!");
-            request.setAttribute("username",username);
-            //请求转发
-            request.getRequestDispatcher("/User/page/login.jsp").forward(request,response);
-        }else if(check.equals("该账号未激活，请先激活！")){
-            request.setAttribute("username",username);
-            request.setAttribute("error",check);
-            request.getRequestDispatcher("/User/page/confirm.jsp").forward(request,response);
+                PagingService pagingService = new PagingServiceImpl();
+                HttpServletRequest req = pagingService.paging(request);
+                User user = userService.queryUserByUserName(username);
+                req.setAttribute("root", user.getRoot());
+                req.setAttribute("username", username);
+                req.setAttribute("password", newPassword);
+                req.getRequestDispatcher("/notebook/homepage.jsp").forward(request, response);
+                break;
+            }
+            case "账号或密码错误":
+                request.setAttribute("msg", "Wrong username or password!");
+                request.setAttribute("username", username);
+                //请求转发
+                request.getRequestDispatcher("/User/page/login.jsp").forward(request, response);
+                break;
+            case "该账号未激活，请先激活！": {
+                request.setAttribute("username", username);
+                request.setAttribute("error", check);
+                User user = userService.queryUserByUserName(username);
+                new Thread(new MailUtil(user.getMail(), user.getCode())).start();
+                request.getRequestDispatcher("/User/page/confirm.jsp").forward(request, response);
+                break;
+            }
         }
     }
     public void register(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
@@ -69,16 +80,19 @@ public class UserServlet extends BaseServlet{
         UserService userService=new UserServiceImpl();
         String result=userService.userRegister(username,password,mail);
         //处理结果跳转相应页面
-        if(result.equals("用户名已存在！")){
-            request.setAttribute("msg","The user name already exists!");
-            request.getRequestDispatcher("/User/page/register.jsp").forward(request,response);
-        }
-        else if (result.equals("正在跳转页面")){
-            request.setAttribute("username",username);
-            request.getRequestDispatcher("/User/page/confirm.jsp").forward(request,response);
-        }else if(result.equals("邮箱格式不正确！")){
-            request.setAttribute("msg","mail format not correct!");
-            request.getRequestDispatcher("/User/page/register.jsp").forward(request,response);
+        switch (result) {
+            case "用户名已存在！":
+                request.setAttribute("msg", "The user name already exists!");
+                request.getRequestDispatcher("/User/page/register.jsp").forward(request, response);
+                break;
+            case "正在跳转页面":
+                request.setAttribute("username", username);
+                request.getRequestDispatcher("/User/page/confirm.jsp").forward(request, response);
+                break;
+            case "邮箱格式不正确！":
+                request.setAttribute("msg", "mail format not correct!");
+                request.getRequestDispatcher("/User/page/register.jsp").forward(request, response);
+                break;
         }
     }
     public void updateUserInformation(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -111,6 +125,7 @@ public class UserServlet extends BaseServlet{
             case "确认更改密码": {
                 String oldPassword = request.getParameter("oldPassword");
                 String newPassword = request.getParameter("newPassword");
+                //转为哈希密码
                 UserRoleService userRoleService = new UserRoleServiceImpl();
                 boolean check = userRoleService.updatePassword(username, oldPassword, newPassword);
                 if (check) {
@@ -406,5 +421,16 @@ public class UserServlet extends BaseServlet{
             request.setAttribute("error","验证码错误！，请重新输入");
             request.getRequestDispatcher("/User/page/confirm.jsp").forward(request,response);
         }
+    }
+    public void loginpage(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        PagingService pagingService = new PagingServiceImpl();
+        HttpServletRequest req = pagingService.paging(request);
+        User user = userService.queryUserByUserName(username);
+        req.setAttribute("root", user.getRoot());
+        req.setAttribute("username", username);
+        req.setAttribute("password", password);
+        req.getRequestDispatcher("/notebook/homepage.jsp").forward(request, response);
     }
 }

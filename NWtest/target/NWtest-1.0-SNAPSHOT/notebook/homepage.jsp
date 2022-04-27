@@ -149,7 +149,7 @@
 	<ul class="pagination">
 
 		<c:if test="${requestScope.pageNo!=1}">
-			<li><a href="http://localhost:8080/nw/user/login?username=${requestScope.username}&password=${requestScope.password}&pageNo=${requestScope.pageNo-1}">&laquo;</a></li>
+			<li><a href="http://localhost:8080/nw/user/loginpage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${requestScope.pageNo-1}">&laquo;</a></li>
 		</c:if>
 		<c:if test="${requestScope.pageNo-3<=0}">
 		<c:forEach begin="${1}" end="${6}" var="i">
@@ -157,7 +157,7 @@
 			   <li class="active"><a href="#">${i}</a></li>
 			</c:if>
 			<c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-				<li><a href="http://localhost:8080/nw/user/login?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
+				<li><a href="http://localhost:8080/nw/user/loginpage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
 			</c:if>
 		</c:forEach>
 		</c:if>
@@ -167,7 +167,7 @@
 					<li class="active"><a href="#">${i}</a></li>
 				</c:if>
 				<c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-					<li><a href="http://localhost:8080/nw/user/login?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
+					<li><a href="http://localhost:8080/nw/user/loginpage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
 				</c:if>
 			</c:forEach>
 		</c:if>
@@ -177,19 +177,19 @@
 					<li class="active"><a href="#">${i}</a></li>
 				</c:if>
 				<c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-					<li><a href="http://localhost:8080/nw/user/login?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
+					<li><a href="http://localhost:8080/nw/user/loginpage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
 				</c:if>
 			</c:forEach>
 		</c:if>
 		<c:if test="${requestScope.pageNo!=requestScope.pageTotal}">
-			<li><a href="http://localhost:8080/nw/user/login?username=${requestScope.username}&password=${requestScope.password}&pageNo=${requestScope.pageNo+1}">&raquo;</a></li>
+			<li><a href="http://localhost:8080/nw/user/loginpage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${requestScope.pageNo+1}">&raquo;</a></li>
 		</c:if>
 		<li class="h4" style="color: #5bc0de">当前第${requestScope.pageNo}页</li>
 		<li class="h4" style="color: #5bc0de">共${requestScope.pageTotal}页</li>
 		<li class="h4" style="color: #5cb85c">共${requestScope.record}条记录</li>
 	</ul>
 </div>
-<form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/user/login">
+<form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/user/loginpage">
 	<p style="color: red">${requestScope.jumpMsg}</p>
 	<input type="text" class="form-control"  placeholder="输入页码" name="pageNo">
 	<input type="hidden" name="username" value="${requestScope.username}">
@@ -197,14 +197,14 @@
 	<input type="submit" value="跳转至" class="btn btn-success">
 </form>
 <br>
-		<form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/user/login">
+		<form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/user/loginpage">
 			<input type="hidden" name="username" value="${requestScope.username}">
 			<input type="hidden" name="password" value="${requestScope.password}">
 			<input type="hidden" name="pageNo" value="1">
 			<input type="submit" value="首页" class="btn btn-success">
 		</form>
 <br>
-		<form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/user/login">
+		<form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/user/loginpage">
 			<input type="hidden" name="username" value="${requestScope.username}">
 			<input type="hidden" name="password" value="${requestScope.password}">
 			<input type="hidden" name="pageNo" value="${requestScope.pageTotal}">
