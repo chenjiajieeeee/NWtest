@@ -1,16 +1,53 @@
 package com.cjj.www.service;
 
-import com.cjj.www.dao.LikeActDao;
-import com.cjj.www.dao.LikeActDaoImpl;
-import com.cjj.www.dao.NoteDao;
-import com.cjj.www.dao.NoteDaoImpl;
-import com.cjj.www.pojo.Like;
-import com.cjj.www.pojo.Note;
+import com.cjj.www.dao.*;
+import com.cjj.www.pojo.*;
+import com.cjj.www.util.WebUtil;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LikeActServiceImpl implements LikeActService{
+
+    @Override
+    public void likeAct(HttpServletRequest request, HttpServletResponse response) {
+        LikeActService likeActService=new LikeActServiceImpl();
+        NoteService noteService=new NoteServiceImpl();
+        CollectService collectService=new CollectServiceImpl();
+        CommentService commentService=new CommentServiceImpl();
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
+        UserDao userDao=new UserDaoImpl();
+        User user = userDao.queryUserByUserName(username);
+        request.setAttribute("root",user.getRoot());
+        boolean check = likeActService.LikeAct(noteId, user.getId());
+        if(!check){
+            request.setAttribute("likeMsg","点赞成功！");
+        }
+        else {
+            request.setAttribute("likeMsg","取消点赞成功！");
+        }
+        List<Tag> tags = noteService.queryTagByNoteId(noteId);
+        boolean result = collectService.judgeCollectOrNot(noteId, user.getId());
+        request.setAttribute("result",result);
+        request.setAttribute("note",noteService.queryNoteByNoteId(noteId));
+        request.setAttribute("tags",tags);
+        request.setAttribute("username",username);
+        request.setAttribute("password",password);
+        request.setAttribute("check",check);
+        List<Comment> comments = commentService.queryCommentByNoteId(noteId);
+        request.setAttribute("comments",comments);
+        try {
+            request.getRequestDispatcher("/notebook/notedetail.jsp").forward(request,response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean judgeLikeOrNot(Integer noteId, Integer userId) {

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TagDao {
     /*
-    为特定的笔记添加笔记
+    为特定的笔记添加标签：
      */
     boolean addTag(Tag tag);
     /*

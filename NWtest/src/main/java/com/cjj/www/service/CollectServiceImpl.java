@@ -1,9 +1,13 @@
 package com.cjj.www.service;
 
 import com.cjj.www.dao.*;
-import com.cjj.www.pojo.Collect;
-import com.cjj.www.pojo.Note;
+import com.cjj.www.pojo.*;
+import com.cjj.www.util.WebUtil;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +17,46 @@ public class CollectServiceImpl implements CollectService{
     public boolean judgeCollectOrNot(Integer noteId, Integer userId) {
         CollectDao collectDao=new CollectDaoImpl();
         return collectDao.judgeCollectOrNot(noteId,userId);
+    }
+
+    @Override
+    public void collectAct(HttpServletRequest request, HttpServletResponse response) {
+        CommentService commentService=new CommentServiceImpl();
+        CollectService collectService=new CollectServiceImpl();
+        LikeActService likeActService=new LikeActServiceImpl();
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
+        /*
+        同点赞的操作一样
+         */
+        List<Comment> comments = commentService.queryCommentByNoteId(noteId);
+        UserDao userDao=new UserDaoImpl();
+        User user=userDao.queryUserByUserName(username);
+        request.setAttribute("root",user.getRoot());
+        NoteService noteService=new NoteServiceImpl();
+        boolean result = collectService.collectAct(noteId, user.getId());
+        Note note = noteService.queryNoteByNoteId(noteId);
+        boolean check = likeActService.judgeLikeOrNot(noteId, user.getId());
+        request.setAttribute("result",result);
+        request.setAttribute("check",check);
+        request.setAttribute("username",username);
+        request.setAttribute("password",password);
+        request.setAttribute("note",note);
+        request.setAttribute("comments",comments);
+        List<Tag> tags = noteService.queryTagByNoteId(noteId);
+        request.setAttribute("tags",tags);
+        if(!result){
+            request.setAttribute("CollectMsg","收藏成功！");
+        }
+        else {
+            request.setAttribute("CollectMsg","取消收藏成功！");
+        }
+        try {
+            request.getRequestDispatcher("/notebook/notedetail.jsp").forward(request,response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -10,4 +10,7 @@ public interface PagingService {
     HttpServletRequest paging(HttpServletRequest request, String tag, HttpServletResponse response);
     HttpServletRequest paging(HttpServletRequest request, String root, HttpServletResponse response,Integer flag);
     HttpServletRequest superManagerPaging(HttpServletRequest request);
+    void loginPage(HttpServletRequest request,HttpServletResponse response);
+    void searchResult(HttpServletRequest request,HttpServletResponse response);
+    void findPage(HttpServletRequest request,HttpServletResponse response);
 }

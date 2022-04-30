@@ -2,6 +2,8 @@ package com.cjj.www.service;
 
 import com.cjj.www.pojo.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -54,4 +56,24 @@ public interface ManagerService {
     String publishNotice(String main,String title);
     //查询公告
     Notice queryNotices();
+    /**
+     * 转移managerServlet
+     */
+    void chargeNote(HttpServletRequest request, HttpServletResponse response);
+    void reNote(HttpServletRequest request,HttpServletResponse response);
+    void chargeUser(HttpServletRequest request,HttpServletResponse response);
+    void setUserStatus(HttpServletRequest request,HttpServletResponse response);
+    void chargeNoteBatch(HttpServletRequest request,HttpServletResponse response);
+    void chargeNoteBatchs(HttpServletRequest request,HttpServletResponse response);
+    void dealReportNote(HttpServletRequest request,HttpServletResponse response);
+    void dealingReportNote(HttpServletRequest request,HttpServletResponse response);
+    void chargeAllNote(HttpServletRequest request,HttpServletResponse response);
+    void deleteNote(HttpServletRequest request,HttpServletResponse response);
+    void batchDeleteNote(HttpServletRequest request,HttpServletResponse response);
+    void confirm(HttpServletRequest request,HttpServletResponse response);
+    void chargeManagerUser(HttpServletRequest request,HttpServletResponse response);
+    void setManager(HttpServletRequest request,HttpServletResponse response);
+    void changeUser(HttpServletRequest request,HttpServletResponse response);
+    void notice(HttpServletRequest request,HttpServletResponse response);
+    void publishNote(HttpServletRequest request,HttpServletResponse response);
 }

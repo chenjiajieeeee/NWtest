@@ -25,6 +25,7 @@ public interface ManagerDao {
     Integer queryNoteTotalPage(String zoomName);
     boolean backNoteReleaseStatus(Integer noteId);
     //假定删除
+    //noteId查找该笔记所在行并将其status该为-2
     boolean deleteNoteByNoteId(Integer noteId);
     /*
     显示被举报的笔记

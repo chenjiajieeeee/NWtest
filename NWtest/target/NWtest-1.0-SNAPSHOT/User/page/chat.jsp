@@ -69,7 +69,7 @@
     </script>
 
 
-<body>
+<body background="http://localhost:8080/nw/User/img/2.jpeg">
 <ul class="breadcrumb " style="color: cornsilk;">
     <li class="active "><h2 style="color: crimson;">小红书</h2></li>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
