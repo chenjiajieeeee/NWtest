@@ -21,14 +21,14 @@
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post">
         <input type="submit" value="个人主页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     &nbsp;&nbsp;
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
         <input type="submit" value="首页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
@@ -38,7 +38,7 @@
         <li><form  action="http://localhost:8080/nw/manager/chargeAllNote" method="post">
             <input type="submit" value="管理笔记" name="action" class="btn btn-success">
             <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
+
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
         </li>
@@ -46,14 +46,14 @@
             <form  action="http://localhost:8080/nw/manager/chargeManagerUser" method="post">
                 <input type="submit" value="管理区域管理员" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
+
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
         </li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/manager/notice" method="post">
         <input type="submit" value="发布公告" name="action" class="btn btn-warning">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
         <input type="hidden" value="${requestScope.root}" name="root">
     </form>
     </li>
@@ -95,7 +95,7 @@
     <c:if test="${requestScope.notes2.size()!=0}">
         <input type="submit" name="action" value="批量删除" class="btn btn-warning">
         <input type="hidden" name="username" value="${requestScope.username}">
-        <input type="hidden" name="password" value="${requestScope.password}">
+
         <input type="hidden" name="root" value="${requestScope.root}">
     </c:if>
     <c:if test="${empty(requestScope.notes)}">

@@ -21,14 +21,14 @@
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post">
         <input type="submit" value="个人主页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     &nbsp;&nbsp;
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
         <input type="submit" value="首页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
@@ -38,7 +38,7 @@
     <li><form  action="http://localhost:8080/nw/manager/chargeAllNote" method="post">
         <input type="submit" value="管理笔记" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
         <input type="hidden" value="${requestScope.root}" name="root">
     </form>
     </li>
@@ -46,7 +46,7 @@
         <form  action="http://localhost:8080/nw/manager/chargeUser" method="post">
             <input type="submit" value="管理用户" name="action" class="btn btn-success">
             <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
+
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
     </li>
@@ -55,7 +55,7 @@
         <li><form  action="http://localhost:8080/nw/manager/chargeNote" method="post">
             <input type="submit" value="管理笔记" name="action" class="btn btn-success">
             <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
+
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
         </li>
@@ -63,14 +63,14 @@
             <form  action="http://localhost:8080/nw/manager/chargeManagerUser" method="post">
                 <input type="submit" value="管理区域管理员" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
+
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
         </li>
         <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/manager/notice" method="post">
             <input type="submit" value="发布公告" name="action" class="btn btn-warning">
             <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
+
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
         </li>
@@ -86,7 +86,7 @@
     </div>
     <button type="submit" class="btn btn-default" name="action">搜索</button>
     <input type="hidden" value="${requestScope.username}" name="username">
-    <input type="hidden" value="${requestScope.password}" name="password">
+
 </form>
 <div class="container">
 <table class="table">
@@ -104,8 +104,7 @@
                 <div class="col">
                 <div class="col-sm-2 col-md-3">
                     <c:if test="${note.releaseStatus.equals('1')}">
-                <a href="http://localhost:8080/nw/note/detail?noteId=${note.id}&username=${requestScope.username}&password=${requestScope.password}
-	        " class="thumbnail"  >
+                <a href="http://localhost:8080/nw/note/detail?noteId=${note.id}&username=${requestScope.username}" class="thumbnail"  >
                     <img src="${note.notePictureUrl}"
                          alt="通用的占位符缩略图">
                 </a>

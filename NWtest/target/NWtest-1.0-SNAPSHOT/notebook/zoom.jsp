@@ -23,24 +23,24 @@
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post">
         <input type="submit" value="个人主页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
         <input type="submit" value="首页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     &nbsp;&nbsp;
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-success">退出登录</a></li>
-    <li><a href="http://localhost:8080/nw/note/history?username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}" class="btn btn-warning">历史记录</a></li>
+    <li><a href="http://localhost:8080/nw/note/history?username=${requestScope.username}&root=${requestScope.root}" class="btn btn-warning">历史记录</a></li>
 </ul>
 <ul class="nav nav-tabs">
     <li class="active"><a href="#">分区页</a></li>
-    <li><a href="http://localhost:8080/nw/page/sort?action=按浏览量排序&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&number=2&zoomName=${requestScope.zoomName}">按浏览量排序</a></li>
-    <li><a href="http://localhost:8080/nw/page/sort?action=按点赞量排序&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&number=2&zoomName=${requestScope.zoomName}">按点赞量排序</a></li>
-    <li><a href="http://localhost:8080/nw/page/sort?action=按热度排序&username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}&number=2&zoomName=${requestScope.zoomName}">按热度排序</a></li>
+    <li><a href="http://localhost:8080/nw/page/sort?action=按浏览量排序&username=${requestScope.username}&root=${requestScope.root}&number=2&zoomName=${requestScope.zoomName}">按浏览量排序</a></li>
+    <li><a href="http://localhost:8080/nw/page/sort?action=按点赞量排序&username=${requestScope.username}&root=${requestScope.root}&number=2&zoomName=${requestScope.zoomName}">按点赞量排序</a></li>
+    <li><a href="http://localhost:8080/nw/page/sort?action=按热度排序&username=${requestScope.username}&root=${requestScope.root}&number=2&zoomName=${requestScope.zoomName}">按热度排序</a></li>
 </ul>
 <br>
 <ul class="breadcrumb " style="color: cornsilk;">
@@ -48,7 +48,7 @@
         <li><form  action="http://localhost:8080/nw/manager/chargeNote" method="post">
             <input type="submit" value="管理笔记" name="action" class="btn btn-success">
             <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
+
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
         </li>
@@ -56,7 +56,7 @@
             <form  action="http://localhost:8080/nw/manager/chargeUser" method="post">
                 <input type="submit" value="管理用户" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
+
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
         </li>
@@ -65,7 +65,7 @@
         <li><form  action="http://localhost:8080/nw/manager/chargeAllNote" method="post">
             <input type="submit" value="管理笔记" name="action" class="btn btn-success">
             <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
+
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
         </li>
@@ -73,14 +73,14 @@
             <form  action="http://localhost:8080/nw/manager/chargeManagerUser" method="post">
                 <input type="submit" value="管理区域管理员" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
+
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
         </li>
         <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/manager/notice" method="post">
             <input type="submit" value="发布公告" name="action" class="btn btn-warning">
             <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
+
             <input type="hidden" value="${requestScope.root}" name="root">
         </form>
         </li>
@@ -94,23 +94,23 @@
     <li style="color: green">当前是：${requestScope.zoomName}</li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="动漫区" name="action">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="学习区" name="action">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="科技区" name="action">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="游戏区" name="action">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="美食区" name="action">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
 </ul>
 <br>
@@ -122,15 +122,14 @@
     </div>
     <button type="submit" class="btn btn-default" name="action">搜索</button>
     <input type="hidden" value="${requestScope.username}" name="username">
-    <input type="hidden" value="${requestScope.password}" name="password">
+
 </form>
 <br>
 <div class="container">
     <div class="col" >
         <c:forEach items="${requestScope.note}" var="notes">
             <div class="col-sm-2 col-md-3">
-                <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
-	        " class="thumbnail"
+                <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}" class="thumbnail"
                 >
                     <img src="${notes.notePictureUrl}"
                          alt="通用的占位符缩略图">
@@ -161,7 +160,7 @@
     <ul class="pagination">
 
         <c:if test="${requestScope.pageNo!=1}">
-            <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${requestScope.pageNo-1}&action=${requestScope.zoomName}">&laquo;</a></li>
+            <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&pageNo=${requestScope.pageNo-1}&action=${requestScope.zoomName}">&laquo;</a></li>
         </c:if>
         <c:if test="${requestScope.pageNo-3<=0&&requestScope.pageTotal>=6}">
             <c:forEach begin="${1}" end="${6}" var="i">
@@ -169,7 +168,7 @@
                     <li class="active"><a href="#">${i}</a></li>
                 </c:if>
                 <c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-                    <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}&action=${requestScope.zoomName}">${i}</a></li>
+                    <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&pageNo=${i}&action=${requestScope.zoomName}">${i}</a></li>
                 </c:if>
             </c:forEach>
         </c:if>
@@ -179,7 +178,7 @@
                     <li class="active"><a href="#">${i}</a></li>
                 </c:if>
                 <c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-                    <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}&action=${requestScope.zoomName}">${i}</a></li>
+                    <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&pageNo=${i}&action=${requestScope.zoomName}">${i}</a></li>
                 </c:if>
             </c:forEach>
         </c:if>
@@ -189,7 +188,7 @@
                     <li class="active"><a href="#">${i}</a></li>
                 </c:if>
                 <c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-                    <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}&action=${requestScope.zoomName}">${i}</a></li>
+                    <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&pageNo=${i}&action=${requestScope.zoomName}">${i}</a></li>
                 </c:if>
             </c:forEach>
         </c:if>
@@ -199,12 +198,12 @@
                     <li class="active"><a href="#">${i}</a></li>
                 </c:if>
                 <c:if test="${i!=requestScope.pageNo}">
-                    <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}&action=${requestScope.zoomName}">${i}</a></li>
+                    <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&pageNo=${i}&action=${requestScope.zoomName}">${i}</a></li>
                 </c:if>
             </c:forEach>
         </c:if>
         <c:if test="${requestScope.pageNo!=requestScope.pageTotal}">
-            <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&password=${requestScope.password}&pageNo=${requestScope.pageNo+1}&action=${requestScope.zoomName}">&raquo;</a></li>
+            <li><a href="http://localhost:8080/nw/page/findPage?username=${requestScope.username}&pageNo=${requestScope.pageNo+1}&action=${requestScope.zoomName}">&raquo;</a></li>
         </c:if>
         <li class="h4" style="color: #5bc0de">当前第${requestScope.pageNo}页</li>
         <li class="h4" style="color: #5bc0de">共${requestScope.pageTotal}页</li>
@@ -217,14 +216,14 @@
     <p style="color: red">${requestScope.jumpMsg}</p>
     <input type="text" class="form-control"  placeholder="输入页码" name="pageNo">
     <input type="hidden" name="username" value="${requestScope.username}">
-    <input type="hidden" name="password" value="${requestScope.password}">
+
     <input type="hidden" name="action" value="${requestScope.zoomName}">
     <input type="submit" value="跳转至" class="btn btn-success">
 </form>
 <br>
 <form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/page/findPage">
     <input type="hidden" name="username" value="${requestScope.username}">
-    <input type="hidden" name="password" value="${requestScope.password}">
+
     <input type="hidden" name="pageNo" value="1">
     <input type="hidden" name="action" value="${requestScope.zoomName}">
     <input type="submit" value="首页" class="btn btn-success">
@@ -232,7 +231,7 @@
 <br>
 <form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/page/findPage">
     <input type="hidden" name="username" value="${requestScope.username}">
-    <input type="hidden" name="password" value="${requestScope.password}">
+
     <input type="hidden" name="pageNo" value="${requestScope.pageTotal}">
     <input type="hidden" name="action" value="${requestScope.zoomName}">
     <input type="submit" value="尾页" class="btn btn-success">

@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao{
         插入数据
          */
         connection = JdbcUtil.getConnection();
-        String sql = "insert into user(username, password,usernumber,mail,code) values(?,?,?,?,?)";
+        String sql = "insert into user(username, password,usernumber,mail,code,password_salt) values(?,?,?,?,?,?)";
         String sql1 = "insert into userstatus("+"动漫区"+ " ) "+"values('1')";
         /*
         同时将id添加到状态表
@@ -37,6 +37,7 @@ public class UserDaoImpl implements UserDao{
             preparedStatement.setInt(3,count);
             preparedStatement.setString(4,user.getMail());
             preparedStatement.setString(5,user.getCode());
+            preparedStatement.setString(6,user.getSalt());
             Statement statement=connection.createStatement();
             statement.executeUpdate(sql1);
             int row = preparedStatement.executeUpdate();
@@ -107,6 +108,7 @@ public class UserDaoImpl implements UserDao{
                 user.setCode(resultSet.getString("code"));
                 user.setMail(resultSet.getString("mail"));
                 user.setActivateStatus(resultSet.getString("activate_status"));
+                user.setSalt(resultSet.getString("password_salt"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,6 +141,7 @@ public class UserDaoImpl implements UserDao{
                 user.setCode(resultSet.getString("code"));
                 user.setMail(resultSet.getString("mail"));
                 user.setActivateStatus(resultSet.getString("activate_status"));
+                user.setSalt(resultSet.getString("password_salt"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

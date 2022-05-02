@@ -21,6 +21,7 @@
     </label>
     <button type="submit">登录</button>
   <a href="http://localhost:8080/nw/User/page/register.jsp">还没有账号？立即注册</a>
+      <br>
   </form>
 </div>
 </body>

@@ -16,10 +16,10 @@ public class UserRoleServiceImpl implements UserRoleService{
     public void updateUserInformation(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("root",request.getParameter("root"));
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String action = request.getParameter("action");
         request.setAttribute("username", username);
-        request.setAttribute("password", password);
+
         switch (action) {
             case "修改个人信息":
                 try {
@@ -63,7 +63,7 @@ public class UserRoleServiceImpl implements UserRoleService{
                     }
                 } else {
                     request.setAttribute("errorMsg", "确认旧密码正确以及新密码不能为空！");
-                    request.setAttribute("password", password);
+
                     try {
                         request.getRequestDispatcher("/User/page/updatepage.jsp").forward(request, response);
                     } catch (ServletException | IOException e) {
@@ -101,9 +101,12 @@ public class UserRoleServiceImpl implements UserRoleService{
         else {
             UserRoleDao userRoleDao = new UserRoleDaoImpl();
             Encryption encryption=new Encryption();
-            String OldPassword = encryption.encryptMD5(oldPassword);
-            String NewPassword = encryption.encryptMD5(newPassword);
-            return userRoleDao.updatePassword(username, OldPassword, NewPassword);
+            UserDao userDao=new UserDaoImpl();
+            String salt = userDao.queryUserByUserName(username).getSalt();
+            String OldPassword = encryption.encryptMD5(oldPassword,salt);
+            String newSalt = encryption.salt();
+            String NewPassword = encryption.encryptMD5(newPassword,newSalt);
+            return userRoleDao.updatePassword(username, OldPassword, NewPassword,newSalt);
         }
     }
 
@@ -117,7 +120,7 @@ public class UserRoleServiceImpl implements UserRoleService{
     public void chat(HttpServletRequest request, HttpServletResponse response) {
         UserService userService=new UserServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String root = request.getParameter("root");
         //先把关注了的用户找出来
         User user = userService.queryUserByUserName(username);
@@ -126,7 +129,7 @@ public class UserRoleServiceImpl implements UserRoleService{
         List<User> users1 = userService.viewFans(user.getId());
         request.setAttribute("users",users);
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("root",root);
         request.setAttribute("users1",users1);
         //跳转到聊天页面
@@ -145,12 +148,12 @@ public class UserRoleServiceImpl implements UserRoleService{
         LikeActService likeActService=new LikeActServiceImpl();
         //接收基本数据
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String root = request.getParameter("root");
         String action = request.getParameter("action");
         Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("root",root);
         request.setAttribute("action",action);
         if("提交".equals(action)) {
@@ -171,7 +174,7 @@ public class UserRoleServiceImpl implements UserRoleService{
                 boolean check1 = likeActService.judgeLikeOrNot(noteId, user.getId());
                 request.setAttribute("check",check1);
                 request.setAttribute("username",username);
-                request.setAttribute("password",password);
+
                 request.setAttribute("note",note);
                 List<Tag> tags = noteService.queryTagByNoteId(noteId);
                 List<Comment> comments = commentService.queryCommentByNoteId(noteId);

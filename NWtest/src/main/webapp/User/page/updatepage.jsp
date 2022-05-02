@@ -29,7 +29,7 @@
         <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
             <input type="submit" value="首页" name="action" class="btn btn-success">
             <input type="hidden" value="${requestScope.username}" name="username">
-            <input type="hidden" value="${requestScope.password}" name="password">
+
         </form>
         </li>
         <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-success">退出登录</a></li>
@@ -50,7 +50,7 @@
             <span class="input-group-addon">修改用户名：</span>
             <input type="text" class="form-control" placeholder="输入新的用户名称，不能为空！" name="newName">
             <input type="hidden" name="oldName" value="${requestScope.username}">
-            <input type="hidden" name="password" value="${requestScope.password}">
+
         </div>
         <br>
         <input type="submit" name="action" value="确认更改用户名" class="btn btn-success"/>
@@ -71,7 +71,7 @@
         <br>
         <input type="submit" name="action" value="确认更改密码" class="btn btn-success"/>
         <input type="hidden" name="username" value="${requestScope.username}">
-        <input type="hidden" name="password" value="${requestScope.password}">
+
     </form>
 </div>
 

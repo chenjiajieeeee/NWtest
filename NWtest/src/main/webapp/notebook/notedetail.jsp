@@ -21,13 +21,13 @@
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post">
         <input type="submit" value="个人主页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
         <input type="submit" value="首页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     &nbsp;&nbsp;
@@ -41,23 +41,23 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="动漫区" name="action" >
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="学习区" name="action" >
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="科技区" name="action" >
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="游戏区" name="action" >
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post"><input type="submit" value="美食区" name="action" >
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form></li>
 </ul>
 <form class="form-inline container" role="form" action="http://localhost:8080/nw/search/result" method="post">
@@ -68,7 +68,7 @@
     </div>
     <button type="submit" class="btn btn-default" name="action">搜索</button>
     <input type="hidden" value="${requestScope.username}" name="username">
-    <input type="hidden" value="${requestScope.password}" name="password">
+
 </form>
 <br>
 <div class="row container" >
@@ -86,26 +86,22 @@
                 <p style="color: red">${requestScope.likeMsg}</p>
                 <p style="color: red">${requestScope.CollectMsg}</p>
                 <c:if test="${requestScope.check==true}">
-                    <a href="http://localhost:8080/nw/note/likeAct?noteId=${requestScope.note.id}&username=${requestScope.username}&password=${requestScope.password}
-                    " class="btn btn-primary" role="button">
+                    <a href="http://localhost:8080/nw/note/likeAct?noteId=${requestScope.note.id}&username=${requestScope.username}" class="btn btn-primary" role="button">
                         点赞
                     </a>
                 </c:if>
                 <c:if test="${requestScope.check==false}">
-                    <a href="http://localhost:8080/nw/note/likeAct?noteId=${requestScope.note.id}&username=${requestScope.username}&password=${requestScope.password}
-                    " class="btn btn-primary" role="button">
+                    <a href="http://localhost:8080/nw/note/likeAct?noteId=${requestScope.note.id}&username=${requestScope.username}" class="btn btn-primary" role="button">
                         取消点赞
                     </a>
                 </c:if>
                 <c:if test="${requestScope.result==true}">
-                    <a href="http://localhost:8080/nw/note/collectAct?noteId=${requestScope.note.id}&username=${requestScope.username}&password=${requestScope.password}
-                    " class="btn btn-primary" role="button">
+                    <a href="http://localhost:8080/nw/note/collectAct?noteId=${requestScope.note.id}&username=${requestScope.username}" class="btn btn-primary" role="button">
                         收藏
                     </a>
                 </c:if>
                 <c:if test="${requestScope.result==false}">
-                    <a href="http://localhost:8080/nw/note/collectAct?noteId=${requestScope.note.id}&username=${requestScope.username}&password=${requestScope.password}
-                    " class="btn btn-primary" role="button">
+                    <a href="http://localhost:8080/nw/note/collectAct?noteId=${requestScope.note.id}&username=${requestScope.username}" class="btn btn-primary" role="button">
                         取消收藏
                     </a>
                 </c:if>
@@ -113,7 +109,7 @@
                     <form method="post" action="http://localhost:8080/nw/note/report">
                         <input type="submit" value="举报" name="action" class="btn btn-danger">
                         <input type="hidden" name="username" value="${requestScope.username}">
-                        <input type="hidden" name="password" value="${requestScope.password}">
+
                         <input type="hidden" name="root" value="${requestScope.root}">
                         <input type="hidden" name="noteId" value="${requestScope.note.id}">
                     </form>
@@ -122,7 +118,7 @@
                     <input type="submit" value="关注" class="btn btn-success">
                     <input type="hidden" value="${requestScope.note.userId}" name="friendId">
                     <input type="hidden" value="${requestScope.username}" name="username">
-                    <input type="hidden" value="${requestScope.password}" name="password">
+
                     <input type="hidden" value="${requestScope.root}" name="root">
                     <input type="hidden" name="noteId" value="${requestScope.note.id}">
                 </form>
@@ -144,7 +140,7 @@
                          <input type="submit" value="关注" class="btn btn-success">
                     <input type="hidden" value="${comment.userId}" name="friendId">
                     <input type="hidden" value="${requestScope.username}" name="username">
-                    <input type="hidden" value="${requestScope.password}" name="password">
+
                     <input type="hidden" value="${requestScope.root}" name="root">
                          <input type="hidden" name="noteId" value="${requestScope.note.id}">
                      </form>
@@ -163,7 +159,7 @@
                     <textarea class="form-control" rows="3" placeholder="不要什么都不写噢" name="commentMain"></textarea>
                     <input type="submit" name="action" value="评论" class="btn btn-success">
                     <input type="hidden" value="${requestScope.username}" name="username">
-                    <input type="hidden" value="${requestScope.password}" name="password">
+
                     <input type="hidden" value="${requestScope.note.id}" name="noteId">
                 </div>
             </form>

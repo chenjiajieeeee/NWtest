@@ -19,7 +19,7 @@
     <li class="active"><h3 style="color: #67b168">欢迎你！${requestScope.username}</h3></li>
     &nbsp;&nbsp;
     <li><a href="http://localhost:8080/nw/User/page/login.jsp" class="btn btn-warning">退出登录</a></li>
-    <li><a href="http://localhost:8080/nw/user/loginpage?username=${requestScope.username}&password=${requestScope.password}&root=${requestScope.root}" class="btn btn-warning">返回首页</a></li>
+    <li><a href="http://localhost:8080/nw/user/loginpage?username=${requestScope.username}&root=${requestScope.root}" class="btn btn-warning">返回首页</a></li>
 </ul>
 <p style="color: red" class="container">${requestScope.Msg}</p>
 <div class="container">
@@ -48,7 +48,7 @@
         <td><form action="http://localhost:8080/nw/manager/setUserStatus" method="post">
             <input type="submit" name="update" value="禁用/解封该用户" class="btn btn-warning">
             <input type="hidden" name="username" value="${requestScope.username}">
-            <input type="hidden" name="password" value="${requestScope.password}">
+
             <input type="hidden" name="root" value="${requestScope.root}">
             <input type="hidden" name="userId" value="${user.userId}">
             <input type="hidden" name="userStatus" value="${user.userStatus}">

@@ -40,7 +40,8 @@ public class UserServiceImpl implements UserService{
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         Encryption encryption=new Encryption();
-        String newPassword = encryption.encryptMD5(password);
+        String salt = userService.queryUserByUserName(username).getSalt();
+        String newPassword = encryption.encryptMD5(password,salt);
         String check = userService.userLogin(username, newPassword);
         switch (check) {
             case "登录成功！": {
@@ -55,7 +56,6 @@ public class UserServiceImpl implements UserService{
                 User user = userService.queryUserByUserName(username);
                 req.setAttribute("root", user.getRoot());
                 req.setAttribute("username", username);
-                req.setAttribute("password", newPassword);
                 try {
                     req.getRequestDispatcher("/notebook/homepage.jsp").forward(request, response);
                 } catch (ServletException | IOException e) {
@@ -101,7 +101,8 @@ public class UserServiceImpl implements UserService{
             User user = new User();
             user.setUsername(username);
             Encryption encryption=new Encryption();
-            String newPassword=encryption.encryptMD5(password);
+            String salt = encryption.salt();
+            String newPassword=encryption.encryptMD5(password,salt);
             user.setPassword(newPassword);
             user.setMail(mail);
             user.setCode(code);
@@ -259,7 +260,6 @@ public class UserServiceImpl implements UserService{
         NoteService noteService=new NoteServiceImpl();
         String root = request.getParameter("root");
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
         User user = userService.queryUserByUserName(username);
         Cookie[] cookies = request.getCookies();
         Cookie cookieByName = WebUtil.findCookieByName(cookies, user.getId().toString());
@@ -281,7 +281,6 @@ public class UserServiceImpl implements UserService{
             }
         }
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
         request.setAttribute("notes",notes);
         request.setAttribute("root",root);
         try {

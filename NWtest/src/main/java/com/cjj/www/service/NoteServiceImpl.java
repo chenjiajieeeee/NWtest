@@ -40,10 +40,10 @@ public class NoteServiceImpl implements NoteService {
         ManagerService managerService=new ManagerServiceImpl();
         request.setAttribute("root",request.getParameter("root"));
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String action = request.getParameter("action");
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         Integer noteId = WebUtil.toInteger(request.getParameter("id"));
 
         switch (action) {
@@ -237,9 +237,9 @@ public class NoteServiceImpl implements NoteService {
         String action = request.getParameter("action");
         String root = request.getParameter("root");
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("root",root);
         if(action.equals("发布笔记")){
             try {
@@ -415,7 +415,7 @@ public class NoteServiceImpl implements NoteService {
                 }
                 Integer noteId=WebUtil.toInteger(data.get(0));
                 String username=data.get(1);
-                String password=data.get(2);
+
                 List<Note> notes = noteService.queryNoteByUsername(username);
                 CommentService commentService = new CommentServiceImpl();
                 UserDao userDao = new UserDaoImpl();
@@ -446,8 +446,7 @@ public class NoteServiceImpl implements NoteService {
                 request.setAttribute("uploadMsg", "上传文件成功！等待审核中！");
                 managerService.changeNoteReleaseStatus(noteId);
                 request.setAttribute("username",username);
-                request.setAttribute("password",password);
-                request.setAttribute("root",data.get(3));
+                request.setAttribute("root",data.get(2));
                 request.getRequestDispatcher("/User/page/home.jsp").forward(request,response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -560,11 +559,11 @@ public class NoteServiceImpl implements NoteService {
 
         NoteService noteService=new NoteServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String action = request.getParameter("action");
         String root = request.getParameter("root");
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("root",root);
         request.setAttribute("action",action);
         String number = request.getParameter("number");
@@ -727,7 +726,7 @@ public class NoteServiceImpl implements NoteService {
         CommentService commentService=new CommentServiceImpl();
         CollectService collectService=new CollectServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         UserDao userDao=new UserDaoImpl();
         User user = userDao.queryUserByUserName(username);
         request.setAttribute("root",user.getRoot());
@@ -740,7 +739,7 @@ public class NoteServiceImpl implements NoteService {
         boolean result = collectService.judgeCollectOrNot(noteId, user.getId());
         request.setAttribute("result",result);
         request.setAttribute("username", username);
-        request.setAttribute("password", password);
+
         request.setAttribute("note", note);
         request.setAttribute("tags",tags);
         request.setAttribute("check",check);

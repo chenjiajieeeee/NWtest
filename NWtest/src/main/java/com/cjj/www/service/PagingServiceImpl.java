@@ -165,13 +165,13 @@ public class PagingServiceImpl implements PagingService{
     public void loginPage(HttpServletRequest request, HttpServletResponse response) {
         UserService userService=new UserServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         PagingService pagingService = new PagingServiceImpl();
         HttpServletRequest req = pagingService.paging(request);
         User user = userService.queryUserByUserName(username);
         req.setAttribute("root", user.getRoot());
         req.setAttribute("username", username);
-        req.setAttribute("password", password);
+
         try {
             req.getRequestDispatcher("/notebook/homepage.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
@@ -182,7 +182,7 @@ public class PagingServiceImpl implements PagingService{
     @Override
     public void searchResult(HttpServletRequest request, HttpServletResponse response) {
         String username=request.getParameter("username");
-        String password=request.getParameter("password");
+
         String tag=request.getParameter("tag");
         UserService userService=new UserServiceImpl();
         User user = userService.queryUserByUserName(username);
@@ -190,7 +190,7 @@ public class PagingServiceImpl implements PagingService{
         PagingService pagingService=new PagingServiceImpl();
         HttpServletRequest req = pagingService.paging(request, tag, response);
         req.setAttribute("username",username);
-        req.setAttribute("password",password);
+
         req.setAttribute("tag",tag);
         try {
             req.getRequestDispatcher("/notebook/search.jsp").forward(request,response);
@@ -208,14 +208,14 @@ public class PagingServiceImpl implements PagingService{
         CommentService commentService=new CommentServiceImpl();
         String action = request.getParameter("action");
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         if(action.equals("游戏区")||action.equals("美食区")||action.equals("学习区")||action.equals("动漫区")||action.equals("科技区")){
             HttpServletRequest req = pagingService.paging(request,action);
             User user = userService.queryUserByUserName(username);
             req.setAttribute("root",user.getRoot());
             req.setAttribute("zoomName",action);
             req.setAttribute("username",username);
-            req.setAttribute("password",password);
+
             try {
                 req.getRequestDispatcher("/notebook/zoom.jsp").forward(request,response);
             } catch (ServletException | IOException e) {
@@ -225,7 +225,7 @@ public class PagingServiceImpl implements PagingService{
             //查找对应的小红书号：
             request.setAttribute("userNumber",userService.queryUserByUserName(username).getUserNumber());
             request.setAttribute("username",username);
-            request.setAttribute("password",password);
+
             List<Note> notes = noteService.queryNoteByUsername(username);
                 /*
                 对笔记分类

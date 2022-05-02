@@ -23,21 +23,21 @@
             <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/manager/batchDeleteNote" method="post">
                 <input type="submit" value="批量删除" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
+
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
             </li>
             <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post">
                 <input type="submit" value="个人主页" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
+
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
             </li>
             <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
                 <input type="submit" value="首页" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
+
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
             </li>
@@ -58,7 +58,7 @@
                     <input type="submit" value="删除"  name="action" class="btn btn-warning" onclick="return confirm('确认删除吗？')">
                     <input type="hidden" name="noteId" value="${notes.id}">
                     <input type="hidden" name="username" value="${requestScope.username}">
-                    <input type="hidden" name="password" value="${requestScope.password}">
+
                     <input type="hidden" name="pageNo" value="${requestScope.pageNo}">
                     <input type="hidden" value="${requestScope.root}" name="root">
                 </form>
@@ -89,7 +89,7 @@
     <ul class="pagination">
 
         <c:if test="${requestScope.pageNo!=1}">
-            <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&password=${requestScope.password}&pageNo=${requestScope.pageNo-1}">&laquo;</a></li>
+            <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&pageNo=${requestScope.pageNo-1}">&laquo;</a></li>
         </c:if>
         <c:if test="${requestScope.pageNo-3<=0&&requestScope.pageTotal>=6}">
             <c:forEach begin="${1}" end="${6}" var="i">
@@ -97,7 +97,7 @@
                     <li class="active"><a href="#">${i}</a></li>
                 </c:if>
                 <c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-                    <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
+                    <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&pageNo=${i}">${i}</a></li>
                 </c:if>
             </c:forEach>
         </c:if>
@@ -107,7 +107,7 @@
                     <li class="active"><a href="#">${i}</a></li>
                 </c:if>
                 <c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-                    <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
+                    <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&pageNo=${i}">${i}</a></li>
                 </c:if>
             </c:forEach>
         </c:if>
@@ -117,7 +117,7 @@
                     <li class="active"><a href="#">${i}</a></li>
                 </c:if>
                 <c:if test="${i<=requestScope.pageTotal&&i!=requestScope.pageNo}">
-                    <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
+                    <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&pageNo=${i}">${i}</a></li>
                 </c:if>
             </c:forEach>
         </c:if>
@@ -127,12 +127,12 @@
                     <li class="active"><a href="#">${i}</a></li>
                 </c:if>
                 <c:if test="${i!=requestScope.pageNo}">
-                    <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&password=${requestScope.password}&pageNo=${i}">${i}</a></li>
+                    <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&pageNo=${i}">${i}</a></li>
                 </c:if>
             </c:forEach>
         </c:if>
         <c:if test="${requestScope.pageNo!=requestScope.pageTotal}">
-            <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&password=${requestScope.password}&pageNo=${requestScope.pageNo+1}">&raquo;</a></li>
+            <li><a href="http://localhost:8080/nw/manager/chargeAllNote?username=${requestScope.username}&pageNo=${requestScope.pageNo+1}">&raquo;</a></li>
         </c:if>
         <li class="h4" style="color: #5bc0de">当前第${requestScope.pageNo}页</li>
         <li class="h4" style="color: #5bc0de">共${requestScope.pageTotal}页</li>
@@ -145,14 +145,14 @@
     <p style="color: red">${requestScope.jumpMsg}</p>
     <input type="text" class="form-control"  placeholder="输入页码" name="pageNo">
     <input type="hidden" name="username" value="${requestScope.username}">
-    <input type="hidden" name="password" value="${requestScope.password}">
+
     <input type="hidden" value="${requestScope.root}" name="root">
     <input type="submit" value="跳转至" class="btn btn-success">
 </form>
 <br>
 <form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/manager/chargeAllNote">
     <input type="hidden" name="username" value="${requestScope.username}">
-    <input type="hidden" name="password" value="${requestScope.password}">
+
     <input type="hidden" name="pageNo" value="1">
     <input type="hidden" value="${requestScope.root}" name="root">
     <input type="submit" value="首页" class="btn btn-success">
@@ -160,7 +160,7 @@
 <br>
 <form class="form-inline container" role="form" method="post" action="http://localhost:8080/nw/manager/chargeAllNote">
     <input type="hidden" name="username" value="${requestScope.username}">
-    <input type="hidden" name="password" value="${requestScope.password}">
+
     <input type="hidden" name="pageNo" value="${requestScope.pageTotal}">
     <input type="hidden" value="${requestScope.root}" name="root">
     <input type="submit" value="尾页" class="btn btn-success">

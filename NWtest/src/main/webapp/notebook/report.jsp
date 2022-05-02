@@ -21,13 +21,13 @@
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/page/findPage" method="post">
         <input type="submit" value="个人主页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
         <input type="submit" value="首页" name="action" class="btn btn-success">
         <input type="hidden" value="${requestScope.username}" name="username">
-        <input type="hidden" value="${requestScope.password}" name="password">
+
     </form>
     </li>
     &nbsp;&nbsp;

@@ -30,7 +30,7 @@
             <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
                 <input type="submit" value="首页" name="action" class="btn btn-success">
                 <input type="hidden" value="${requestScope.username}" name="username">
-                <input type="hidden" value="${requestScope.password}" name="password">
+
                 <input type="hidden" value="${requestScope.root}" name="root">
             </form>
             </li>
@@ -78,7 +78,7 @@
             </label>
         </div>
         <input type="hidden" name="username" value="${requestScope.username}">
-        <input type="hidden" name="password" value="${requestScope.password}">
+
     </div>
         <input type="submit" value="确认发布" class="btn btn-success" name="action">
 </form>

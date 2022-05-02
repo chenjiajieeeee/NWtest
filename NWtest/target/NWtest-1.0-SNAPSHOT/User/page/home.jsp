@@ -67,28 +67,28 @@
                <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
                    <input type="submit" value="首页" name="action" class="btn btn-success">
                    <input type="hidden" value="${requestScope.username}" name="username">
-                   <input type="hidden" value="${requestScope.password}" name="password">
+
                    <input type="hidden" value="${requestScope.root}" name="root">
                </form>
                </li>
                <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/publishNote" method="post">
                    <input type="submit" value="发布笔记" name="action" class="btn btn-success">
                    <input type="hidden" value="${requestScope.username}" name="username">
-                   <input type="hidden" value="${requestScope.password}" name="password">
+
                    <input type="hidden" value="${requestScope.root}" name="root">
                </form>
                </li>
                <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/updateUserInformation" method="post">
                    <input type="submit" value="修改个人信息" name="action" class="btn btn-success">
                    <input type="hidden" value="${requestScope.username}" name="username">
-                   <input type="hidden" value="${requestScope.password}" name="password">
+
                    <input type="hidden" value="${requestScope.root}" name="root">
                </form>
                </li>
                <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/chat" method="post">
                    <input type="submit" value="好友列表" name="action" class="btn btn-success">
                    <input type="hidden" value="${requestScope.username}" name="username">
-                   <input type="hidden" value="${requestScope.password}" name="password">
+
                    <input type="hidden" value="${requestScope.root}" name="root">
                </form>
                </li>
@@ -144,7 +144,7 @@
                     <form action="http://localhost:8080/nw/user/updateNote" method="post" >
                         <input type="submit" value="申诉" name="action" class="btn btn-warning">
                         <input type="hidden" name="username" value="${requestScope.username}">
-                        <input type="hidden" name="password" value="${requestScope.password}">
+
                         <input type="hidden" name="id" value="${notes.id}">
                     </form>
                     <table class="table table-bordered">
@@ -183,7 +183,7 @@
                         <input type="submit" value="修改" name="action" class="btn btn-warning">
                         <input type="submit" value="申诉" name="action" class="btn btn-warning">
                         <input type="hidden" name="username" value="${requestScope.username}">
-                        <input type="hidden" name="password" value="${requestScope.password}">
+
                         <input type="hidden" name="id" value="${notes.id}">
                     </form>
                     <table class="table table-bordered">
@@ -213,8 +213,7 @@
         <div class="col" >
             <c:forEach items="${requestScope.notes6}" var="notes">
                 <div class="col-sm-2 col-md-3">
-                    <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
-	                 " class="thumbnail"
+                    <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}" class="thumbnail"
                     >
                         <img src="${notes.notePictureUrl}"
                              alt="通用的占位符缩略图">
@@ -223,7 +222,7 @@
                     <input type="submit" value="修改" name="action" class="btn btn-warning">
                     <input type="submit" value="删除"  name="action" class="btn btn-warning" onclick="return confirm('确认删除吗？')">
                         <input type="hidden" name="username" value="${requestScope.username}">
-                        <input type="hidden" name="password" value="${requestScope.password}">
+
                         <input type="hidden" name="id" value="${notes.id}">
                     </form>
                     <table class="table table-bordered">
@@ -254,8 +253,7 @@
             <c:forEach items="${requestScope.notes1}" var="notes">
                 <c:if test="${notes.releaseStatus.equals('1')}">
                 <div class="col-sm-2 col-md-3">
-                    <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
-	                  " class="thumbnail"
+                    <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}" class="thumbnail"
                     >
                         <img src="${notes.notePictureUrl}"
                              alt="通用的占位符缩略图">
@@ -299,8 +297,7 @@
             <c:forEach items="${requestScope.notes2}" var="notes">
                 <c:if test="${notes.releaseStatus.equals('1')}">
                 <div class="col-sm-2 col-md-3">
-                        <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
-	                  " class="thumbnail"
+                        <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}" class="thumbnail"
                         >
                             <img src="${notes.notePictureUrl}"
                                  alt="通用的占位符缩略图">
@@ -344,8 +341,7 @@
             <c:forEach items="${requestScope.notes3}" var="notes">
                 <c:if test="${notes.releaseStatus.equals('1')}">
                 <div class="col-sm-2 col-md-3">
-                    <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}&password=${requestScope.password}
-	                  " class="thumbnail"
+                    <a href="http://localhost:8080/nw/note/detail?noteId=${notes.id}&username=${requestScope.username}" class="thumbnail"
                     >
                         <img src="${notes.notePictureUrl}"
                              alt="通用的占位符缩略图">

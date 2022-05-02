@@ -20,7 +20,7 @@ public class LikeActServiceImpl implements LikeActService{
         CollectService collectService=new CollectServiceImpl();
         CommentService commentService=new CommentServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
         UserDao userDao=new UserDaoImpl();
         User user = userDao.queryUserByUserName(username);
@@ -38,7 +38,7 @@ public class LikeActServiceImpl implements LikeActService{
         request.setAttribute("note",noteService.queryNoteByNoteId(noteId));
         request.setAttribute("tags",tags);
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("check",check);
         List<Comment> comments = commentService.queryCommentByNoteId(noteId);
         request.setAttribute("comments",comments);

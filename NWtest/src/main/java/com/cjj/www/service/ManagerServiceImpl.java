@@ -226,14 +226,14 @@ public class ManagerServiceImpl implements ManagerService{
         根据分区查找笔记，笔记分页，其实和首页一样，但是不能点进去查看详情。
          */
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String root =request.getParameter("root");
 
         PagingService pagingService = new PagingServiceImpl();
         HttpServletRequest req = pagingService.paging(request, root, response, 1);
         req.setAttribute("root", root);
         req.setAttribute("username", username);
-        req.setAttribute("password", password);
+
         try {
             req.getRequestDispatcher("/root/managerhome.jsp").forward(req, response);
         } catch (ServletException | IOException e) {
@@ -327,7 +327,7 @@ public class ManagerServiceImpl implements ManagerService{
          */
         ManagerService managerService=new ManagerServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String root = request.getParameter("root");
         Map<Integer, String> userStatus = managerService.queryZoomStatus(root);
         List<UserStatusAndUsername> userStatusAndUsernames=new ArrayList<>();
@@ -344,7 +344,7 @@ public class ManagerServiceImpl implements ManagerService{
         }
         request.setAttribute("userMessage",userStatusAndUsernames);
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("root",root);
         try {
             request.getRequestDispatcher("/root/chargeUser.jsp").forward(request,response);
@@ -392,7 +392,7 @@ public class ManagerServiceImpl implements ManagerService{
         ManagerService managerService=new ManagerServiceImpl();
         NoteService noteService=new NoteServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String root = request.getParameter("root");
         /*
         查找该分区的所有笔记显示，不分页。
@@ -412,7 +412,7 @@ public class ManagerServiceImpl implements ManagerService{
         List<Note> notes3 = noteService.turnBackNote(notes);
         request.setAttribute("notes3",notes3);
         //传递值
-        request.setAttribute("password",password);
+
         request.setAttribute("username",username);
         request.setAttribute("root",root);
         try {
@@ -515,11 +515,11 @@ public class ManagerServiceImpl implements ManagerService{
         //接收参数
         String root = request.getParameter("root");
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         //传递参数
         request.setAttribute("root",root);
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
 
 
         //查询管理员需要处理的笔记
@@ -598,14 +598,14 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     public void chargeAllNote(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         //调用分页业务
         PagingService pagingService=new PagingServiceImpl();
         HttpServletRequest req = pagingService.superManagerPaging(request);
         UserService userService=new UserServiceImpl();
         User user = userService.queryUserByUserName(username);
         req.setAttribute("username",username);
-        req.setAttribute("password",password);
+
         req.setAttribute("root",user.getRoot());
         try {
             req.getRequestDispatcher("/root/totalDelete.jsp").forward(request,response);
@@ -639,10 +639,10 @@ public class ManagerServiceImpl implements ManagerService{
     public void batchDeleteNote(HttpServletRequest request, HttpServletResponse response) {
         ManagerService managerService=new ManagerServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String root = request.getParameter("root");
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("root",root);
         List<Note> notes = managerService.queryNote();
         request.setAttribute("notes",notes);
@@ -682,10 +682,10 @@ public class ManagerServiceImpl implements ManagerService{
         ManagerService managerService=new ManagerServiceImpl();
         //获取参数&传递参数
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String root = request.getParameter("root");
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("root",root);
         //查找每个分区的管理员
         List<User> users4 = managerService.queryUserByRoot("游戏区");
@@ -709,8 +709,8 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     public void setManager(HttpServletRequest request, HttpServletResponse response) {
         ManagerService managerService=new ManagerServiceImpl();
-        String password = request.getParameter("password");
-        request.setAttribute("password",password);
+
+
         Integer userId=WebUtil.toInteger(request.getParameter("userId"));
         managerService.resetUser(userId);
         UserService userService=new UserServiceImpl();
@@ -734,7 +734,7 @@ public class ManagerServiceImpl implements ManagerService{
     public void changeUser(HttpServletRequest request, HttpServletResponse response) {
         ManagerService managerService=new ManagerServiceImpl();
         Integer userId=WebUtil.toInteger(request.getParameter("userId"));
-        request.setAttribute("password",request.getParameter("password"));
+
         UserService userService=new UserServiceImpl();
         User user = userService.queryUserByUserId(userId);
         String zoom = request.getParameter("zoom");
@@ -760,11 +760,11 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     public void notice(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         String root = request.getParameter("root");
         //跳转页面
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("root",root);
         try {
             request.getRequestDispatcher("/root/notice.jsp").forward(request,response);

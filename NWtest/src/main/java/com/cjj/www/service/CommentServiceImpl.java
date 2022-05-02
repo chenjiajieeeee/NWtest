@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService{
         CollectService collectService=new CollectServiceImpl();
         CommentService commentService=new CommentServiceImpl();
         String username=request.getParameter("username");
-        String password = request.getParameter("password");
+
         UserDao userDao=new UserDaoImpl();
         User user=userDao.queryUserByUserName(username);
         request.setAttribute("root",user.getRoot());
@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService{
         boolean result = collectService.judgeCollectOrNot(noteId, user.getId());
         request.setAttribute("result",result);
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("check",check);
         NoteService noteService=new NoteServiceImpl();
         Note note = noteService.queryNoteByNoteId(noteId);

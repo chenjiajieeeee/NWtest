@@ -19,6 +19,16 @@ public class User {
     private String activateStatus;
     //激活码
     private String code;
+    //哈希盐
+    private String salt;
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
     public String getMail() {
         return mail;

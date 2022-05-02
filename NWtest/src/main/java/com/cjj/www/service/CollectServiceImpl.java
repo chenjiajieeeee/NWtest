@@ -25,7 +25,7 @@ public class CollectServiceImpl implements CollectService{
         CollectService collectService=new CollectServiceImpl();
         LikeActService likeActService=new LikeActServiceImpl();
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
         Integer noteId = WebUtil.toInteger(request.getParameter("noteId"));
         /*
         同点赞的操作一样
@@ -41,7 +41,7 @@ public class CollectServiceImpl implements CollectService{
         request.setAttribute("result",result);
         request.setAttribute("check",check);
         request.setAttribute("username",username);
-        request.setAttribute("password",password);
+
         request.setAttribute("note",note);
         request.setAttribute("comments",comments);
         List<Tag> tags = noteService.queryTagByNoteId(noteId);

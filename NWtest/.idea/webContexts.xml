@@ -6,6 +6,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/User/page/chat.jsp" value="file://$PROJECT_DIR$/src/main/webapp/User/page" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/User/page/home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/User/page" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/User/page/register.jsp" value="file://$PROJECT_DIR$/src/main/webapp/User/page" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/User/page/reset.jsp" value="file://$PROJECT_DIR$/src/main/webapp/User/page" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/User/page/updateNote.jsp" value="file://$PROJECT_DIR$/src/main/webapp/User/page" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/manager/managerhome.jsp" value="file://$PROJECT_DIR$/src/main/webapp/manager" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/note/cartoon.html" value="file://$PROJECT_DIR$/src/main/webapp/note" />
@@ -14,6 +15,8 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/history.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/homepage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/notedetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/search.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/sort.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/notebook/zoom.jsp" value="file://$PROJECT_DIR$/src/main/webapp/notebook" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/root/batchOperation.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/root/chargeAll.jsp" value="file://$PROJECT_DIR$/src/main/webapp/root" />
