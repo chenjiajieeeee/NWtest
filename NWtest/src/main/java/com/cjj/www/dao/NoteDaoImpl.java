@@ -388,7 +388,7 @@ public class NoteDaoImpl implements NoteDao{
     }
 
     @Override
-    public boolean insertPictureUrl(String url,Integer noteId) {
+    public void insertPictureUrl(String url, Integer noteId) {
         boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
@@ -406,11 +406,10 @@ public class NoteDaoImpl implements NoteDao{
         }finally {
             JdbcUtil.close(preparedStatement,connection);
         }
-        return result;
     }
 
     @Override
-    public boolean addBrowse(Integer noteId)  {
+    public void addBrowse(Integer noteId)  {
         boolean result=false;
         Connection connection=null;
         Statement statement=null;
@@ -427,7 +426,6 @@ public class NoteDaoImpl implements NoteDao{
         }finally {
             JdbcUtil.close(null,statement,connection);
         }
-        return result;
     }
 
     @Override

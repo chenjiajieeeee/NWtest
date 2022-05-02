@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class UserRoleDaoImpl implements UserRoleDao{
     @Override
-    public boolean updateUserName(String oldUsername, String newUsername) {
+    public void updateUserName(String oldUsername, String newUsername) {
         boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
@@ -28,7 +28,6 @@ public class UserRoleDaoImpl implements UserRoleDao{
         }finally {
             JdbcUtil.close(preparedStatement,connection);
         }
-        return result;
     }
 
     @Override
@@ -36,22 +35,24 @@ public class UserRoleDaoImpl implements UserRoleDao{
         boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement1=null;
         connection= JdbcUtil.getConnection();
         UserDao userDao=new UserDaoImpl();
         User user = userDao.queryUserByUserName(username);
         if(user.getPassword().equals(oldPassword)&&newPassword!=null){
                 result=true;
-            String sql="update user set password=? where password=?";
-            String sql1="update user set password_salt = ? where username = ?";
+            String sql="update `user` set password = ? where username = ?";
+            String sql1="update `user` set password_salt = ? where username = ?";
             try {
-                preparedStatement=connection.prepareStatement(sql);
-                preparedStatement.setString(1,newPassword);
-                preparedStatement.setString(2,oldPassword);
+                preparedStatement1=connection.prepareStatement(sql);
+                preparedStatement1.setString(1,newPassword);
+                preparedStatement1.setString(2,username);
+                int i = preparedStatement1.executeUpdate();
                 preparedStatement=connection.prepareStatement(sql1);
                 preparedStatement.setString(1,newSalt);
                 preparedStatement.setString(2,username);
                 int row=preparedStatement.executeUpdate();
-                if(row>0){
+                if(row>0&&i>0){
                     result=true;
                 }
             } catch (SQLException throwables) {

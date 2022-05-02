@@ -51,21 +51,5 @@ public class UserStatusDaoImpl implements UserStatusDao{
         return null;
     }
 
-    @Override
-    public boolean setUserReleaseStatus(Integer noteId, String releaseStatus) {
-        connection=JdbcUtil.getConnection();
-        String sql="update note set release_status = ? where id = ?";
-        try {
-            preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,releaseStatus);
-            preparedStatement.setInt(2,noteId);
-            int row = preparedStatement.executeUpdate();
-            if(row>0){
-                return true;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return false;
-    }
+
 }

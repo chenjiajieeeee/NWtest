@@ -7,8 +7,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 public class Encryption {
-    //生成盐
+
     private static final char[] hex = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+    /**
+     *
+     * @return 生成的盐
+     */
     public String salt() {
         Random random = new Random();
         StringBuilder salt = new StringBuilder(16);
@@ -18,7 +23,12 @@ public class Encryption {
         return salt.toString();
     }
 
-    //MD5加密
+    /**
+     * 进行加密
+     * @param info 密码
+     * @param salt 生成的盐
+     * @return 加盐后的密码
+     */
     public String encryptMD5(String info,String salt) {
         //根据MD5算法生成MessageDigest对象
         info=info+salt;

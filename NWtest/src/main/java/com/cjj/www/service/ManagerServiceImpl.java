@@ -97,9 +97,9 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
-    public boolean changeNoteReleaseStatus(Integer noteId) {
+    public void changeNoteReleaseStatus(Integer noteId) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.setNoteReleaseStatus(noteId, "0");
+        managerDao.setNoteReleaseStatus(noteId, "0");
     }
 
     @Override
@@ -115,15 +115,15 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
-    public boolean deleteReportMsg(Integer noteId, String username) {
+    public void deleteReportMsg(Integer noteId, String username) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.deleteReportMsg(noteId,username);
+        managerDao.deleteReportMsg(noteId, username);
     }
 
     @Override
-    public boolean deleteReportMsg(Integer noteId) {
+    public void deleteReportMsg(Integer noteId) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.deleteReportMsg(noteId);
+        managerDao.deleteReportMsg(noteId);
     }
 
     @Override
@@ -133,9 +133,9 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
-    public boolean deleteNote(Integer noteId) {
+    public void deleteNote(Integer noteId) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.deleteNoteByManager(noteId);
+        managerDao.deleteNoteByManager(noteId);
     }
 
     @Override
@@ -145,27 +145,27 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
-    public boolean saveOperation(Appeal appeal) {
+    public void saveOperation(Appeal appeal) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.saveOperation(appeal);
+        managerDao.saveOperation(appeal);
     }
 
     @Override
-    public boolean deleteOperation(Integer noteId) {
+    public void deleteOperation(Integer noteId) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.deleteOperation(noteId);
+        managerDao.deleteOperation(noteId);
     }
 
     @Override
-    public boolean addAppeal(String username) {
+    public void addAppeal(String username) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.addAppeal(username);
+        managerDao.addAppeal(username);
     }
 
     @Override
-    public boolean resetAppeal(String username) {
+    public void resetAppeal(String username) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.resetAppeal(username);
+        managerDao.resetAppeal(username);
     }
 
     @Override
@@ -183,9 +183,9 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
-    public boolean resetUser(Integer userId) {
+    public void resetUser(Integer userId) {
         ManagerDao managerDao=new ManagerDaoImpl();
-        return managerDao.resetUser(userId);
+        managerDao.resetUser(userId);
     }
 
     @Override

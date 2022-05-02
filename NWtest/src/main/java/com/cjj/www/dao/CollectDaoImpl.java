@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CollectDaoImpl implements CollectDao{
     @Override
-    public boolean addCollect(Collect collect) {
+    public void addCollect(Collect collect) {
         boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
@@ -28,11 +28,10 @@ public class CollectDaoImpl implements CollectDao{
         }finally {
             JdbcUtil.close(preparedStatement,connection);
         }
-       return result;
     }
 
     @Override
-    public boolean cancelCollect(Integer noteId, Integer userId) {
+    public void cancelCollect(Integer noteId, Integer userId) {
         boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
@@ -50,7 +49,7 @@ public class CollectDaoImpl implements CollectDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(preparedStatement,connection);
-        }return result;
+        }
     }
 
     @Override

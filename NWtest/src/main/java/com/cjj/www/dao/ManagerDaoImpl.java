@@ -48,9 +48,9 @@ public class ManagerDaoImpl implements ManagerDao{
 
 
     @Override
-    public boolean deleteNoteByManager(Integer id) {
+    public void deleteNoteByManager(Integer id) {
         NoteDao noteDao=new NoteDaoImpl();
-        return noteDao.deleteNote(id);
+        noteDao.deleteNote(id);
     }
 
     @Override
@@ -206,7 +206,7 @@ public class ManagerDaoImpl implements ManagerDao{
     }
 
     @Override
-    public boolean deleteReportMsg(Integer noteId, String username) {
+    public void deleteReportMsg(Integer noteId, String username) {
         boolean result=false;
         Connection connection=null;
         Statement statement=null;
@@ -222,11 +222,11 @@ public class ManagerDaoImpl implements ManagerDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(null,statement,connection);
-        }return result;
+        }
     }
 
     @Override
-    public boolean deleteReportMsg(Integer noteId) {
+    public void deleteReportMsg(Integer noteId) {
         boolean result=false;
         Connection connection=null;
         Statement statement=null;
@@ -242,7 +242,7 @@ public class ManagerDaoImpl implements ManagerDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(null,statement,connection);
-        }return result;
+        }
     }
 
     @Override
@@ -328,7 +328,7 @@ public class ManagerDaoImpl implements ManagerDao{
     }
 
     @Override
-    public boolean saveOperation(Appeal appeal) {
+    public void saveOperation(Appeal appeal) {
         boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
@@ -346,11 +346,11 @@ public class ManagerDaoImpl implements ManagerDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(preparedStatement,connection);
-        }return result;
+        }
     }
 
     @Override
-    public boolean deleteOperation(Integer noteId) {
+    public void deleteOperation(Integer noteId) {
         boolean result=false;
         Connection connection=null;
         Statement statement=null;
@@ -366,11 +366,11 @@ public class ManagerDaoImpl implements ManagerDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(null,statement,connection);
-        }return result;
+        }
     }
 
     @Override
-    public boolean addAppeal(String username) {
+    public void addAppeal(String username) {
         boolean result=false;
         Connection connection=null;
         Statement statement=null;
@@ -386,11 +386,11 @@ public class ManagerDaoImpl implements ManagerDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(null,statement,connection);
-        }return result;
+        }
     }
 
     @Override
-    public boolean resetAppeal(String username) {
+    public void resetAppeal(String username) {
         boolean result=false;
         Connection connection=null;
         Statement statement=null;
@@ -406,7 +406,7 @@ public class ManagerDaoImpl implements ManagerDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(null,statement,connection);
-        }return result;
+        }
     }
 
     @Override
@@ -432,7 +432,7 @@ public class ManagerDaoImpl implements ManagerDao{
     }
 
     @Override
-    public boolean resetUser(Integer userId) {
+    public void resetUser(Integer userId) {
         boolean result=false;
         Connection connection=null;
         Statement statement=null;
@@ -449,7 +449,6 @@ public class ManagerDaoImpl implements ManagerDao{
         }finally {
             JdbcUtil.close(null,statement,connection);
         }
-            return result;
     }
 
     @Override

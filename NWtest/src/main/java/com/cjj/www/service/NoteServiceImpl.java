@@ -455,9 +455,9 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public boolean insertNotePicture(String url, Integer noteId) {
+    public void insertNotePicture(String url, Integer noteId) {
         NoteDao noteDao=new NoteDaoImpl();
-        return  noteDao.insertPictureUrl(url,noteId);
+        noteDao.insertPictureUrl(url, noteId);
     }
 
 
@@ -510,9 +510,9 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public boolean addBrowser(Integer noteId) {
+    public void addBrowser(Integer noteId) {
         NoteDao noteDao=new NoteDaoImpl();
-        return noteDao.addBrowse(noteId);
+        noteDao.addBrowse(noteId);
     }
 
     @Override

@@ -244,7 +244,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public boolean activateUser(String username) {
+    public void activateUser(String username) {
         boolean result=false;
         Connection connection=null;
         Statement statement=null;
@@ -260,7 +260,7 @@ public class UserDaoImpl implements UserDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(null,statement,connection);
-        }return result;
+        }
     }
 
 

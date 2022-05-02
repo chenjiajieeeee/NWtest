@@ -249,9 +249,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean activateUser(String username) {
+    public void activateUser(String username) {
         UserDao userDao=new UserDaoImpl();
-        return userDao.activateUser(username);
+        userDao.activateUser(username);
     }
 
     @Override

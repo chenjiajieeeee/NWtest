@@ -6,12 +6,11 @@ import com.cjj.www.util.JdbcUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class TagDaoImpl implements TagDao{
 
     @Override
-    public boolean addTag(Tag tag) {
+    public void addTag(Tag tag) {
         boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
@@ -29,7 +28,7 @@ public class TagDaoImpl implements TagDao{
             e.printStackTrace();
         }finally {
             JdbcUtil.close(preparedStatement,connection);
-        }return result;
+        }
     }
 
     @Override

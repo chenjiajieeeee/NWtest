@@ -1,11 +1,13 @@
 package com.cjj.www.dao;
 
 import com.cjj.www.pojo.Comment;
-import com.cjj.www.pojo.Like;
 import com.cjj.www.util.JdbcUtil;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class CommentDaoImpl implements CommentDao {
     /*
@@ -65,33 +67,6 @@ public class CommentDaoImpl implements CommentDao {
         return comments;
     }
 
-    @Override
-    public List<Comment> queryCommentByUserId(Integer userId) {
-        Connection connection=null;
-        Statement statement=null;
-        ResultSet resultSet=null;
-        connection=JdbcUtil.getConnection();
-        String sql="select * from comment where user_id='"+userId+"'";
-        List<Comment> comments=new ArrayList<>();
-        Comment comment=new Comment();
-        try {
-            statement=connection.createStatement();
-            resultSet = statement.executeQuery(sql);
-            while (resultSet.next()){
-                comment.setNoteId(resultSet.getInt("note_id"));
-                comment.setUserId(resultSet.getInt("user_id"));
-                comment.setId(resultSet.getInt("id"));
-                comment.setMain(resultSet.getString("main"));
-                comments.add(comment);
-                comment=new Comment();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            JdbcUtil.close(resultSet,statement,connection);
-        }
-        return comments;
-    }
 
     @Override
     public Set<Integer> queryCommentUser(Integer userId) {
