@@ -12,8 +12,8 @@
     <script>
 
         let i = 1;
-        var title;
-        var main;
+        let title;
+        let main;
         const websocket=new WebSocket("ws://localhost:8080/nw/notice");
         websocket.onopen = function() {
 
@@ -31,14 +31,14 @@
         };
         websocket.onmessage=function (event){
             console.log("有新的信息");
-            if(i==1){
+            if(i===1){
                 title = event.data;
             }
-            if (i==2){
+            if (i===2){
                 main = event.data;
             }
             i++;
-            if(i==3){
+            if(i===3){
                 alert(title+'\n\n'+main);
                 i=1;
             }

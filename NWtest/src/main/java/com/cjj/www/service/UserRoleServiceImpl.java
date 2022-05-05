@@ -16,10 +16,12 @@ public class UserRoleServiceImpl implements UserRoleService{
     public void updateUserInformation(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("root",request.getParameter("root"));
         String username = request.getParameter("username");
-
         String action = request.getParameter("action");
         request.setAttribute("username", username);
-
+        UserService userService=new UserServiceImpl();
+        User user = userService.queryUserByUserName(username);
+        request.setAttribute("mail",user.getMail());
+        request.setAttribute("code",user.getCode());
         switch (action) {
             case "修改个人信息":
                 try {
@@ -31,6 +33,8 @@ public class UserRoleServiceImpl implements UserRoleService{
             case "确认更改用户名": {
                 String oldName = request.getParameter("oldName");
                 String newName = request.getParameter("newName");
+                request.setAttribute("mail",request.getParameter("mail"));
+                request.setAttribute("code",request.getParameter("code"));
                 UserRoleService userRoleService = new UserRoleServiceImpl();
                 String updateMsg = userRoleService.updateUsername(oldName, newName);
                 if ("用户名不能为空!".equals(updateMsg)) {

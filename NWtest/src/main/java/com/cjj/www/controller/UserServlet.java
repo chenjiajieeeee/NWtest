@@ -2,6 +2,7 @@ package com.cjj.www.controller;
 
 
 
+import com.alibaba.fastjson.support.spring.annotation.ResponseJSONP;
 import com.cjj.www.service.*;
 
 import javax.servlet.ServletException;
@@ -50,5 +51,8 @@ public class UserServlet extends BaseServlet{
     public void loginpage(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         PagingService pagingService=new PagingServiceImpl();
         pagingService.loginPage(request,response);
+    }
+    public void registerCheck(HttpServletRequest request,HttpServletResponse response) throws IOException {
+         userService.checkUsername(request,response);
     }
 }

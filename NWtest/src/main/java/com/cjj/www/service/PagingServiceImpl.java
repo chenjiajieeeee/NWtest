@@ -225,7 +225,6 @@ public class PagingServiceImpl implements PagingService{
             //查找对应的小红书号：
             request.setAttribute("userNumber",userService.queryUserByUserName(username).getUserNumber());
             request.setAttribute("username",username);
-
             List<Note> notes = noteService.queryNoteByUsername(username);
                 /*
                 对笔记分类

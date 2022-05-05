@@ -100,4 +100,11 @@ public interface UserService {
      * @param response 对应servlet的resp
      */
     void history(HttpServletRequest request,HttpServletResponse response);
+
+    /**
+     *
+     * @param request 对应servlet的req
+     * @param response 对应servlet的resp
+     */
+    void checkUsername(HttpServletRequest request,HttpServletResponse response);
 }

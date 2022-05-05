@@ -38,11 +38,9 @@
     <h1 style="color: red" align="center">修改个人信息</h1>
     <h4>个人昵称：${requestScope.username}</h4>
     <br>
-    <h4>生日：</h4>
+    <h4>邮箱：${requestScope.mail}</h4>
     <br>
-    <h4>邮箱：</h4>
-    <br>
-    <h4>手机号码: </h4>
+    <h4>激活码：${requestScope.code}</h4>
     <br>
     <form class="bs-example bs-example-form" role="form" method="post" action="http://localhost:8080/nw/user/updateUserInformation">
         <p style="color: red">${requestScope.updateMsg}</p>
@@ -50,7 +48,8 @@
             <span class="input-group-addon">修改用户名：</span>
             <input type="text" class="form-control" placeholder="输入新的用户名称，不能为空！" name="newName">
             <input type="hidden" name="oldName" value="${requestScope.username}">
-
+            <input type="hidden" name="mail" value="${requestScope.mail}">
+            <input type="hidden" name="code" value="${requestScope.code}">
         </div>
         <br>
         <input type="submit" name="action" value="确认更改用户名" class="btn btn-success"/>
@@ -71,7 +70,8 @@
         <br>
         <input type="submit" name="action" value="确认更改密码" class="btn btn-success"/>
         <input type="hidden" name="username" value="${requestScope.username}">
-
+        <input type="hidden" name="mail" value="${requestScope.mail}">
+        <input type="hidden" name="code" value="${requestScope.code}">
     </form>
 </div>
 

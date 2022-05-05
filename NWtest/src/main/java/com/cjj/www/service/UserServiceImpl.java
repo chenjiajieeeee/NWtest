@@ -15,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +96,7 @@ public class UserServiceImpl implements UserService{
         }
         UserDao ud = new UserDaoImpl();
         User user1 = ud.queryUserByUserName(username);
-        if (user1.getUsername() == null) {
+        if (user1.getUsername() == null&&!username.equals("")) {
             //生成随机激活码
             String code = CodeUtil.generateUniqueCode();
             User user = new User();
@@ -106,13 +107,16 @@ public class UserServiceImpl implements UserService{
             user.setPassword(newPassword);
             user.setMail(mail);
             user.setCode(code);
+            user.setSalt(salt);
             if(ud.saveUser(user)){
                 new Thread(new MailUtil(mail,code)).start();
                 return "正在跳转页面";
             }else {
                 return "服务器出问题了，该死！";
             }
-        } else {
+        } else if(username.equals("")){
+            return "用户名不能为空！";
+        }else {
             return "用户名已存在！";
         }
     }
@@ -151,6 +155,13 @@ public class UserServiceImpl implements UserService{
                     e.printStackTrace();
                 }
                 break;
+            case "用户名不能为空！":
+                request.setAttribute("msg","username can't be null!");
+                try {
+                    request.getRequestDispatcher("/User/page/register.jsp").forward(request,response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
         }
     }
 
@@ -288,5 +299,25 @@ public class UserServiceImpl implements UserService{
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void checkUsername(HttpServletRequest request,HttpServletResponse response){
+        String username = request.getParameter("username");
+        try {
+            PrintWriter writer = response.getWriter();
+            UserDao userDao=new UserDaoImpl();
+            User user = userDao.queryUserByUserName(username);
+            if(username.equals("")){
+                writer.write("请输入用户名");
+            }else if(user.getUsername()==null){
+                writer.write("可用的用户名");
+            }else {
+                writer.write("用户名已存在");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
