@@ -3,14 +3,13 @@ package com.cjj.www.dao;
 import com.cjj.www.pojo.User;
 import com.cjj.www.util.JdbcUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRoleDaoImpl implements UserRoleDao{
     @Override
     public void updateUserName(String oldUsername, String newUsername) {
-        boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
         connection= JdbcUtil.getConnection();
@@ -19,12 +18,9 @@ public class UserRoleDaoImpl implements UserRoleDao{
             preparedStatement=connection.prepareStatement(sql);
             preparedStatement.setString(1,newUsername);
             preparedStatement.setString(2,oldUsername);
-            int row=preparedStatement.executeUpdate();
-            if(row>0){
-                result=true;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }finally {
             JdbcUtil.close(preparedStatement,connection);
         }
@@ -35,7 +31,6 @@ public class UserRoleDaoImpl implements UserRoleDao{
         boolean result=false;
         Connection connection=null;
         PreparedStatement preparedStatement=null;
-        PreparedStatement preparedStatement1=null;
         connection= JdbcUtil.getConnection();
         UserDao userDao=new UserDaoImpl();
         User user = userDao.queryUserByUserName(username);
@@ -44,10 +39,10 @@ public class UserRoleDaoImpl implements UserRoleDao{
             String sql="update `user` set password = ? where username = ?";
             String sql1="update `user` set password_salt = ? where username = ?";
             try {
-                preparedStatement1=connection.prepareStatement(sql);
-                preparedStatement1.setString(1,newPassword);
-                preparedStatement1.setString(2,username);
-                int i = preparedStatement1.executeUpdate();
+                preparedStatement=connection.prepareStatement(sql);
+                preparedStatement.setString(1,newPassword);
+                preparedStatement.setString(2,username);
+                int i = preparedStatement.executeUpdate();
                 preparedStatement=connection.prepareStatement(sql1);
                 preparedStatement.setString(1,newSalt);
                 preparedStatement.setString(2,username);
@@ -55,15 +50,37 @@ public class UserRoleDaoImpl implements UserRoleDao{
                 if(row>0&&i>0){
                     result=true;
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }finally {
                 JdbcUtil.close(preparedStatement,connection);
-                return result;
             }
         }else {
             JdbcUtil.close(preparedStatement,connection);
-            return result;
         }
+        return result;
+    }
+
+    @Override
+    public List<Integer> queryReportNoteByUsername(String username) {
+        Connection connection=null;
+        Statement statement=null;
+        ResultSet resultSet=null;
+        List<Integer> noteIds = new ArrayList<>();
+        String sql="select * from report where username = '"+username+"'";
+        connection=JdbcUtil.getConnection();
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()){
+                noteIds.add(resultSet.getInt("note_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtil.close(resultSet,statement,connection);
+        }
+        return noteIds;
     }
 }

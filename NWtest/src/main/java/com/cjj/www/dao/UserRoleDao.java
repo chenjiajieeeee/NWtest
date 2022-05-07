@@ -1,6 +1,7 @@
 package com.cjj.www.dao;
 
 
+import java.util.List;
 
 public interface UserRoleDao {
     /**
@@ -19,4 +20,11 @@ public interface UserRoleDao {
      * @return ture为修改成功，false为修改失败
      */
     boolean updatePassword(String username,String oldPassword,String newPassword,String newSalt);
+
+    /**
+     *
+     * @param username 用户名，进行查找的对象
+     * @return list集合，元素为report对象中的noteId
+     */
+    List<Integer> queryReportNoteByUsername(String username);
 }

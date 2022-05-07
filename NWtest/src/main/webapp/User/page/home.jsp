@@ -64,10 +64,15 @@
         </div>
         <div class="navi">
            <ul>
+               <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/viewReport" method="post">
+                   <input type="submit" value="查看已举报笔记" name="action" class="btn btn-danger">
+                   <input type="hidden" value="${requestScope.username}" name="username">
+                   <input type="hidden" value="${requestScope.root}" name="root">
+               </form>
+               </li>
                <li style="color: #0f0f0f"><form  action="http://localhost:8080/nw/user/loginpage" method="post">
                    <input type="submit" value="首页" name="action" class="btn btn-success">
                    <input type="hidden" value="${requestScope.username}" name="username">
-
                    <input type="hidden" value="${requestScope.root}" name="root">
                </form>
                </li>
